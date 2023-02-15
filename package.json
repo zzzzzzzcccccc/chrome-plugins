@@ -1,21 +1,30 @@
 {
   "name": "chrome-plugins",
-  "private": "true",
+  "private": true,
   "version": "1.0.0",
   "description": "chrome plugins",
+  "workspaces": [
+    "packages/*"
+  ],
+  "repository": "https://github.com/zzzzzzzcccccc/chrome-plugins.git",
   "scripts": {
+    "lint:packages": "eslint packages --ext .ts --ext .tsx",
+    "lint:packages:fix": "eslint packages --ext .ts --ext .tsx --fix",
     "prettier:fix": "prettier --write ./packages"
   },
   "engines": {
-    "node": ">16.0.0",
-    "pnpm": ">=6"
+    "node": ">16.0.0"
   },
   "keywords": [],
   "author": "z304307393@163.com",
   "license": "MIT",
-  "dependencies": {
+  "devDependencies": {
     "@types/node": "^18.13.0",
+    "@typescript-eslint/eslint-plugin": "^5.52.0",
+    "@typescript-eslint/parser": "^5.52.0",
     "eslint": "^8.34.0",
+    "eslint-config-prettier": "^8.6.0",
+    "eslint-plugin-prettier": "^4.2.1",
     "jest": "^29.4.2",
     "lerna": "^6.5.1",
     "prettier": "^2.8.4",
