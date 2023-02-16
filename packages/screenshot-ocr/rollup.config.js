@@ -1,32 +1,12 @@
-const pkg = require('./package.json')
 const commonjs = require('@rollup/plugin-commonjs');
 const resolve = require('@rollup/plugin-node-resolve');
 const { babel } = require('@rollup/plugin-babel');
 const typescript = require('@rollup/plugin-typescript');
 const terser = require('@rollup/plugin-terser');
+const replace = require('@rollup/plugin-replace');
 
-module.exports = {
-  input: 'src/index.ts',
-  output: [
-    {
-      name: pkg.name,
-      format: 'esm',
-      file: pkg.module
-    },
-    {
-      name: pkg.name,
-      format: 'cjs',
-      file: pkg.cjs
-    },
-    {
-      name: 'screenshotOcr',
-      format: 'umd',
-      file: pkg.umd,
-      globals: {
-      }
-    },
-  ],
-  plugins: [
+const getPlugin = () => {
+  return [
     commonjs(),
     resolve(),
     babel({
@@ -44,9 +24,52 @@ module.exports = {
             forceAllTransforms: true,
           }
         ],
+        '@babel/preset-react',
       ],
     }),
     typescript(),
     terser(),
+    replace({
+      preventAssignment: true,
+      values: {
+        'process.env.NODE_ENV': JSON.stringify('production'),
+      }
+    })
   ]
 }
+
+const getUmdOutPut = ({ name, fileName, globals }) => ({
+  name,
+  format: 'umd',
+  file: `public/bundler/${fileName}`,
+  globals
+})
+
+module.exports = [
+  {
+    input: 'src/popup.tsx',
+    output: [
+      getUmdOutPut({
+        name: 'screenshotOcrPopup',
+        fileName: 'popup.js',
+        globals: {
+          react: 'React',
+          'react-dom': 'ReactDOM'
+        }
+      })
+    ],
+    plugins: getPlugin()
+  },
+  {
+    input: 'src/inject.ts',
+    output: [
+      getUmdOutPut({
+        name: 'screenshotOcrInject',
+        fileName: 'inject.js',
+        globals: {
+        }
+      })
+    ],
+    plugins: getPlugin()
+  }
+]

@@ -1,0 +1,24 @@
+{
+  "manifest_version": 3,
+  "name": "Screenshot OCR",
+  "description": "Screenshot and OCR for chrome plugin",
+  "version": "1.0",
+  "action": {
+    "default_popup": "popup.html"
+  },
+  "content_scripts": [
+    {
+      "matches": ["https://*/*", "http://*/*"],
+      "js": ["bundler/inject.js"]
+    }
+  ],
+  "permissions": [
+    "activeTab",
+    "storage",
+    "tabs"
+  ],
+  "optional_host_permissions": [
+    "https://*/*",
+    "http://*/*"
+  ]
+}
