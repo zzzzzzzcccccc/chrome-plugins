@@ -8,7 +8,7 @@ const replace = require('@rollup/plugin-replace');
 const getPlugin = () => {
   return [
     commonjs(),
-    resolve(),
+    // resolve(),
     babel({
       babelHelpers: 'bundled',
       exclude: /node_modules/,
@@ -54,7 +54,8 @@ module.exports = [
         fileName: 'popup.js',
         globals: {
           react: 'React',
-          'react-dom': 'ReactDOM'
+          'react-dom': 'ReactDOM',
+          '@chrome-plugin/common': 'Common'
         }
       })
     ],
@@ -67,6 +68,7 @@ module.exports = [
         name: 'screenshotOcrInject',
         fileName: 'inject.js',
         globals: {
+          '@chrome-plugin/common': 'Common'
         }
       })
     ],

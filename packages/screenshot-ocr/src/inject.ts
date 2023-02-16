@@ -1,5 +1,5 @@
-import { onMessage } from './utils/chrome'
+import Common from '@chrome-plugin/common'
 
-onMessage(msg => {
+Common.onMessage(msg => {
   console.log(msg)
 })

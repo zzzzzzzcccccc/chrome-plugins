@@ -1,0 +1,5 @@
+{
+  "extends": "../../base.tsconfig.json",
+  "include": ["src"],
+  "exclude": ["dist", "**/*.(spec|test).ts", "**/*.(spec|test).tsx", "node_modules", "**/*.stories.(md|ts|ts)x"]
+}
