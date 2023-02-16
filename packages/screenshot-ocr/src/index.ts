@@ -1,5 +1,5 @@
 function hello<T = string>(target: T) {
-  console.log(`the targt = ${target}`);
+  console.log(`the target = ${target}`);
   return target;
 }
 

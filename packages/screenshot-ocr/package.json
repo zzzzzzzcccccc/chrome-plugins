@@ -1,12 +1,30 @@
 {
-  "name": "screenshot-ocr",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "name": "@chrome-plugin/screenshot-ocr",
+  "version": "0.0.0",
+  "description": "Chrome plugin by Screenshot OCR",
+  "main": "dist/index.cjs.js",
+  "module": "dist/index.esm.js",
+  "cjs": "dist/index.cjs.js",
+  "umd": "dist/index.umd.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "rimraf dist && rollup -c rollup.config.js",
+    "build:watch": "yarn run build -w"
   },
   "keywords": [],
   "author": "",
-  "license": "ISC"
+  "license": "MIT",
+  "devDependencies": {
+    "@babel/core": "^7.20.12",
+    "@babel/preset-env": "^7.20.2",
+    "@rollup/plugin-babel": "^6.0.3",
+    "@rollup/plugin-commonjs": "^24.0.1",
+    "@rollup/plugin-node-resolve": "^15.0.1",
+    "@rollup/plugin-terser": "^0.4.0",
+    "@rollup/plugin-typescript": "^11.0.0",
+    "rollup": "^3.15.0"
+  }
 }
