@@ -8,7 +8,7 @@ const replace = require('@rollup/plugin-replace');
 const getPlugin = () => {
   return [
     commonjs(),
-    // resolve(),
+    resolve(),
     babel({
       babelHelpers: 'bundled',
       exclude: /node_modules/,
@@ -47,7 +47,7 @@ const getUmdOutPut = ({ name, fileName, globals }) => ({
 
 module.exports = [
   {
-    input: 'src/popup.tsx',
+    input: 'src/popup/index.ts',
     output: [
       getUmdOutPut({
         name: 'screenshotOcrPopup',
@@ -55,20 +55,22 @@ module.exports = [
         globals: {
           react: 'React',
           'react-dom': 'ReactDOM',
-          '@chrome-plugin/common': 'Common'
+          'styled': 'styled-components'
         }
       })
     ],
     plugins: getPlugin()
   },
   {
-    input: 'src/inject.ts',
+    input: 'src/inject/index.ts',
     output: [
       getUmdOutPut({
         name: 'screenshotOcrInject',
         fileName: 'inject.js',
         globals: {
-          '@chrome-plugin/common': 'Common'
+          react: 'React',
+          'react-dom': 'ReactDOM',
+          'styled': 'styled-components'
         }
       })
     ],

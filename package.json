@@ -8,8 +8,10 @@
   ],
   "repository": "https://github.com/zzzzzzzcccccc/chrome-plugins.git",
   "scripts": {
-    "lint:packages": "eslint packages --ext .ts --ext .tsx",
-    "lint:packages:fix": "eslint packages --ext .ts --ext .tsx --fix",
+    "start": "lerna watch -- lerna run build",
+    "build": "lerna run build",
+    "lint": "eslint packages --ext .ts --ext .tsx",
+    "lint:fix": "eslint packages --ext .ts --ext .tsx --fix",
     "prettier:fix": "prettier --write ./packages",
     "prepare": "husky install",
     "test": "jest",

@@ -4,7 +4,7 @@ import {
   sendMessageByCurrentTab
 } from './chrome'
 
-export default {
+export {
   getCurrentTab,
   onMessage,
   sendMessageByCurrentTab
