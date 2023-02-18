@@ -1,21 +1,18 @@
-import { createContext, useContext } from 'react';
+import{ createContext, useContext } from 'react';
+import { ChromeTab } from '@chrome-plugin/common';
 
 export interface IInjectContext {
-  root: HTMLDivElement | null,
-  clientWidth: number
-  clientHeight: number
+  target: HTMLDivElement | null,
+  tab: ChromeTab | null;
 }
 
 const initialContext: IInjectContext = {
-  root: null,
-  clientWidth: 0,
-  clientHeight: 0
+  target: null,
+  tab: null,
 }
 
-const InjectContext = createContext(initialContext);
+export const InjectContext = createContext(initialContext);
 
 export const useInjectContext = () => {
   return useContext(InjectContext)
 }
-
-export default InjectContext

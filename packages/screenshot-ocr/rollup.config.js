@@ -7,7 +7,7 @@ const replace = require('@rollup/plugin-replace');
 
 const getPlugin = () => {
   return [
-    commonjs(),
+    commonjs({ sourceMap: true }),
     resolve(),
     babel({
       babelHelpers: 'bundled',
