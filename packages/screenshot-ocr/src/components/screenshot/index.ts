@@ -1,6 +1,5 @@
-import Screenshot from './screenshot'
+import Screenshot from './screenshot';
 
-export interface ScreenshotProps {
-}
+export interface ScreenshotProps {}
 
-export default Screenshot
+export default Screenshot;

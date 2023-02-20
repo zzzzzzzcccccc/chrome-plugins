@@ -14,15 +14,15 @@ const getPlugin = () => {
       exclude: /node_modules/,
       presets: [
         [
-          "@babel/preset-env",
+          '@babel/preset-env',
           {
-            useBuiltIns: "usage",
+            useBuiltIns: 'usage',
             corejs: 3,
             modules: false,
-            targets: ["> 0.5%", "ie >= 9"],
+            targets: ['> 0.5%', 'ie >= 11'],
             spec: true,
             forceAllTransforms: true,
-          }
+          },
         ],
         '@babel/preset-react',
       ],
@@ -33,17 +33,17 @@ const getPlugin = () => {
       preventAssignment: true,
       values: {
         'process.env.NODE_ENV': JSON.stringify('production'),
-      }
-    })
-  ]
-}
+      },
+    }),
+  ];
+};
 
 const getUmdOutPut = ({ name, fileName, globals }) => ({
   name,
   format: 'umd',
   file: `public/bundler/${fileName}`,
-  globals
-})
+  globals,
+});
 
 module.exports = [
   {
@@ -55,11 +55,11 @@ module.exports = [
         globals: {
           react: 'React',
           'react-dom': 'ReactDOM',
-          'styled': 'styled-components'
-        }
-      })
+          styled: 'styled-components',
+        },
+      }),
     ],
-    plugins: getPlugin()
+    plugins: getPlugin(),
   },
   {
     input: 'src/inject/index.ts',
@@ -70,10 +70,10 @@ module.exports = [
         globals: {
           react: 'React',
           'react-dom': 'ReactDOM',
-          'styled': 'styled-components'
-        }
-      })
+          styled: 'styled-components',
+        },
+      }),
     ],
-    plugins: getPlugin()
-  }
-]
+    plugins: getPlugin(),
+  },
+];

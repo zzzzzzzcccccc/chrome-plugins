@@ -14,36 +14,36 @@ const getPlugin = () => {
       exclude: /node_modules/,
       presets: [
         [
-          "@babel/preset-env",
+          '@babel/preset-env',
           {
-            useBuiltIns: "usage",
+            useBuiltIns: 'usage',
             corejs: 3,
             modules: false,
-            targets: ["> 0.5%", "ie >= 9"],
+            targets: ['> 0.5%', 'ie >= 11'],
             spec: true,
             forceAllTransforms: true,
-          }
-        ]
+          },
+        ],
       ],
     }),
     typescript(),
-    terser()
-  ]
-}
+    terser(),
+  ];
+};
 
 module.exports = {
   input: 'src/index.ts',
   output: [
     {
       name: pkg.name,
-      format: "cjs",
-      file: pkg.main
+      format: 'cjs',
+      file: pkg.main,
     },
     {
       name: pkg.name,
       format: 'es',
-      file: pkg.module
-    }
+      file: pkg.module,
+    },
   ],
-  plugins: getPlugin()
-}
+  plugins: getPlugin(),
+};

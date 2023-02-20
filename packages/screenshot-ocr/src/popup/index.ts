@@ -1,3 +1,3 @@
-import popup from './popup'
+import popup from './popup';
 
 popup.create();

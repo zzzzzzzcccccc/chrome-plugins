@@ -9,16 +9,10 @@
   "content_scripts": [
     {
       "matches": ["https://*/*", "http://*/*"],
-      "js": ["bundler/inject.js"]
+      "js": ["bundler/inject.js"],
+      "run_at": "document_end"
     }
   ],
-  "permissions": [
-    "activeTab",
-    "storage",
-    "tabs"
-  ],
-  "optional_host_permissions": [
-    "https://*/*",
-    "http://*/*"
-  ]
+  "permissions": ["activeTab", "storage", "tabs", "scripting"],
+  "optional_host_permissions": ["https://*/*", "http://*/*"]
 }
