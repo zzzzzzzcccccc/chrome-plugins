@@ -1,12 +1,19 @@
 import React, { useRef, useState, useEffect } from 'react';
 import { mathCenterRect, mathExtraRect, Point, Rect } from '@chrome-plugin/common';
-import { useInjectContext } from '../../../context';
 
-export default function useScreenshot<T extends HTMLElement>() {
-  const { updateContext, moveEnd, moving } = useInjectContext();
+export interface UseScreenshotOptions<T extends HTMLElement> {
+  target: T | null;
+  onMoving?: (centerRect: Rect) => void;
+  onMoveEnd?: () => void;
+  disabled?: boolean;
+}
 
-  const targetRef = useRef<T | null>(null);
-  const centerRef = useRef<HTMLDivElement | null>(null);
+export default function useScreenshot<T extends HTMLElement>({
+  target,
+  onMoving,
+  onMoveEnd,
+  disabled = false,
+}: UseScreenshotOptions<T>) {
   const startRef = useRef<Point>({ x: 0, y: 0 });
 
   const [centerRect, setCenterRect] = useState<Rect>({ width: 0, height: 0, left: 0, top: 0 });
@@ -20,29 +27,27 @@ export default function useScreenshot<T extends HTMLElement>() {
   const onMousing = (e: MouseEvent) => {
     e.stopPropagation();
     e.preventDefault();
-    if (!moving) {
-      updateContext?.({ moveEnd: false, moving: true });
-    }
-    const rect = mathCenterRect(startRef.current, { x: e.clientX, y: e.clientY }, targetRef.current as T);
+    const rect = mathCenterRect(startRef.current, { x: e.clientX, y: e.clientY }, target);
     setCenterRect(rect);
+    onMoving?.(centerRect);
   };
 
   const onMouseEnd = (e: MouseEvent) => {
     e.stopPropagation();
     e.preventDefault();
-    targetRef.current?.removeEventListener('mousemove', onMousing);
-    targetRef.current?.removeEventListener('mouseup', onMouseEnd);
-    updateContext?.({ moveEnd: true, moving: false });
+    target?.removeEventListener('mousemove', onMousing);
+    target?.removeEventListener('mouseup', onMouseEnd);
+    onMoveEnd?.();
   };
 
   const handleOnMouseStart = (e: React.MouseEvent<T>) => {
-    if (moveEnd) {
+    if (disabled) {
       return;
     }
     e.stopPropagation();
     e.preventDefault();
-    targetRef.current?.addEventListener('mousemove', onMousing);
-    targetRef.current?.addEventListener('mouseup', onMouseEnd);
+    target?.addEventListener('mousemove', onMousing);
+    target?.addEventListener('mouseup', onMouseEnd);
     startRef.current = {
       x: e.clientX,
       y: e.clientY,
@@ -50,15 +55,15 @@ export default function useScreenshot<T extends HTMLElement>() {
   };
 
   useEffect(() => {
-    setExtraRect(mathExtraRect(targetRef.current, centerRef.current));
-  }, [centerRect]);
+    setExtraRect((prev) => ({
+      ...prev,
+      ...mathExtraRect(target, centerRect),
+    }));
+  }, [target, centerRect]);
 
   return {
     handleOnMouseStart,
-    targetRef,
-    centerRef,
     centerRect,
     extraRect,
-    moveEnd,
   };
 }

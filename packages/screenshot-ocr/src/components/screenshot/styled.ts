@@ -21,7 +21,7 @@ export const Wrapper = styled.div`
     background-color: rgb(0, 0, 0, 0.3);
   }
   .${cssPrefix}-center {
-    background-color: rgba(0, 0, 0, 0);
+    background-color: transparent;
     border: 1px solid #000;
     cursor: move;
   }

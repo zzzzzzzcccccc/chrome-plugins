@@ -16,15 +16,18 @@ export default function App() {
       }
     };
 
-    window.onresize = (e) => {
+    const rb = new ResizeObserver(() => {
       removeTiler();
       timer = setTimeout(() => {
         setScrollLayout((prev) => ({ ...prev, ...getScreenWidthHeight() }));
       }, 500);
-    };
+    });
+
+    rb.observe(document.body);
+
     return () => {
       removeTiler();
-      window.onresize = null;
+      rb.unobserve(document.body);
     };
   }, []);
 

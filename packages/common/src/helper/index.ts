@@ -12,10 +12,18 @@ export interface Rect {
   height: number;
 }
 
-export function mathCenterRect<T extends HTMLElement>(start: Point, current: Point, target: T): Rect {
+export function mathCenterRect<T extends HTMLElement>(start: Point, current: Point, target: T | null): Rect {
+  if (!target) {
+    return {
+      top: 0,
+      left: 0,
+      width: 0,
+      height: 0,
+    };
+  }
   const startLeft = start.x < current.x;
   const startBottom = start.y < current.y;
-  const { x: targetX, y: targetY } = target.getBoundingClientRect();
+  const { x: targetX = 0, y: targetY = 0 } = target.getBoundingClientRect();
   return {
     top: (startBottom ? start.y : current.y) + Math.abs(targetY),
     left: (startLeft ? start.x : current.x) + Math.abs(targetX),
@@ -24,47 +32,36 @@ export function mathCenterRect<T extends HTMLElement>(start: Point, current: Poi
   };
 }
 
-export function mathExtraRect<T extends HTMLElement, C extends HTMLElement>(target: T | null, center: C | null) {
-  if (!target || !center) {
-    return {
-      left: { width: 0, height: 0, left: 0, top: 0 },
-      top: { width: 0, height: 0, left: 0, top: 0 },
-      right: { width: 0, height: 0, left: 0, top: 0 },
-      bottom: { width: 0, height: 0, left: 0, top: 0 },
-    };
+export function mathExtraRect<T extends HTMLElement>(target: T | null, currentCenterRect: Rect) {
+  if (!target) {
+    return {};
   }
-  const centerRect = center.getBoundingClientRect();
   const targetRect = target.getBoundingClientRect();
-  const left = {
-    left: 0,
-    top: 0,
-    width: centerRect.x,
-    height: targetRect.height,
-  };
-  const right = {
-    right: 0,
-    top: centerRect.y,
-    width: targetRect.width - centerRect.x - centerRect.width,
-    height: centerRect.height,
-  };
-  const top = {
-    width: targetRect.width,
-    height: centerRect.y,
-    top: 0,
-    left: centerRect.x,
-    right: targetRect.width - centerRect.x - centerRect.width,
-  };
-  const bottom = {
-    width: targetRect.width,
-    height: targetRect.height - centerRect.y - centerRect.height,
-    bottom: 0,
-    left: centerRect.x,
-    right: targetRect.width - centerRect.x - centerRect.width,
-  };
+  const { left = 0, top = 0, width = 0, height = 0 } = currentCenterRect;
   return {
-    left,
-    right,
-    top,
-    bottom,
+    left: {
+      left: 0,
+      top: 0,
+      width: left,
+      height: top + height,
+    },
+    top: {
+      top: 0,
+      left: left,
+      width: targetRect.width - left,
+      height: top,
+    },
+    right: {
+      left: left + width,
+      top: top,
+      width: targetRect.width - (left + width),
+      height: targetRect.height - top,
+    },
+    bottom: {
+      left: 0,
+      top: top + currentCenterRect.height,
+      width: left + currentCenterRect.width,
+      height: targetRect.height - (top + height),
+    },
   };
 }
