@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import { Mask, Screenshot } from '../components';
 import { getScreenWidthHeight } from '@chrome-plugin/common';
-import { useInjectContext } from '../context';
+import { useInjectContext } from '../../context';
+import Mask from '../mask';
+import Screenshot from '../screenshot';
 
-export default function App() {
+export default function ScreenshotApp() {
   const [scrollLayout, setScrollLayout] = useState<{ width: number; height: number }>(getScreenWidthHeight());
   const { moveEnd, moving } = useInjectContext();
 
@@ -32,17 +33,15 @@ export default function App() {
   }, []);
 
   return (
-    <>
-      <Mask
-        style={{
-          zIndex: 9999999,
-          ...scrollLayout,
-          cursor: 'crosshair',
-          backgroundColor: moveEnd || moving ? 'transparent' : 'rgb(0, 0, 0, 0.3)',
-        }}
-      >
-        <Screenshot />
-      </Mask>
-    </>
+    <Mask
+      style={{
+        zIndex: 9999999,
+        ...scrollLayout,
+        cursor: 'crosshair',
+        backgroundColor: moveEnd || moving ? 'transparent' : 'rgb(0, 0, 0, 0.3)',
+      }}
+    >
+      <Screenshot />
+    </Mask>
   );
 }

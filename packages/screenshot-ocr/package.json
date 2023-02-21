@@ -9,8 +9,6 @@
     "build": "rollup -c rollup.config.js",
     "build:watch": "yarn run build -w"
   },
-  "keywords": [],
-  "author": "",
   "license": "MIT",
   "devDependencies": {
     "@babel/core": "^7.20.12",
@@ -28,6 +26,7 @@
   "dependencies": {
     "@chrome-plugin/common": "^0.0.0",
     "core-js": "^3.28.0",
+    "html2canvas": "^1.4.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "styled-components": "^5.3.6"

@@ -1,8 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { InjectContextProvider, IInjectContext } from '../context';
+import { InjectContextProvider } from '../context';
 import { StyleSheetManager } from 'styled-components';
-import App from './app';
+import { ScreenshotApp } from '../components';
 
 let show = false;
 let target: HTMLDivElement | null = null;
@@ -18,19 +18,17 @@ const remove = () => {
   show = false;
 };
 
-const create = (context: Pick<IInjectContext, 'tab'>) => {
+const create = () => {
   if (!show) {
     target = document.createElement('div');
     shadowRoot = target.attachShadow({ mode: 'open' });
 
     document.body.parentNode ? document.body.parentNode.append(target) : document.body.append(target);
 
-    const injectContextProviderProps = { ...context, target, shadowRoot, remove };
-
     ReactDOM.render(
       <StyleSheetManager target={shadowRoot}>
-        <InjectContextProvider {...injectContextProviderProps}>
-          <App />
+        <InjectContextProvider target={target} shadowRoot={shadowRoot} remove={remove}>
+          <ScreenshotApp />
         </InjectContextProvider>
       </StyleSheetManager>,
       shadowRoot,

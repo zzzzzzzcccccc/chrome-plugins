@@ -1,10 +1,8 @@
 import React, { createContext, useContext, useState } from 'react';
-import { ChromeTab } from '@chrome-plugin/common';
 
 export interface IInjectContext {
   target: HTMLDivElement | null;
   shadowRoot: ShadowRoot | null;
-  tab: ChromeTab | null;
   remove?: () => void;
   moving?: boolean;
   moveEnd?: boolean;
@@ -14,7 +12,6 @@ export interface IInjectContext {
 const initialContext: IInjectContext = {
   target: null,
   shadowRoot: null,
-  tab: null,
   moving: false,
   moveEnd: false,
 };

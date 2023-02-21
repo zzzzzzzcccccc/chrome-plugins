@@ -13,6 +13,9 @@
       "run_at": "document_end"
     }
   ],
+  "background": {
+    "service_worker": "bundler/background.js"
+  },
   "permissions": ["activeTab", "storage", "tabs", "scripting"],
   "optional_host_permissions": ["https://*/*", "http://*/*"]
 }

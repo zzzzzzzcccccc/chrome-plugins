@@ -5,6 +5,13 @@ const typescript = require('@rollup/plugin-typescript');
 const terser = require('@rollup/plugin-terser');
 const replace = require('@rollup/plugin-replace');
 
+const globals = {
+  react: 'React',
+  'react-dom': 'ReactDOM',
+  styled: 'styled-components',
+  html2canvas: 'html2canvas',
+};
+
 const getPlugin = () => {
   return [
     commonjs({ sourceMap: true }),
@@ -52,11 +59,7 @@ module.exports = [
       getUmdOutPut({
         name: 'screenshotOcrPopup',
         fileName: 'popup.js',
-        globals: {
-          react: 'React',
-          'react-dom': 'ReactDOM',
-          styled: 'styled-components',
-        },
+        globals,
       }),
     ],
     plugins: getPlugin(),
@@ -67,11 +70,18 @@ module.exports = [
       getUmdOutPut({
         name: 'screenshotOcrInject',
         fileName: 'inject.js',
-        globals: {
-          react: 'React',
-          'react-dom': 'ReactDOM',
-          styled: 'styled-components',
-        },
+        globals,
+      }),
+    ],
+    plugins: getPlugin(),
+  },
+  {
+    input: 'src/background/index.ts',
+    output: [
+      getUmdOutPut({
+        name: 'screenshotOcrBackground',
+        fileName: 'background.js',
+        globals,
       }),
     ],
     plugins: getPlugin(),

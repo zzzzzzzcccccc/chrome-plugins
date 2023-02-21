@@ -1,7 +1,16 @@
 import inject from './inject';
 import { onMessage } from '@chrome-plugin/common';
+import { MessageEvent, MessageMethod, MessageTo } from '../model';
 
-onMessage(({ currentTab, ...msg }) => {
-  console.log(msg, currentTab);
-  inject.create({ tab: currentTab });
+onMessage<MessageEvent>((msg, _, sendResponse) => {
+  if (msg.to === MessageTo.contentScript) {
+    switch (msg.method) {
+      case MessageMethod.createCustomScreenShot:
+        inject.create();
+        sendResponse(undefined);
+        break;
+      default:
+        return null;
+    }
+  }
 });

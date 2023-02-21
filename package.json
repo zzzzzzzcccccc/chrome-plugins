@@ -1,7 +1,6 @@
 {
   "name": "chrome-plugins",
   "private": true,
-  "version": "1.0.0",
   "description": "chrome plugins",
   "workspaces": [
     "packages/*"
@@ -24,7 +23,7 @@
   "engines": {
     "node": ">16.0.0"
   },
-  "keywords": [],
+  "keywords": ["Chrome Plugins"],
   "author": "z304307393@163.com",
   "license": "MIT",
   "devDependencies": {

@@ -19,9 +19,6 @@
     "declarationDir": "./dist/types",
     "types": ["node", "@types/jest", "@testing-library/jest-dom"],
     "outDir": "./dist",
-    "baseUrl": ".",
-    "paths": {
-      "@chrome-plugin": ["packages/*"]
-    }
+    "baseUrl": "."
   }
 }

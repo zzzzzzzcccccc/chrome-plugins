@@ -1,6 +1,10 @@
-import RegisteredContentScript = chrome.scripting.RegisteredContentScript;
-
+export type RegisteredContentScript = chrome.scripting.RegisteredContentScript;
+export type CaptureVisibleTabOptions = chrome.tabs.CaptureVisibleTabOptions;
 export type ChromeTab = chrome.tabs.Tab;
+export type MessageSender = chrome.runtime.MessageSender;
+export type SendResponse<T> = (params: T) => void;
+
+export type OnMessageCallback<T, R> = (message: T, messageSender: MessageSender, sendResponse: SendResponse<R>) => void;
 
 export async function getCurrentTab() {
   try {
@@ -11,35 +15,21 @@ export async function getCurrentTab() {
   }
 }
 
-export function onMessage<T>(callback?: (msg: T & { currentTab: ChromeTab }) => void) {
-  chrome.runtime.onMessage.addListener((message: T & { currentTab: ChromeTab }) => {
-    callback?.(message);
+export function onMessage<T = undefined, R = undefined>(callback: OnMessageCallback<T, R>) {
+  chrome.runtime.onMessage.addListener((message, messageSender, sendResponse) => {
+    callback(message, messageSender, sendResponse);
+    return true;
   });
 }
 
-export async function sendMessageByCurrentTab<T>(message: T) {
-  const { tab: currentTab, error } = await getCurrentTab();
-  if (error || !currentTab) {
-    return {
-      message,
-      currentTab,
-      error,
-    };
-  }
-  try {
-    await chrome.tabs.sendMessage(currentTab.id as number, { ...message, currentTab });
-    return {
-      message,
-      currentTab,
-      error: null,
-    };
-  } catch (e) {
-    return {
-      message,
-      currentTab,
-      error: e,
-    };
-  }
+export async function sendMessageByCurrentTab<T = undefined, R = undefined>(message: T) {
+  const { tab } = await getCurrentTab();
+  if (!tab) return;
+  return chrome.tabs.sendMessage<T, R>(tab.id as number, message);
+}
+
+export async function sendMessageByRunTime<T = undefined, R = undefined>(message: T) {
+  return chrome.runtime.sendMessage<T, R>(message);
 }
 
 export async function registerContentScripts(targetScripts: RegisteredContentScript[]) {
@@ -55,4 +45,9 @@ export async function registerContentScripts(targetScripts: RegisteredContentScr
       error: e,
     };
   }
+}
+
+export function captureVisibleTab(options: CaptureVisibleTabOptions = {}) {
+  const { format = 'png', quality } = options;
+  return chrome.tabs.captureVisibleTab({ format, quality });
 }

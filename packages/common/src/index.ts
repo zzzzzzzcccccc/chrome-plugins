@@ -1,15 +1,31 @@
-import { getCurrentTab, onMessage, sendMessageByCurrentTab, registerContentScripts } from './chrome';
-import { getScreenWidthHeight } from './element';
-import { mathCenterRect, mathExtraRect } from './helper';
+import {
+  getCurrentTab,
+  onMessage,
+  sendMessageByCurrentTab,
+  sendMessageByRunTime,
+  registerContentScripts,
+  captureVisibleTab,
+} from './chrome';
+export type {
+  ChromeTab,
+  RegisteredContentScript,
+  CaptureVisibleTabOptions,
+  MessageSender,
+  SendResponse,
+} from './chrome';
 
-export type { ChromeTab } from './chrome';
+import { getScreenWidthHeight } from './element';
+
+import { mathCenterRect, mathExtraRect } from './helper';
 export type { Rect, Point } from './helper';
 
 export {
   getCurrentTab,
   onMessage,
   sendMessageByCurrentTab,
+  sendMessageByRunTime,
   registerContentScripts,
+  captureVisibleTab,
   getScreenWidthHeight,
   mathCenterRect,
   mathExtraRect,
