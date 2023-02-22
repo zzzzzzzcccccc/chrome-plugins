@@ -65,3 +65,35 @@ export function mathExtraRect<T extends HTMLElement>(target: T | null, currentCe
     },
   };
 }
+
+export function cutImage(
+  src: string,
+  XY: [number, number],
+  WH: [number, number],
+  devicePixelRatio = window.devicePixelRatio || 1,
+) {
+  return new Promise<HTMLCanvasElement>((resolve) => {
+    const image = new Image();
+    const [dx, dy] = XY.map((v) => v * devicePixelRatio);
+    const [dw, dh] = WH.map((v) => v * devicePixelRatio);
+    const canvas = document.createElement('canvas');
+
+    image.onload = () => {
+      const context = canvas.getContext('2d');
+      canvas.width = dw;
+      canvas.height = dh;
+      context?.drawImage(image, dx, dy, dw, dh, 0, 0, dw, dh);
+      resolve(canvas);
+    };
+    image.src = src;
+  });
+}
+
+export function downloadFile(href: string, fileName: string) {
+  const link = document.createElement('a');
+
+  link.download = fileName;
+  link.href = href;
+  link.click();
+  link.remove();
+}

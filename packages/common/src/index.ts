@@ -16,7 +16,7 @@ export type {
 
 import { getScreenWidthHeight } from './element';
 
-import { mathCenterRect, mathExtraRect } from './helper';
+import { mathCenterRect, mathExtraRect, cutImage, downloadFile } from './helper';
 export type { Rect, Point } from './helper';
 
 export {
@@ -29,4 +29,6 @@ export {
   getScreenWidthHeight,
   mathCenterRect,
   mathExtraRect,
+  cutImage,
+  downloadFile,
 };
