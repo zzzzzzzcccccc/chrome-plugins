@@ -1713,6 +1713,33 @@
   dependencies:
     "@octokit/openapi-types" "^16.0.0"
 
+"@paddle-js-models/ocr@^4.1.0":
+  version "4.1.0"
+  resolved "https://registry.npmjs.org/@paddle-js-models/ocr/-/ocr-4.1.0.tgz#e27821ce8d31e1a8a18b7d0a2cc97925f3054162"
+  integrity sha512-Fs8pw2sdPgpt7D6iWqCiLcvoC+dEQOsypieNtZVMHnr3zvJyBnkKMguhkd9JOtOPaRltnJ7wA1FxTrq+HCbl6A==
+  dependencies:
+    "@paddlejs-mediapipe/opencv" "^0.0.4"
+    "@paddlejs/paddlejs-backend-webgl" "^1.2.9"
+    "@paddlejs/paddlejs-core" "^2.2.0"
+    d3-polygon "^3.0.1"
+    js-clipper "^1.0.1"
+    number-precision "^1.5.2"
+
+"@paddlejs-mediapipe/opencv@^0.0.4":
+  version "0.0.4"
+  resolved "https://registry.npmjs.org/@paddlejs-mediapipe/opencv/-/opencv-0.0.4.tgz#dd65b6e90065eef9cce5f4ff69ffd43e48f82419"
+  integrity sha512-bfwixZPKGFh7JcAtLToTBmBiu/nyQjVrm0gf/pn92apHJQEYyhnAFGvgDubmqQbijmtP2/fbOMR4CuSSlq2g8w==
+
+"@paddlejs/paddlejs-backend-webgl@^1.2.9":
+  version "1.2.9"
+  resolved "https://registry.npmjs.org/@paddlejs/paddlejs-backend-webgl/-/paddlejs-backend-webgl-1.2.9.tgz#7be2df7c8449548c61599d144085a38bc0bda8c8"
+  integrity sha512-cVDa0/Wbw2EyfsYqdYUPhFeqKsET79keEUWjyhYQmQkJfWg8j1qdR6yp7g6nx9qAGrqFvwuj1s0EqkYA1dok6A==
+
+"@paddlejs/paddlejs-core@^2.2.0":
+  version "2.2.0"
+  resolved "https://registry.npmjs.org/@paddlejs/paddlejs-core/-/paddlejs-core-2.2.0.tgz#67c297e62c6b0f9738962a0b8ca1789d0325f0af"
+  integrity sha512-P3rPkF9fFHtq8uSte5gA7fJQwBNl9Ytsvj6aTcfQSsirnBO/HxMNu0gJyh7+lItvEtF92PR15eI0eOwJYfZDhQ==
+
 "@parcel/watcher@2.0.4":
   version "2.0.4"
   resolved "https://registry.npmjs.org/@parcel/watcher/-/watcher-2.0.4.tgz"
@@ -3282,6 +3309,11 @@ csstype@^3.0.2:
   version "3.1.1"
   resolved "https://registry.npmjs.org/csstype/-/csstype-3.1.1.tgz"
   integrity sha512-DJR/VvkAvSZW9bTouZue2sSxDwdTN92uHjqeKVm+0dAqdfNykRzQ95tay8aXMBAAPpUiq4Qcug2L7neoRh2Egw==
+
+d3-polygon@^3.0.1:
+  version "3.0.1"
+  resolved "https://registry.npmjs.org/d3-polygon/-/d3-polygon-3.0.1.tgz#0b45d3dd1c48a29c8e057e6135693ec80bf16398"
+  integrity sha512-3vbA7vXYwfe1SYhED++fPUQlWSYTTGmFmQiany/gdbiWgU/iEyQzyymwL9SkJjFFuCS4902BSzewVGsHHmHtXg==
 
 dargs@^7.0.0:
   version "7.0.0"
@@ -5402,6 +5434,11 @@ jest@^29.4.2:
     import-local "^3.0.2"
     jest-cli "^29.4.3"
 
+js-clipper@^1.0.1:
+  version "1.0.1"
+  resolved "https://registry.npmjs.org/js-clipper/-/js-clipper-1.0.1.tgz#4d6b07434a4408e7c129e32201ce66d21474ed21"
+  integrity sha512-0XYAS0ZoCki5K0fWwj8j8ug4mgxHXReW3ayPbVqr4zXPJuIs2pyvemL1sALadsEiAywZwW5Ify1XfU4bNJvokg==
+
 js-sdsl@^4.1.4:
   version "4.3.0"
   resolved "https://registry.npmjs.org/js-sdsl/-/js-sdsl-4.3.0.tgz"
@@ -6378,6 +6415,11 @@ npmlog@^6.0.0, npmlog@^6.0.2:
     console-control-strings "^1.1.0"
     gauge "^4.0.3"
     set-blocking "^2.0.0"
+
+number-precision@^1.5.2:
+  version "1.6.0"
+  resolved "https://registry.npmjs.org/number-precision/-/number-precision-1.6.0.tgz#e309d28f80871d36ac9f6ecd974e13afb1ec0de0"
+  integrity sha512-05OLPgbgmnixJw+VvEh18yNPUo3iyp4BEWJcrLu4X9W05KmMifN7Mu5exYvQXqxxeNWhvIF+j3Rij+HmddM/hQ==
 
 nwsapi@^2.2.2:
   version "2.2.2"

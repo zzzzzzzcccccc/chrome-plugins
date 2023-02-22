@@ -10,6 +10,7 @@ const globals = {
   'react-dom': 'ReactDOM',
   styled: 'styled-components',
   html2canvas: 'html2canvas',
+  '@paddlejs-mediapipe/ocr': 'ocr',
 };
 
 const getPlugin = () => {
@@ -50,6 +51,7 @@ const getUmdOutPut = ({ name, fileName, globals }) => ({
   format: 'umd',
   file: `public/bundler/${fileName}`,
   globals,
+  sourcemap: true,
 });
 
 module.exports = [

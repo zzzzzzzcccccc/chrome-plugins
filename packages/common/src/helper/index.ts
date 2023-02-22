@@ -66,27 +66,51 @@ export function mathExtraRect<T extends HTMLElement>(target: T | null, currentCe
   };
 }
 
-export function cutImage(
-  src: string,
-  XY: [number, number],
-  WH: [number, number],
+type BCanvasRenderingContext2D = CanvasRenderingContext2D & {
+  backingStorePixelRatio?: number;
+  webkitBackingStorePixelRatio?: number;
+  mozBackingStorePixelRatio?: number;
+  msBackingStorePixelRatio?: number;
+  oBackingStorePixelRatio?: number;
+};
+export function getPixelRatio(
+  context: BCanvasRenderingContext2D | null,
   devicePixelRatio = window.devicePixelRatio || 1,
 ) {
-  return new Promise<HTMLCanvasElement>((resolve) => {
-    const image = new Image();
-    const [dx, dy] = XY.map((v) => v * devicePixelRatio);
-    const [dw, dh] = WH.map((v) => v * devicePixelRatio);
-    const canvas = document.createElement('canvas');
+  if (!context) return 1;
+  const backingStore =
+    context.backingStorePixelRatio ||
+    context.webkitBackingStorePixelRatio ||
+    context.mozBackingStorePixelRatio ||
+    context.msBackingStorePixelRatio ||
+    context.oBackingStorePixelRatio ||
+    context.backingStorePixelRatio ||
+    1;
+  return devicePixelRatio / backingStore;
+}
 
-    image.onload = () => {
-      const context = canvas.getContext('2d');
-      canvas.width = dw;
-      canvas.height = dh;
-      context?.drawImage(image, dx, dy, dw, dh, 0, 0, dw, dh);
-      resolve(canvas);
-    };
+export function getLoadedImage(src: string) {
+  return new Promise<HTMLImageElement>((resolve) => {
+    const image = new Image();
+    image.onload = () => resolve(image);
+    image.onerror = () => resolve(image);
     image.src = src;
   });
+}
+
+export async function cutImage(src: string, XY: [number, number], WH: [number, number]) {
+  const canvas = document.createElement('canvas');
+  const context = canvas.getContext('2d');
+  const ratio = getPixelRatio(context);
+  const [dx, dy] = XY.map((v) => v * ratio);
+  const [dw, dh] = WH.map((v) => v * ratio);
+  const image = await getLoadedImage(src);
+
+  canvas.width = dw;
+  canvas.height = dh;
+  context?.drawImage(image, dx, dy, dw, dh, 0, 0, dw, dh);
+
+  return canvas;
 }
 
 export function downloadFile(href: string, fileName: string) {

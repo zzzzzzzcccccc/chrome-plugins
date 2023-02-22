@@ -3,8 +3,9 @@ import { ScreenshotProps } from '.';
 import { useScreenshot } from '../../hooks';
 import { Wrapper, cssPrefix } from './styled';
 import { useInjectContext } from '../../context';
-import { sendMessageByRunTime, cutImage, downloadFile } from '@chrome-plugin/common';
+import { sendMessageByRunTime, cutImage, downloadFile, getLoadedImage } from '@chrome-plugin/common';
 import { MessageTo, MessageEvent, MessageMethod } from '../../model';
+import * as ocr from '@paddle-js-models/ocr';
 
 export default function Screenshot(props: ScreenshotProps) {
   const targetRef = useRef<HTMLDivElement | null>(null);
@@ -28,7 +29,13 @@ export default function Screenshot(props: ScreenshotProps) {
       });
       const { left = 0, top = 0, width = 0, height = 0 } = centerRef.current?.getBoundingClientRect() || {};
       const canvas = await cutImage(screenImgUrl, [left, top], [width, height]);
-      downloadFile(canvas.toDataURL('image/png'), 'screenshot.png');
+      const url = canvas.toDataURL('image/png', 1);
+      downloadFile(url, 'screenshot.png');
+      console.log('loading ocr module');
+      await ocr.init();
+      console.log('loaded ocr module');
+      const res = await ocr.recognize(await getLoadedImage(url));
+      console.log(res);
     },
     disabled: moveEnd,
   });

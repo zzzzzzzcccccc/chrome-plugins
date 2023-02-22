@@ -25,6 +25,7 @@
   },
   "dependencies": {
     "@chrome-plugin/common": "^0.0.0",
+    "@paddle-js-models/ocr": "^4.1.0",
     "core-js": "^3.28.0",
     "html2canvas": "^1.4.1",
     "react": "^18.2.0",
