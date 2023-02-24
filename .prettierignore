@@ -4,4 +4,4 @@
 **/*.html
 package.json
 packages/**/dist
-packages/**/public/bundler/*
+packages/**/public/js/*

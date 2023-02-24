@@ -29,6 +29,6 @@ packages/**/dist
 packages/**/build
 packages/**/build-storybook
 packages/**/storybook-static
-packages/**/public/bundler/*
+packages/**/public/js/*
 
 **/coverage/

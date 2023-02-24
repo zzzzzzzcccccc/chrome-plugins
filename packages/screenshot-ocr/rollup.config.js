@@ -5,18 +5,18 @@ const typescript = require('@rollup/plugin-typescript');
 const terser = require('@rollup/plugin-terser');
 const replace = require('@rollup/plugin-replace');
 
+const isPRD = process.env.NODE_ENV === 'production';
 const globals = {
-  react: 'React',
-  'react-dom': 'ReactDOM',
+  React: 'react',
+  reactDOM: 'react-dom/client',
   styled: 'styled-components',
-  html2canvas: 'html2canvas',
-  '@paddlejs-mediapipe/ocr': 'ocr',
+  ocr: '@paddlejs-models/ocrdet',
 };
 
 const getPlugin = () => {
   return [
-    commonjs({ sourceMap: true }),
-    resolve(),
+    resolve({ browser: true }),
+    commonjs(),
     babel({
       babelHelpers: 'bundled',
       exclude: /node_modules/,
@@ -36,22 +36,22 @@ const getPlugin = () => {
       ],
     }),
     typescript(),
-    terser(),
     replace({
       preventAssignment: true,
       values: {
-        'process.env.NODE_ENV': JSON.stringify('production'),
+        'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV || 'development'),
       },
     }),
-  ];
+    isPRD ? terser() : undefined,
+  ].filter(Boolean);
 };
 
 const getUmdOutPut = ({ name, fileName, globals }) => ({
   name,
-  format: 'umd',
-  file: `public/bundler/${fileName}`,
+  format: 'iife',
+  file: `public/js/${fileName}`,
   globals,
-  sourcemap: true,
+  sourcemap: !isPRD,
 });
 
 module.exports = [
@@ -83,6 +83,17 @@ module.exports = [
       getUmdOutPut({
         name: 'screenshotOcrBackground',
         fileName: 'background.js',
+        globals,
+      }),
+    ],
+    plugins: getPlugin(),
+  },
+  {
+    input: 'src/ocr-result/index.ts',
+    output: [
+      getUmdOutPut({
+        name: 'screenshotOcrResult',
+        fileName: 'ocr-result.js',
         globals,
       }),
     ],

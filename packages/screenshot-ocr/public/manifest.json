@@ -9,13 +9,12 @@
   "content_scripts": [
     {
       "matches": ["https://*/*", "http://*/*"],
-      "js": ["bundler/inject.js"],
-      "run_at": "document_end"
+      "js": ["ocr-init.js", "js/inject.js"]
     }
   ],
   "background": {
-    "service_worker": "bundler/background.js"
+    "service_worker": "js/background.js"
   },
-  "permissions": ["activeTab", "storage", "tabs", "scripting"],
+  "permissions": ["activeTab", "storage", "tabs", "scripting", "windows"],
   "optional_host_permissions": ["https://*/*", "http://*/*"]
 }

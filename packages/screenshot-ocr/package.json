@@ -6,8 +6,9 @@
     "dist"
   ],
   "scripts": {
-    "build": "rollup -c rollup.config.js",
-    "build:watch": "yarn run build -w"
+    "start": "rimraf public/js && yarn run build:dev -w",
+    "build": "rimraf public/js && NODE_ENV=production rollup -c rollup.config.js",
+    "build:dev": "rollup -c rollup.config.js"
   },
   "license": "MIT",
   "devDependencies": {
@@ -25,9 +26,8 @@
   },
   "dependencies": {
     "@chrome-plugin/common": "^0.0.0",
-    "@paddle-js-models/ocr": "^4.1.0",
+    "@paddlejs-models/ocrdet": "^1.1.1",
     "core-js": "^3.28.0",
-    "html2canvas": "^1.4.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "styled-components": "^5.3.6"

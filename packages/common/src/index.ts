@@ -5,6 +5,8 @@ import {
   sendMessageByRunTime,
   registerContentScripts,
   captureVisibleTab,
+  createWindow,
+  getRuntimeURL,
 } from './chrome';
 export type {
   ChromeTab,
@@ -12,11 +14,13 @@ export type {
   CaptureVisibleTabOptions,
   MessageSender,
   SendResponse,
+  ChromeWindow,
+  ChromeWindowCreateData,
 } from './chrome';
 
-import { getScreenWidthHeight } from './element';
+import { getScreenWidthHeight, canvasToBlob } from './element';
 
-import { mathCenterRect, mathExtraRect, getLoadedImage, cutImage, downloadFile } from './helper';
+import { mathCenterRect, mathExtraRect, getLoadedImage, cutImage, downloadFile, getQueryVariable } from './helper';
 export type { Rect, Point } from './helper';
 
 export {
@@ -26,10 +30,14 @@ export {
   sendMessageByRunTime,
   registerContentScripts,
   captureVisibleTab,
+  createWindow,
+  getRuntimeURL,
   getScreenWidthHeight,
+  canvasToBlob,
   mathCenterRect,
   mathExtraRect,
   getLoadedImage,
   cutImage,
   downloadFile,
+  getQueryVariable,
 };

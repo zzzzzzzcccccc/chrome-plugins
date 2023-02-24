@@ -3,6 +3,8 @@ export type CaptureVisibleTabOptions = chrome.tabs.CaptureVisibleTabOptions;
 export type ChromeTab = chrome.tabs.Tab;
 export type MessageSender = chrome.runtime.MessageSender;
 export type SendResponse<T> = (params: T) => void;
+export type ChromeWindow = chrome.windows.Window;
+export type ChromeWindowCreateData = chrome.windows.CreateData;
 
 export type OnMessageCallback<T, R> = (message: T, messageSender: MessageSender, sendResponse: SendResponse<R>) => void;
 
@@ -50,4 +52,12 @@ export async function registerContentScripts(targetScripts: RegisteredContentScr
 export function captureVisibleTab(options: CaptureVisibleTabOptions = {}) {
   const { format = 'png', quality } = options;
   return chrome.tabs.captureVisibleTab({ format, quality });
+}
+
+export function createWindow(opt: ChromeWindowCreateData) {
+  return chrome.windows.create(opt);
+}
+
+export function getRuntimeURL(path: string) {
+  return chrome.runtime.getURL(path);
 }
