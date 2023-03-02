@@ -30,7 +30,7 @@ export async function sendMessageByCurrentTab<T = undefined, R = undefined>(mess
   return chrome.tabs.sendMessage<T, R>(tab.id as number, message);
 }
 
-export async function sendMessageByRunTime<T = undefined, R = undefined>(message: T) {
+export function sendMessageByRunTime<T = undefined, R = undefined>(message: T) {
   return chrome.runtime.sendMessage<T, R>(message);
 }
 
@@ -60,4 +60,20 @@ export function createWindow(opt: ChromeWindowCreateData) {
 
 export function getRuntimeURL(path: string) {
   return chrome.runtime.getURL(path);
+}
+
+export function setLocalStorage(data: { [key: string]: any }) {
+  return chrome.storage.local.set(data);
+}
+
+export async function getLocalStorage(keys: string | string[]) {
+  const result = await chrome.storage.local.get(keys);
+  if (typeof keys === 'string') {
+    return result[keys];
+  }
+  return result;
+}
+
+export function removeLocalStorage(keys: string | string[]) {
+  return chrome.storage.local.remove(keys);
 }

@@ -11,18 +11,10 @@ onMessage<MessageEvent<ChromeWindowCreateData>, string | ChromeWindow>((msg, mes
   if (msg.to === MessageTo.background) {
     switch (msg.method) {
       case MessageMethod.captureVisibleTab:
-        captureVisibleTab().then((s) => {
-          sendResponse(s);
-        });
+        captureVisibleTab().then(sendResponse);
         break;
       case MessageMethod.openOCRResult:
-        createWindow({
-          url: 'ocr-result.html',
-          focused: true,
-          ...msg.data,
-        }).then((w) => {
-          sendResponse(w as ChromeWindow);
-        });
+        createWindow({ ...msg.data }).then(sendResponse);
         break;
       default:
         return null;

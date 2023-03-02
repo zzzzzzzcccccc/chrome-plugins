@@ -7,7 +7,10 @@
   ],
   "repository": "https://github.com/zzzzzzzcccccc/chrome-plugins.git",
   "scripts": {
-    "start": "lerna watch -- lerna run build",
+    "start": "concurrently -k 'yarn start:screenshot-ocr' 'yarn start:ocr-result'",
+    "start:common": "yarn workspace @chrome-plugin/common start",
+    "start:screenshot-ocr": "yarn workspace @chrome-plugin/screenshot-ocr start",
+    "start:ocr-result": "yarn workspace @chrome-plugin/ocr-result start",
     "build": "lerna run build",
     "lint": "eslint packages --ext .ts --ext .tsx",
     "lint:fix": "eslint packages --ext .ts --ext .tsx --fix",
@@ -23,7 +26,9 @@
   "engines": {
     "node": ">16.0.0"
   },
-  "keywords": ["Chrome Plugins"],
+  "keywords": [
+    "Chrome Plugins"
+  ],
   "author": "z304307393@163.com",
   "license": "MIT",
   "devDependencies": {
@@ -39,7 +44,9 @@
     "@types/react-dom": "^18.0.10",
     "@typescript-eslint/eslint-plugin": "^5.52.0",
     "@typescript-eslint/parser": "^5.52.0",
+    "concurrently": "^7.6.0",
     "conventional-changelog-cli": "^2.2.2",
+    "env-cmd": "^10.1.0",
     "eslint": "^8.34.0",
     "eslint-config-prettier": "^8.6.0",
     "eslint-plugin-jest": "^27.2.1",

@@ -7,7 +7,7 @@ module.exports = {
   env: {
     browser: true,
     node: true,
-    es6: true
+    es6: true,
   },
   parser: '@typescript-eslint/parser',
   parserOptions: {
@@ -17,19 +17,8 @@ module.exports = {
       jsx: true,
     },
   },
-  extends: [
-    'eslint:recommended',
-    'plugin:@typescript-eslint/recommended',
-    'plugin:react/recommended',
-    'prettier',
-  ],
-  plugins: [
-    '@typescript-eslint',
-    'prettier',
-    'jest',
-    'react',
-    'react-hooks'
-  ],
+  extends: ['eslint:recommended', 'plugin:@typescript-eslint/recommended', 'plugin:react/recommended', 'prettier'],
+  plugins: ['@typescript-eslint', 'prettier', 'jest', 'react', 'react-hooks'],
   rules: {
     semi: ERROR,
     'max-len': ['error', { code: 160 }],
@@ -39,5 +28,6 @@ module.exports = {
     'react-hooks/rules-of-hooks': ERROR,
     'react-hooks/exhaustive-deps': WARN,
     'react/display-name': IGNORE,
-  }
-}
+    '@typescript-eslint/no-explicit-any': IGNORE,
+  },
+};

@@ -20,5 +20,6 @@
     "types": ["node", "@types/jest", "@testing-library/jest-dom"],
     "outDir": "./dist",
     "baseUrl": "."
-  }
+  },
+  "references": [{ "path": "./tsconfig.node.json" }]
 }

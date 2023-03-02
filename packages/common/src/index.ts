@@ -7,6 +7,8 @@ import {
   captureVisibleTab,
   createWindow,
   getRuntimeURL,
+  setLocalStorage,
+  getLocalStorage,
 } from './chrome';
 export type {
   ChromeTab,
@@ -18,9 +20,18 @@ export type {
   ChromeWindowCreateData,
 } from './chrome';
 
-import { getScreenWidthHeight, canvasToBlob } from './element';
+import { getScreenWidthHeight, canvasToBlob, canvasToBase64 } from './element';
 
-import { mathCenterRect, mathExtraRect, getLoadedImage, cutImage, downloadFile, getQueryVariable } from './helper';
+import {
+  mathCenterRect,
+  mathExtraRect,
+  getLoadedImage,
+  cutImage,
+  downloadFile,
+  getQueryVariable,
+  sleep,
+  base64ToBlobURL,
+} from './helper';
 export type { Rect, Point } from './helper';
 
 export {
@@ -32,12 +43,17 @@ export {
   captureVisibleTab,
   createWindow,
   getRuntimeURL,
+  setLocalStorage,
+  getLocalStorage,
   getScreenWidthHeight,
   canvasToBlob,
+  canvasToBase64,
   mathCenterRect,
   mathExtraRect,
   getLoadedImage,
   cutImage,
   downloadFile,
   getQueryVariable,
+  sleep,
+  base64ToBlobURL,
 };

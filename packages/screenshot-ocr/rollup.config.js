@@ -10,7 +10,6 @@ const globals = {
   React: 'react',
   reactDOM: 'react-dom/client',
   styled: 'styled-components',
-  ocr: '@paddlejs-models/ocrdet',
 };
 
 const getPlugin = () => {
@@ -40,6 +39,7 @@ const getPlugin = () => {
       preventAssignment: true,
       values: {
         'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV || 'development'),
+        __APP_ENV__: process.env.APP_ENV,
       },
     }),
     isPRD ? terser() : undefined,
@@ -83,17 +83,6 @@ module.exports = [
       getUmdOutPut({
         name: 'screenshotOcrBackground',
         fileName: 'background.js',
-        globals,
-      }),
-    ],
-    plugins: getPlugin(),
-  },
-  {
-    input: 'src/ocr-result/index.ts',
-    output: [
-      getUmdOutPut({
-        name: 'screenshotOcrResult',
-        fileName: 'ocr-result.js',
         globals,
       }),
     ],

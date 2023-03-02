@@ -7,8 +7,8 @@
   ],
   "scripts": {
     "start": "rimraf public/js && yarn run build:dev -w",
-    "build": "rimraf public/js && NODE_ENV=production rollup -c rollup.config.js",
-    "build:dev": "rollup -c rollup.config.js"
+    "build": "rimraf public/js && env-cmd -f .env.production rollup -c rollup.config.js",
+    "build:dev": "env-cmd -f .env.development rollup -c rollup.config.js"
   },
   "license": "MIT",
   "devDependencies": {
@@ -26,7 +26,6 @@
   },
   "dependencies": {
     "@chrome-plugin/common": "^0.0.0",
-    "@paddlejs-models/ocrdet": "^1.1.1",
     "core-js": "^3.28.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",

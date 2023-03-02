@@ -18,3 +18,7 @@ export function canvasToBlob(target: HTMLCanvasElement) {
     });
   });
 }
+
+export function canvasToBase64(target: HTMLCanvasElement, type = 'image/png', quality = 1) {
+  return target.toDataURL(type, quality);
+}

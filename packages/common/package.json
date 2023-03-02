@@ -10,8 +10,8 @@
     "dist"
   ],
   "scripts": {
-    "build": "rimraf dist && rollup -c rollup.config.js",
-    "build:watch": "yarn run build -w"
+    "start": "yarn run build -w",
+    "build": "rimraf dist && rollup -c rollup.config.js"
   },
   "keywords": [],
   "author": "",

@@ -1,12 +1,14 @@
 import {
-  canvasToBlob,
+  canvasToBase64,
+  ChromeWindow,
   ChromeWindowCreateData,
   cutImage,
   Rect,
   sendMessageByRunTime,
-  ChromeWindow,
+  setLocalStorage,
 } from '@chrome-plugin/common';
 import { MessageEvent, MessageMethod, MessageTo } from '../../model';
+import { getOcrResultUrl } from '../../env';
 
 export async function screenshotEnd(centerRect: Rect, centerElement: HTMLDivElement): Promise<ChromeWindow> {
   centerElement.style.border = '0';
@@ -22,7 +24,13 @@ export async function screenshotEnd(centerRect: Rect, centerElement: HTMLDivElem
   const { left = 0, top = 0, width = 0, height = 0 } = centerElement.getBoundingClientRect() || {};
 
   const canvas = await cutImage(screenImgUrl, [left, top], [width, height]);
-  const url = await canvasToBlob(canvas);
+  const popupMessage = {
+    base64: canvasToBase64(canvas),
+    width: centerRect.width,
+    height: centerRect.height,
+    target: getOcrResultUrl(),
+  };
+  await setLocalStorage(popupMessage);
   return await sendMessageByRunTime<MessageEvent<ChromeWindowCreateData>, ChromeWindow>({
     to: MessageTo.background,
     method: MessageMethod.openOCRResult,
@@ -32,7 +40,8 @@ export async function screenshotEnd(centerRect: Rect, centerElement: HTMLDivElem
       top: ocrT,
       left: ocrL,
       type: 'popup',
-      url: `/ocr-result.html?url=${encodeURIComponent(url)}&width=${centerRect.width}&height=${centerRect.height}`,
+      focused: true,
+      url: getOcrResultUrl(),
     },
   });
 }
