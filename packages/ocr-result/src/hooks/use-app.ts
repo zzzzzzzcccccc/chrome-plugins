@@ -38,7 +38,6 @@ export default function useApp() {
     };
 
     const mounted = async () => {
-      if (!imageRef.current) return;
       await sleep(2000);
       setImageMetaData(getSourceData());
       await ocr.init();
