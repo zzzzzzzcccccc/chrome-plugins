@@ -1,16 +1,7 @@
 import { useRef, useState, useEffect } from 'react';
-import { sleep } from '@chrome-plugin/common';
+import { sleep, copy } from '@chrome-plugin/common';
 import * as ocr from '@paddle-js-models/ocr';
-
-type ImageMetaData = { width: number; height: number; base64: string; target: string };
-
-const getSourceData = () => {
-  const sourceDom = document.getElementById('source-message') as HTMLTextAreaElement;
-  if (!sourceDom || !sourceDom.value) {
-    return null;
-  }
-  return JSON.parse(sourceDom.value) as ImageMetaData;
-};
+import { ImageMetaData, getSourceData } from '../helper';
 
 export default function useApp() {
   const imageRef = useRef<HTMLImageElement | null>(null);
@@ -19,12 +10,20 @@ export default function useApp() {
   const [imageMetaData, setImageMetaData] = useState<ImageMetaData | null>(null);
   const [loadingModel, setLoadingModel] = useState(true);
   const [loadingOcr, setLoadingOcr] = useState(false);
-  const [ocrText, setOcrText] = useState('');
+  const [ocrResult, setOcrResult] = useState({ text: '', htmlText: '' });
+
+  const copyText = () => copy(ocrResult.text);
+
+  const copyHtmlText = () => copy(ocrResult.htmlText);
 
   useEffect(() => {
     const ocrImage = async () => {
+      const result = {
+        text: '',
+        htmlText: '',
+      };
       if (!imageRef.current || !canvasRef.current) {
-        return '';
+        return result;
       }
       setLoadingOcr(true);
       const res = await ocr.recognize(imageRef.current as HTMLImageElement, {
@@ -32,9 +31,10 @@ export default function useApp() {
       });
       setLoadingOcr(false);
       if (res.text?.length) {
-        return res.text.reduce((all, cur) => all + `<p>${cur}</p>`);
+        result.text = res.text.reduce((all, cur) => all + cur);
+        result.htmlText = res.text.reduce((all, cur) => all + `<p>${cur}</p>`);
       }
-      return '';
+      return result;
     };
 
     const mounted = async () => {
@@ -43,8 +43,9 @@ export default function useApp() {
       setImageMetaData(getSourceData());
       await ocr.init();
       setLoadingModel(false);
-      const text = await ocrImage();
-      setOcrText(text);
+      const result = await ocrImage();
+      setOcrResult(result);
+      await copy(result.text);
     };
 
     mounted();
@@ -56,6 +57,8 @@ export default function useApp() {
     canvasRef,
     loadingModel,
     loadingOcr,
-    ocrText,
+    ocrResult,
+    copyText,
+    copyHtmlText,
   };
 }

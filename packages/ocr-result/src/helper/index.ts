@@ -1,13 +1,9 @@
-import { getQueryVariable } from '@chrome-plugin/common';
+export type ImageMetaData = { width: number; height: number; base64: string; target: string };
 
-export function getUrlParams() {
-  const width = +getQueryVariable('width');
-  const height = +getQueryVariable('height');
-  const url = getQueryVariable('url');
-
-  return {
-    width,
-    height,
-    url,
-  };
-}
+export const getSourceData = () => {
+  const sourceDom = document.getElementById('source-message') as HTMLTextAreaElement;
+  if (!sourceDom || !sourceDom.value) {
+    return null;
+  }
+  return JSON.parse(sourceDom.value) as ImageMetaData;
+};

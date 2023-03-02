@@ -5,11 +5,15 @@ import { MessageEvent, MessageTo, MessageMethod } from '../model';
 
 function App() {
   const sendInject = async () => {
-    await sendMessageByCurrentTab<MessageEvent>({
-      to: MessageTo.contentScript,
-      method: MessageMethod.createCustomScreenShot,
-    });
-    window.close();
+    try {
+      await sendMessageByCurrentTab<MessageEvent>({
+        to: MessageTo.contentScript,
+        method: MessageMethod.createCustomScreenShot,
+      });
+      window.close();
+    } catch (e) {
+      console.log('screenshot popup sending to content script', e);
+    }
   };
 
   return (

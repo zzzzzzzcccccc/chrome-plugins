@@ -1,5 +1,5 @@
 {
-  "name": "@chrome-plugin/screenshot-ocr",
+  "name": "@chrome-plugin/screenshot",
   "version": "0.0.0",
   "description": "Chrome plugin by Screenshot OCR",
   "files": [

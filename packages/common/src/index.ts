@@ -30,7 +30,7 @@ import {
   downloadFile,
   getQueryVariable,
   sleep,
-  base64ToBlobURL,
+  copy,
 } from './helper';
 export type { Rect, Point } from './helper';
 
@@ -55,5 +55,5 @@ export {
   downloadFile,
   getQueryVariable,
   sleep,
-  base64ToBlobURL,
+  copy,
 };

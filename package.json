@@ -7,9 +7,9 @@
   ],
   "repository": "https://github.com/zzzzzzzcccccc/chrome-plugins.git",
   "scripts": {
-    "start": "concurrently -k 'yarn start:screenshot-ocr' 'yarn start:ocr-result'",
+    "start": "concurrently -k 'yarn start:screenshot' 'yarn start:ocr-result'",
     "start:common": "yarn workspace @chrome-plugin/common start",
-    "start:screenshot-ocr": "yarn workspace @chrome-plugin/screenshot-ocr start",
+    "start:screenshot": "yarn workspace @chrome-plugin/screenshot start",
     "start:ocr-result": "yarn workspace @chrome-plugin/ocr-result start",
     "build": "lerna run build",
     "lint": "eslint packages --ext .ts --ext .tsx",

@@ -141,16 +141,15 @@ export function sleep(delay: number) {
   });
 }
 
-export function base64ToBlobURL(target: string, type: string) {
-  const base64Data = target.split(',')[1];
-  const binaryData = atob(base64Data);
-  const byteArray = new Uint8Array(binaryData.length);
-
-  for (let i = 0; i < binaryData.length; i++) {
-    byteArray[i] = binaryData.charCodeAt(i);
+export async function copy(target: string) {
+  const input = document.createElement('textarea');
+  document.body.append(input);
+  input.value = target;
+  input.select();
+  if (document.execCommand('Copy')) {
+    document.execCommand('Copy');
+  } else {
+    await navigator.clipboard.writeText(input.value);
   }
-
-  const blob = new Blob([byteArray], { type });
-
-  return URL.createObjectURL(blob);
+  input.remove();
 }

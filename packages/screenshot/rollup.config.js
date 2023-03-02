@@ -59,7 +59,7 @@ module.exports = [
     input: 'src/popup/index.ts',
     output: [
       getUmdOutPut({
-        name: 'screenshotOcrPopup',
+        name: 'screenshotPopup',
         fileName: 'popup.js',
         globals,
       }),
@@ -70,7 +70,7 @@ module.exports = [
     input: 'src/inject/index.ts',
     output: [
       getUmdOutPut({
-        name: 'screenshotOcrInject',
+        name: 'screenshotInject',
         fileName: 'inject.js',
         globals,
       }),
@@ -81,7 +81,7 @@ module.exports = [
     input: 'src/background/index.ts',
     output: [
       getUmdOutPut({
-        name: 'screenshotOcrBackground',
+        name: 'screenshotBackground',
         fileName: 'background.js',
         globals,
       }),
