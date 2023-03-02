@@ -1,6 +1,5 @@
 {
   "name": "@chrome-plugin/ocr-result",
-  "private": true,
   "version": "1.0.0",
   "type": "module",
   "scripts": {
