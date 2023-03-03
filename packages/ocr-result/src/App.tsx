@@ -53,7 +53,7 @@ const Wrapper = styled.div`
 `;
 
 function App() {
-  const { imageRef, canvasRef, ocrResult, imageMetaData, copyText } = useApp();
+  const { imageRef, canvasRef, textRef, ocrResult, imageMetaData, copyText } = useApp();
 
   return (
     <>
@@ -61,7 +61,7 @@ function App() {
       <Wrapper>
         <div style={{ flex: 1 }}>
           <h3>OCR Text</h3>
-          <div className="ocr-text" dangerouslySetInnerHTML={{ __html: ocrResult.htmlText }} />
+          <div ref={textRef} className="ocr-text" dangerouslySetInnerHTML={{ __html: ocrResult.htmlText }} />
           {ocrResult.text && <button onClick={copyText}>copy text</button>}
         </div>
 

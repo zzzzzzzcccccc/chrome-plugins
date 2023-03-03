@@ -18,7 +18,7 @@ function App() {
 
   return (
     <div>
-      <button onClick={sendInject}>start popup</button>
+      <button onClick={sendInject}>Start</button>
     </div>
   );
 }

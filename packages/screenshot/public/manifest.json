@@ -15,6 +15,6 @@
   "background": {
     "service_worker": "js/background.js"
   },
-  "permissions": ["activeTab", "storage", "tabs", "scripting", "windows"],
+  "permissions": ["activeTab", "storage", "tabs", "scripting", "windows", "contextMenus"],
   "optional_host_permissions": ["https://*/*", "http://*/*"]
 }

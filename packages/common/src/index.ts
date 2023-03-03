@@ -9,6 +9,9 @@ import {
   getRuntimeURL,
   setLocalStorage,
   getLocalStorage,
+  createContextMenus,
+  onContextMenus,
+  onInstalled,
 } from './chrome';
 export type {
   ChromeTab,
@@ -18,6 +21,7 @@ export type {
   SendResponse,
   ChromeWindow,
   ChromeWindowCreateData,
+  ChromeOnClickData,
 } from './chrome';
 
 import { getScreenWidthHeight, canvasToBlob, canvasToBase64 } from './element';
@@ -45,6 +49,9 @@ export {
   getRuntimeURL,
   setLocalStorage,
   getLocalStorage,
+  createContextMenus,
+  onContextMenus,
+  onInstalled,
   getScreenWidthHeight,
   canvasToBlob,
   canvasToBase64,

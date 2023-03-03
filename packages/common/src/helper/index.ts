@@ -143,13 +143,17 @@ export function sleep(delay: number) {
 
 export async function copy(target: string) {
   const input = document.createElement('textarea');
-  document.body.append(input);
-  input.value = target;
-  input.select();
-  if (document.execCommand('Copy')) {
-    document.execCommand('Copy');
-  } else {
-    await navigator.clipboard.writeText(input.value);
+  document.body.appendChild(input);
+  try {
+    input.value = target;
+    input.select();
+    if (document.execCommand('Copy')) {
+      document.execCommand('Copy');
+    } else {
+      await navigator.clipboard.writeText(input.value);
+    }
+    document.body.removeChild(input);
+  } catch (e) {
+    document.body.removeChild(input);
   }
-  input.remove();
 }

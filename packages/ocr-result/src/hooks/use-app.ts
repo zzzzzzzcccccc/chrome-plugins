@@ -6,13 +6,21 @@ import { ImageMetaData, getSourceData } from '../helper';
 export default function useApp() {
   const imageRef = useRef<HTMLImageElement | null>(null);
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
+  const textRef = useRef<HTMLDivElement | null>(null);
 
   const [imageMetaData, setImageMetaData] = useState<ImageMetaData | null>(null);
   const [loadingModel, setLoadingModel] = useState(true);
   const [loadingOcr, setLoadingOcr] = useState(false);
   const [ocrResult, setOcrResult] = useState({ text: '', htmlText: '' });
 
-  const copyText = () => copy(ocrResult.text);
+  const copyText = () => {
+    if (textRef.current) {
+      const text = textRef.current?.innerText.replace(/ /g, '');
+      if (text) {
+        copy(text);
+      }
+    }
+  };
 
   const copyHtmlText = () => copy(ocrResult.htmlText);
 
@@ -44,7 +52,8 @@ export default function useApp() {
       setLoadingModel(false);
       const result = await ocrImage();
       setOcrResult(result);
-      await copy(result.text);
+      await sleep(2000);
+      copyText();
     };
 
     mounted();
@@ -54,6 +63,7 @@ export default function useApp() {
     imageMetaData,
     imageRef,
     canvasRef,
+    textRef,
     loadingModel,
     loadingOcr,
     ocrResult,

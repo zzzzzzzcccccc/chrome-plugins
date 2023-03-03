@@ -5,6 +5,8 @@ export type MessageSender = chrome.runtime.MessageSender;
 export type SendResponse<T> = (params: T) => void;
 export type ChromeWindow = chrome.windows.Window;
 export type ChromeWindowCreateData = chrome.windows.CreateData;
+export type ChromeCreateProperties = chrome.contextMenus.CreateProperties;
+export type ChromeOnClickData = chrome.contextMenus.OnClickData;
 
 export type OnMessageCallback<T, R> = (message: T, messageSender: MessageSender, sendResponse: SendResponse<R>) => void;
 
@@ -76,4 +78,16 @@ export async function getLocalStorage(keys: string | string[]) {
 
 export function removeLocalStorage(keys: string | string[]) {
   return chrome.storage.local.remove(keys);
+}
+
+export function createContextMenus(payload: ChromeCreateProperties) {
+  return chrome.contextMenus.create(payload);
+}
+
+export function onContextMenus(cb: (data: ChromeOnClickData, tab?: ChromeTab) => void) {
+  chrome.contextMenus.onClicked.addListener(cb);
+}
+
+export function onInstalled(cb: () => void) {
+  chrome.runtime.onInstalled.addListener(cb);
 }
