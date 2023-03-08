@@ -52,13 +52,42 @@ const Wrapper = styled.div`
   }
 `;
 
+const LoadingWrapper = styled.div`
+  margin: 0;
+  padding: 0;
+  position: absolute;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  box-sizing: border-box;
+  width: 100%;
+  height: 100%;
+  background-color: rgb(0, 0, 0, 0.36);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  p {
+    margin: 0 auto;
+    text-align: center;
+    box-sizing: border-box;
+    font-weight: bolder;
+    font-size: 16px;
+  }
+`;
+
 function App() {
-  const { imageRef, canvasRef, textRef, ocrResult, imageMetaData, copyText } = useApp();
+  const { imageRef, canvasRef, textRef, ocrResult, imageMetaData, copyText, loadingModel, loadingOcr } = useApp();
 
   return (
     <>
       <img alt="source" ref={imageRef} src={imageMetaData?.base64} style={{ display: 'none' }} />
-      <Wrapper>
+      <LoadingWrapper style={{ display: loadingModel ? 'flex' : 'none' }}>
+        <p>Loading OCR model ...</p>
+      </LoadingWrapper>
+      <Wrapper style={{ display: !loadingModel ? 'flex' : 'none' }}>
         <div style={{ flex: 1 }}>
           <h3>OCR Text</h3>
           <div ref={textRef} className="ocr-text" dangerouslySetInnerHTML={{ __html: ocrResult.htmlText }} />
@@ -66,7 +95,12 @@ function App() {
         </div>
 
         <div className="ocr-result">
-          <div style={{ flex: 1 }}>
+          <div style={{ flex: 1, position: 'relative', display: loadingOcr ? 'block' : 'none' }}>
+            <LoadingWrapper>
+              <p>OCR your screenshot ...</p>
+            </LoadingWrapper>
+          </div>
+          <div style={{ flex: 1, display: !loadingOcr ? 'block' : 'none' }}>
             <h3>OCR Area</h3>
             <canvas ref={canvasRef} />
           </div>
