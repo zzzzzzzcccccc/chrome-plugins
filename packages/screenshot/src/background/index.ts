@@ -7,32 +7,28 @@ import {
   createContextMenus,
   onContextMenus,
   sendMessageByCurrentTab,
-  onInstalled,
 } from '@chrome-plugin/common';
 import { MessageEvent, MessageMethod, MessageTo } from '../model';
 
 const ContextMenusID = 'Screenshot_and_OCR';
 
-onInstalled(() => {
-  createContextMenus({
-    title: 'Screenshot and OCR',
-    contexts: ['all'],
-    id: ContextMenusID,
-  });
+createContextMenus({
+  title: 'Screenshot and OCR',
+  contexts: ['all'],
+  id: ContextMenusID,
+});
 
-  onContextMenus(async (data) => {
-    if (data.menuItemId === ContextMenusID) {
-      console.log(data);
-      try {
-        await sendMessageByCurrentTab<MessageEvent>({
-          to: MessageTo.contentScript,
-          method: MessageMethod.createCustomScreenShot,
-        });
-      } catch (e) {
-        console.log('screenshot bg sending to content script', e);
-      }
+onContextMenus(async (data) => {
+  if (data.menuItemId === ContextMenusID) {
+    try {
+      await sendMessageByCurrentTab<MessageEvent>({
+        to: MessageTo.contentScript,
+        method: MessageMethod.createCustomScreenShot,
+      });
+    } catch (e) {
+      console.log('screenshot bg sending to content script', e);
     }
-  });
+  }
 });
 
 onMessage<MessageEvent<ChromeWindowCreateData>, string | ChromeWindow>((msg, messageSender, sendResponse) => {

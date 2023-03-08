@@ -4,6 +4,7 @@ import legacy from '@vitejs/plugin-legacy';
 
 // https://vitejs.dev/config/
 export default defineConfig({
+  base: './',
   plugins: [
     legacy({
       targets: ['> 0.5%', 'ie >= 11'],
