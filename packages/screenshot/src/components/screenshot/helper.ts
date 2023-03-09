@@ -10,7 +10,8 @@ import {
 import { MessageEvent, MessageMethod, MessageTo } from '../../model';
 import { getOcrResultUrl } from '../../env';
 
-export async function screenshotEnd(centerRect: Rect, centerElement: HTMLDivElement): Promise<ChromeWindow> {
+export async function screenshotEnd(centerRect: Rect, centerElement: HTMLDivElement): Promise<ChromeWindow | null> {
+  if (centerRect.width <= 0 || centerRect.height <= 0) return null;
   centerElement.style.border = '0';
 
   const screenImgUrl = await sendMessageByRunTime<MessageEvent, string>({
