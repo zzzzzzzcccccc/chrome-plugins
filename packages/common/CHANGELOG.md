@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.0.3](https://github.com/zzzzzzzcccccc/chrome-plugins/compare/@chrome-plugin/common@1.0.1...@chrome-plugin/common@1.0.3) (2023-03-15)
+
+
+### Features
+
+* add contextMenus ([9f638e6](https://github.com/zzzzzzzcccccc/chrome-plugins/commit/9f638e6432a956246290b5cde6b10cc799894f1a))
+
+
+
+
+
 ## [1.0.2](https://github.com/zzzzzzzcccccc/chrome-plugins/compare/@chrome-plugin/common@1.0.1...@chrome-plugin/common@1.0.2) (2023-03-08)
 
 
