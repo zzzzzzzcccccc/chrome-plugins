@@ -1,0 +1,16 @@
+{
+  "name": "@chrome-plugin/home",
+  "version": "1.0.0",
+  "description": "Chrome plugin by Home App",
+  "license": "MIT",
+  "scripts": {
+    "start": "next dev",
+    "build": "next build && next export && mv out dist",
+    "server:start": "next start"
+  },
+  "dependencies": {
+    "next": "13.2.4",
+    "react": "18.2.0",
+    "react-dom": "18.2.0"
+  }
+}

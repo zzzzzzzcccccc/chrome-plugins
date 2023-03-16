@@ -1,0 +1,9 @@
+/dist
+/build
+
+packages/**/dist
+packages/**/build
+packages/**/build-storybook
+packages/**/storybook-static
+packages/**/public/js/*
+packages/**/.next

@@ -17,7 +17,13 @@ module.exports = {
       jsx: true,
     },
   },
-  extends: ['eslint:recommended', 'plugin:@typescript-eslint/recommended', 'plugin:react/recommended', 'prettier'],
+  extends: [
+    'eslint:recommended',
+    'plugin:@typescript-eslint/recommended',
+    'plugin:react/recommended',
+    'prettier',
+    'plugin:@next/next/recommended',
+  ],
   plugins: ['@typescript-eslint', 'prettier', 'jest', 'react', 'react-hooks'],
   rules: {
     semi: ERROR,
