@@ -5,7 +5,7 @@
   "license": "MIT",
   "scripts": {
     "start": "next dev",
-    "build": "next build && next export && mv out dist",
+    "build": "next build && next export && mv out dist && ../../scripts/move.sh ./dist home",
     "server:start": "next start"
   },
   "dependencies": {
