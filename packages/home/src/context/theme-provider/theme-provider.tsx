@@ -1,8 +1,9 @@
-import React, { createContext, useState, useContext, useMemo } from 'react';
+import React, { createContext, useState, useMemo } from 'react';
 import { lightTheme, darkTheme, themeMapper } from './config';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import { ThemeProvider as MThemeProvider, Theme as MTheme } from '@mui/material/styles';
 import GlobalStyles from '../../styles/global-styles';
+import { useInitialize } from '../../hooks';
 
 export type ThemeConfig = MTheme;
 
@@ -18,13 +19,10 @@ const initialContext: IThemeContext = {
   updateTheme: () => console.warn('please using ThemeProvider first!!!'),
 };
 
-const ThemeContext = createContext(initialContext);
-
-export function useTheme() {
-  return useContext(ThemeContext);
-}
+export const ThemeContext = createContext(initialContext);
 
 export default function ThemeProvider(props: { children?: React.ReactNode }) {
+  const { renderType } = useInitialize();
   const [mode, setMode] = useState<IThemeContext['mode']>(initialContext.mode);
   const prefersDarkMode = useMediaQuery('(prefers-color-scheme: dark)');
 
@@ -42,7 +40,7 @@ export default function ThemeProvider(props: { children?: React.ReactNode }) {
 
   return (
     <>
-      <GlobalStyles />
+      <GlobalStyles renderType={renderType} />
       <ThemeContext.Provider value={value}>
         <MThemeProvider theme={theme}>{props.children}</MThemeProvider>
       </ThemeContext.Provider>

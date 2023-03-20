@@ -5,17 +5,25 @@
   "license": "MIT",
   "scripts": {
     "start": "next dev",
-    "build": "next build && next export && mv out dist && ../../scripts/move.sh ./dist home",
-    "server:start": "next start"
+    "build": "next build && next export && yarn run build:after",
+    "server:start": "next start",
+    "build:after": "mv ./out/_next ./out/next && cd ./out && grep -rli '_next' * | xargs -I@ sed -i '' 's/_next/next/g' @ && yarn run move:root",
+    "move:root": "mv ./out ./dist && ../../scripts/move.sh ./dist home"
   },
   "dependencies": {
     "@emotion/react": "^11.10.6",
     "@emotion/styled": "^11.10.6",
     "@mui/material": "^5.11.13",
     "@mui/styled-engine-sc": "^5.11.11",
+    "axios": "^1.3.4",
+    "@chrome-plugin/common": "^1.0.3",
+    "i18next": "^22.4.12",
+    "i18next-http-backend": "^2.2.0",
     "next": "13.2.4",
+    "next-i18next": "^13.2.2",
     "react": "18.2.0",
     "react-dom": "18.2.0",
+    "react-i18next": "^12.2.0",
     "styled-components": "^5.3.9"
   }
 }

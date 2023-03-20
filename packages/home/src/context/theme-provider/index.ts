@@ -1,5 +1,5 @@
-import ThemeProvider, { useTheme } from './theme-provider';
+import ThemeProvider, { ThemeContext } from './theme-provider';
 
 export type { ThemeConfig, IThemeContext } from './theme-provider';
 
-export { ThemeProvider, useTheme };
+export { ThemeProvider, ThemeContext };

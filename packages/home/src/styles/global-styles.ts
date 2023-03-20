@@ -1,6 +1,7 @@
 import { createGlobalStyle } from 'styled-components';
+import { IInitializeContext } from '../context';
 
-const GlobalStyles = createGlobalStyle`
+const GlobalStyles = createGlobalStyle<{ renderType: IInitializeContext['renderType'] }>`
   * {
     margin: 0;
     padding: 0;
@@ -11,8 +12,8 @@ const GlobalStyles = createGlobalStyle`
   }
 
   html, body, #__next {
-    width: 100%;
-    height: 100%;
+    width: ${(props) => (props.renderType === 'full' ? '100%' : '800px')};
+    height: ${(props) => (props.renderType === 'full' ? '100%' : '600px')};
   }
 `;
 
