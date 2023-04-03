@@ -26,8 +26,8 @@ module.exports = {
   ],
   plugins: ['@typescript-eslint', 'prettier', 'jest', 'react', 'react-hooks'],
   rules: {
-    semi: ERROR,
-    'max-len': ['error', { code: 160 }],
+    semi: WARN,
+    'max-len': [WARN, { code: 160 }],
     'react/jsx-filename-extension': [ERROR, { extensions: ['.ts', '.tsx', '.json', '.js', 'jsx'] }],
     'import/extensions': IGNORE,
     'import/prefer-default-export': IGNORE,
@@ -36,4 +36,12 @@ module.exports = {
     'react/display-name': IGNORE,
     '@typescript-eslint/no-explicit-any': IGNORE,
   },
+  overrides: [
+    {
+      files: ['svg-provider.tsx'],
+      rules: {
+        'max-len': IGNORE,
+      },
+    },
+  ],
 };

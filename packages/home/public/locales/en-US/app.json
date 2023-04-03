@@ -1,3 +1,15 @@
 {
-  "title": "Title"
+  "meta.title": "Title",
+  "meta.description": "Description",
+  "no_result": "No found result.",
+  "loading": "Loading...",
+  "setting": "Settings",
+  "setting.theme": "Theme",
+  "setting.theme.light": "Light",
+  "setting.theme.dark": "Dark",
+  "setting.theme.system": "Auto",
+  "setting.translations": "Language",
+  "setting.translations.search_placeholder": "Search languages",
+  "setting.translations.zh_cn": "Chinese (Simplified)",
+  "setting.translations.en_us": "English (US)"
 }

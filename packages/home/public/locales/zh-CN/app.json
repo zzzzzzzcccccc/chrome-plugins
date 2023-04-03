@@ -1,3 +1,15 @@
 {
-  "title": "标题"
+  "meta.title": "标题",
+  "meta.description": "描述",
+  "no_result": "暂无数据",
+  "loading": "加载中...",
+  "setting": "设置",
+  "setting.theme": "风格",
+  "setting.theme.light": "明亮",
+  "setting.theme.dark": "黑暗",
+  "setting.theme.system": "自动",
+  "setting.translations": "语言",
+  "setting.translations.search_placeholder": "搜索语言",
+  "setting.translations.zh_cn": "简体中文",
+  "setting.translations.en_us": "英语(美国)"
 }
