@@ -3,6 +3,8 @@
   "meta.description": "描述",
   "no_result": "暂无数据",
   "loading": "加载中...",
+  "encode": "编码",
+  "decode": "解码",
   "setting": "设置",
   "setting.theme": "风格",
   "setting.theme.light": "明亮",
@@ -11,5 +13,10 @@
   "setting.translations": "语言",
   "setting.translations.search_placeholder": "搜索语言",
   "setting.translations.zh_cn": "简体中文",
-  "setting.translations.en_us": "英语(美国)"
+  "setting.translations.en_us": "英语(美国)",
+  "develop.title": "开发工具",
+  "develop.json_editor": "Json编辑",
+  "develop.base64": "Base64",
+  "develop.string": "字符串",
+  "develop.html_to_jsx": "HTML转JSX"
 }

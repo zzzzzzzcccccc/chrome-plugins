@@ -3,6 +3,8 @@
   "meta.description": "Description",
   "no_result": "No found result.",
   "loading": "Loading...",
+  "encode": "Encode",
+  "decode": "Decode",
   "setting": "Settings",
   "setting.theme": "Theme",
   "setting.theme.light": "Light",
@@ -11,5 +13,10 @@
   "setting.translations": "Language",
   "setting.translations.search_placeholder": "Search languages",
   "setting.translations.zh_cn": "Chinese (Simplified)",
-  "setting.translations.en_us": "English (US)"
+  "setting.translations.en_us": "English (US)",
+  "develop.title": "Develop Tools",
+  "develop.json_editor": "Json Editor",
+  "develop.base64": "Base64",
+  "develop.string": "String",
+  "develop.html_to_jsx": "Html to JSX"
 }

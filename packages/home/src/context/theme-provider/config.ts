@@ -26,10 +26,18 @@ export const darkTheme: ThemeConfig = createTheme({
 });
 
 export const globalStyle: GlobalStyle = {
+  fr: {
+    display: 'flex',
+    flexDirection: 'row',
+  },
   frc: {
     display: 'flex',
     flexDirection: 'row',
     alignItems: 'center',
+  },
+  fc: {
+    display: 'flex',
+    flexDirection: 'column',
   },
   fcc: {
     display: 'flex',

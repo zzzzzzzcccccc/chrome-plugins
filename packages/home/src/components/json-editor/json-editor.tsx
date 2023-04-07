@@ -1,22 +1,28 @@
-import React, { useState } from 'react';
+import React from 'react';
+import DrawerRoute from '../drawer-route';
 import { Box } from '@mui/material';
-import { useTheme } from '../../hooks';
+import { useTheme, useTranslation, useStoreSelector, useStoreDispatch } from '../../hooks';
+import { setLeftJson, setRightJson } from '../../store/slices/app-slice';
 import CodeEditor from '../code-editor';
 
 export default function JsonEditor() {
   const { globalStyle } = useTheme();
-
-  const [value, setValue] = useState(`{"a": "123123", "b": "qwerty"}`);
-
-  const handleOnChange = (v: string) => {
-    setValue(v);
-  };
+  const t = useTranslation();
+  const { leftJson, rightJson } = useStoreSelector((state) => state.app);
+  const dispatch = useStoreDispatch();
 
   return (
-    <Box sx={{ ...globalStyle.fcc, flex: 1 }}>
-      <Box sx={{ flex: 1 }}>
-        <CodeEditor language="json" value={value} onChange={handleOnChange} />
+    <DrawerRoute title={t('develop.json_editor')}>
+      <Box sx={{ ...globalStyle.fc, flex: 1 }}>
+        <Box sx={{ ...globalStyle.frc, flex: 1 }}>
+          <Box sx={{ flex: 1, height: '100%' }}>
+            <CodeEditor language="json" value={leftJson} onChange={(v) => dispatch(setLeftJson(v))} />
+          </Box>
+          <Box sx={{ flex: 1, height: '100%' }}>
+            <CodeEditor language="json" value={rightJson} onChange={(v) => dispatch(setRightJson(v))} />
+          </Box>
+        </Box>
       </Box>
-    </Box>
+    </DrawerRoute>
   );
 }

@@ -10,8 +10,15 @@ loader.config({
   },
 });
 
+const initialOptions: CodeEditorProps['options'] = {
+  minimap: {
+    enabled: false,
+  },
+  tabSize: 2,
+};
+
 export default function CodeEditor(props: CodeEditorProps) {
-  const { value = '', language, onMount, onChange, options = { minimap: { enabled: false } } } = props;
+  const { value = '', language, onMount, onChange, options = initialOptions } = props;
 
   const t = useTranslation();
   const { isDark } = useTheme();

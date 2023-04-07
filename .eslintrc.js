@@ -35,6 +35,7 @@ module.exports = {
     'react-hooks/exhaustive-deps': WARN,
     'react/display-name': IGNORE,
     '@typescript-eslint/no-explicit-any': IGNORE,
+    '@typescript-eslint/no-var-requires': IGNORE,
   },
   overrides: [
     {
