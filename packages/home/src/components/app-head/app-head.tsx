@@ -1,25 +1,41 @@
 import React from 'react';
-import { AppBar, Box, IconButton, Toolbar, Tooltip } from '@mui/material';
+import { Box, IconButton, Tooltip } from '@mui/material';
+import RealTime from '../real-time';
+import { useTheme, useTranslation, useAppNavigate } from '../../hooks';
+import SearchIcon from '@mui/icons-material/Search';
 import SettingsIcon from '@mui/icons-material/Settings';
-import { useTranslation } from '../../hooks';
-import { useNavigate } from 'react-router-dom';
 
-export default function AppHead() {
+function AppHead() {
+  const { toSetting } = useAppNavigate();
   const t = useTranslation();
-  const navigate = useNavigate();
+  const { globalStyle } = useTheme();
 
   return (
-    <AppBar position="static">
-      <Toolbar variant="dense">
-        <Box sx={{ flexGrow: 1 }} />
-        <Box>
-          <Tooltip title={t('setting')}>
-            <IconButton color="inherit" onClick={() => navigate('/setting')}>
-              <SettingsIcon />
-            </IconButton>
-          </Tooltip>
-        </Box>
-      </Toolbar>
-    </AppBar>
+    <Box
+      sx={{
+        ...globalStyle.frc,
+        ...globalStyle.glass,
+        width: '100%',
+        height: 30,
+        pl: 2,
+        pr: 2,
+      }}
+    >
+      <Box sx={{ ...globalStyle.frc, justifyContent: 'flex-end', flex: 1 }}>
+        <Tooltip title={t('search')}>
+          <IconButton size="small" sx={{ ...globalStyle.fcc }}>
+            <SearchIcon />
+          </IconButton>
+        </Tooltip>
+        <Tooltip title={t('setting')}>
+          <IconButton size="small" sx={{ ...globalStyle.fcc }} onClick={toSetting}>
+            <SettingsIcon />
+          </IconButton>
+        </Tooltip>
+        <RealTime />
+      </Box>
+    </Box>
   );
 }
+
+export default AppHead;

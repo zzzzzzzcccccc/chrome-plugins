@@ -1,4 +1,4 @@
-import { ThemeConfig, GlobalStyle } from './theme-provider';
+import { ThemeConfig } from './theme-provider';
 import { createTheme } from '@mui/material/styles';
 import { deepOrange, cyan, indigo, teal } from '@mui/material/colors';
 
@@ -25,7 +25,7 @@ export const darkTheme: ThemeConfig = createTheme({
   },
 });
 
-export const globalStyle: GlobalStyle = {
+export const globalStyle = {
   fr: {
     display: 'flex',
     flexDirection: 'row',
@@ -34,6 +34,7 @@ export const globalStyle: GlobalStyle = {
     display: 'flex',
     flexDirection: 'row',
     alignItems: 'center',
+    justifyContent: 'center',
   },
   fc: {
     display: 'flex',
@@ -42,10 +43,23 @@ export const globalStyle: GlobalStyle = {
   fcc: {
     display: 'flex',
     flexDirection: 'column',
+    alignItems: 'center',
     justifyContent: 'center',
   },
   ttn: {
     textTransform: 'none',
+  },
+  glass: {
+    '&::before': {
+      content: `''`,
+      position: 'absolute',
+      left: 0,
+      top: 0,
+      right: 0,
+      bottom: 0,
+      filter: 'blur(10px)',
+      zIndex: -1,
+    },
   },
 };
 

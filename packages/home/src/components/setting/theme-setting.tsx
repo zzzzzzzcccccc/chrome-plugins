@@ -1,7 +1,5 @@
 import React from 'react';
-import Typography from '@mui/material/Typography';
-import ButtonGroup from '@mui/material/ButtonGroup';
-import Button from '@mui/material/Button';
+import { Button, ButtonGroup } from '@mui/material';
 import LightModeIcon from '@mui/icons-material/LightMode';
 import DarkModeOutlinedIcon from '@mui/icons-material/DarkModeOutlined';
 import SettingsSuggestOutlinedIcon from '@mui/icons-material/SettingsSuggestOutlined';
@@ -15,9 +13,6 @@ export default function ThemeSetting() {
 
   return (
     <>
-      <Typography sx={{ pb: 1, color: 'primary.main' }} variant="subtitle2">
-        {t('setting.theme')}
-      </Typography>
       <ButtonGroup>
         <Button
           endIcon={<LightModeIcon />}

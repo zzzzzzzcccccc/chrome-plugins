@@ -1,11 +1,15 @@
 import React from 'react';
-import { Head, Router } from '../components';
+import { Head, App, Background } from '../components';
+import { HashRouter } from 'react-router-dom';
 
 export default function Home() {
   return (
     <>
       <Head />
-      <Router />
+      <HashRouter>
+        <Background url="./images/bg.jpg" />
+        <App />
+      </HashRouter>
     </>
   );
 }

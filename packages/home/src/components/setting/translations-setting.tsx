@@ -1,5 +1,5 @@
 import React, { useState, useMemo } from 'react';
-import { InputBase, Box, Typography, List, ListItem, Button } from '@mui/material';
+import { InputBase, Box, List, ListItem, Button, Typography } from '@mui/material';
 import DoneIcon from '@mui/icons-material/Done';
 import SearchIcon from '@mui/icons-material/Search';
 import { useTranslation, useLanguage, useTheme } from '../../hooks';
@@ -41,9 +41,6 @@ export default function TranslationsSetting() {
 
   return (
     <>
-      <Typography variant="subtitle2" sx={{ pb: 1, color: 'primary.main' }}>
-        {t('setting.translations')}
-      </Typography>
       <Box sx={{ ...globalStyle.frc }}>
         <SearchIcon />
         <InputBase

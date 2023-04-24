@@ -1,9 +1,12 @@
 import Head from './head';
+import Background from './background';
 import App from './app';
+import AppHead from './app-head';
+import AppContainer from './app-container';
+import AppFooter from './app-footer';
+import AppCard from './app-card';
+import RealTime from './real-time';
 import Setting from './setting';
-import Router from './router';
-import Develop from './develop';
-import Card from './card';
 import SVGProvider from './svg-provider';
 import CodeEditor from './code-editor';
 import JsonEditor from './json-editor';
@@ -14,10 +17,13 @@ import HTMLToJSXEditor from './html-to-jsx-editor';
 export {
   Head,
   App,
+  AppHead,
+  AppContainer,
+  AppFooter,
+  AppCard,
+  RealTime,
+  Background,
   Setting,
-  Router,
-  Develop,
-  Card,
   SVGProvider,
   CodeEditor,
   JsonEditor,

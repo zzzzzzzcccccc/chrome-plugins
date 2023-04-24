@@ -1,6 +1,7 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 export interface AppState {
+  activeMenu: string;
   leftJson: string;
   rightJson: string;
   leftBase64: string;
@@ -12,6 +13,7 @@ export interface AppState {
 }
 
 const initialState: AppState = {
+  activeMenu: 'develop',
   leftJson: JSON.stringify({ var1: 'value', var2: 100, var3: false }, null, 2),
   rightJson: JSON.stringify([{ var1: 'value', var2: 100, var3: false }], null, 2),
   leftBase64: 'hello world',
@@ -39,6 +41,9 @@ const appSlice = createSlice({
   name: 'app',
   initialState,
   reducers: {
+    setActiveMenu: (state, action: PayloadAction<AppState['activeMenu']>) => {
+      state.activeMenu = action.payload;
+    },
     setLeftJson: (state, action: PayloadAction<AppState['leftJson']>) => {
       state.leftJson = action.payload;
     },
@@ -67,6 +72,7 @@ const appSlice = createSlice({
 });
 
 export const {
+  setActiveMenu,
   setLeftJson,
   setRightJson,
   setLeftBase64,

@@ -3,3 +3,4 @@ export const SESSION_KEYS = {
   theme: '__theme__',
   language: '__language__',
 };
+export const CSS_NAME_SPACE = '__zc-home';

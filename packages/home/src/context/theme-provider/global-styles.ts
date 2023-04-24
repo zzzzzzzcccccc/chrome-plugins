@@ -1,9 +1,10 @@
 import { createGlobalStyle } from 'styled-components';
 import { IInitializeContext } from '../index';
-import { grey } from '@mui/material/colors';
+import { CSS_NAME_SPACE } from '../../constants';
 
 interface GlobalStylesProps {
   renderType: IInitializeContext['renderType'];
+  isDark: boolean;
 }
 
 const GlobalStyles = createGlobalStyle<GlobalStylesProps>`
@@ -19,7 +20,37 @@ const GlobalStyles = createGlobalStyle<GlobalStylesProps>`
   html, body, #__next {
     width: ${(props) => (props.renderType === 'full' ? '100%' : '800px')};
     height: ${(props) => (props.renderType === 'full' ? '100%' : '600px')};
-    background-color: ${grey[200]};
+  }
+
+  .${CSS_NAME_SPACE}-fc{
+    display: flex;
+    flex-direction: column;
+  }
+
+  .${CSS_NAME_SPACE}-fr{
+    display: flex;
+    flex-direction: row;
+  }
+
+  .${CSS_NAME_SPACE}-fcc{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .${CSS_NAME_SPACE}-frc{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .${CSS_NAME_SPACE}-click{
+    position: relative;
+    &:active{
+      background-color: ${(props) => (props.isDark ? 'rgba(0, 0, 0, 0.36)' : 'rgba(255, 255, 255, 0.36)')};
+    }
   }
 `;
 

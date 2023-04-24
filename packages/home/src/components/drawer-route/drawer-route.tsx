@@ -1,15 +1,14 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Drawer, Box, IconButton, Divider, Typography } from '@mui/material';
 import { DrawerRouteProps } from './types';
-import { useTheme } from '../../hooks';
-import { useNavigate } from 'react-router-dom';
+import { useTheme, useAppNavigate } from '../../hooks';
 import CloseIcon from '@mui/icons-material/Close';
 
 export default function DrawerRoute(props: DrawerRouteProps) {
   const { title, children } = props;
 
   const { globalStyle } = useTheme();
-  const navigate = useNavigate();
+  const { back } = useAppNavigate();
 
   const timerRef = useRef<NodeJS.Timeout | null>(null);
 
@@ -18,7 +17,7 @@ export default function DrawerRoute(props: DrawerRouteProps) {
 
   const onClose = () => {
     setOpen(false);
-    navigate(-1);
+    back();
   };
 
   useEffect(() => {
@@ -53,7 +52,7 @@ export default function DrawerRoute(props: DrawerRouteProps) {
 
   return (
     <Drawer open={open} anchor="right" onClose={onClose}>
-      <Box sx={{ width: `${width * 0.8}px`, ...globalStyle.fc, height: '100%' }}>
+      <Box sx={{ ...globalStyle.fc, width, height: '100%' }}>
         <Box sx={{ ...globalStyle.frc, p: 1 }}>
           <Typography variant="h6" sx={{ flexGrow: 1, color: 'primary.main' }}>
             {title}

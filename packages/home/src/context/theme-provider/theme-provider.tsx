@@ -8,13 +8,12 @@ import { storage } from '../../utils';
 import { SESSION_KEYS } from '../../constants';
 
 export type ThemeConfig = MTheme;
-export type GlobalStyle = Record<string, React.CSSProperties>;
 
 export interface IThemeContext {
   mode: 'light' | 'dark' | 'system';
   theme: ThemeConfig;
   updateTheme: (payload: IThemeContext['mode']) => void;
-  globalStyle: GlobalStyle;
+  globalStyle: typeof globalStyle;
   isDark: boolean;
 }
 
@@ -22,7 +21,7 @@ const initialContext: IThemeContext = {
   mode: 'system',
   theme: lightTheme,
   updateTheme: () => console.warn('please using ThemeProvider first!!!'),
-  globalStyle: {},
+  globalStyle,
   isDark: false,
 };
 
@@ -48,18 +47,29 @@ export default function ThemeProvider(props: { children?: React.ReactNode }) {
     return mode === 'system' ? prefersDarkMode : mode === 'dark';
   }, [mode, prefersDarkMode]);
 
+  const convertGlobalStyle = useMemo(
+    () => ({
+      ...globalStyle,
+      glass: {
+        ...globalStyle.glass,
+        backgroundColor: isDark ? 'rgba(0, 0, 0, 0.36)' : 'rgba(255, 255, 255, 0.36)',
+      },
+    }),
+    [isDark],
+  );
+
   const value = {
     mode,
     theme,
     updateTheme,
-    globalStyle,
+    globalStyle: convertGlobalStyle,
     isDark,
   };
 
   return (
     <>
       <CssBaseline />
-      <GlobalStyles renderType={renderType} />
+      <GlobalStyles renderType={renderType} isDark={isDark} />
       <ThemeContext.Provider value={value}>
         <MThemeProvider theme={theme}>{props.children}</MThemeProvider>
       </ThemeContext.Provider>
