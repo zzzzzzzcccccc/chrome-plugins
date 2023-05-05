@@ -2,14 +2,14 @@ import React, { useRef } from 'react';
 import DrawerRoute from '../drawer-route';
 import { Box } from '@mui/material';
 import { useTheme, useTranslation, useStoreSelector, useStoreDispatch } from '../../hooks';
-import { setLeftHTMLToJSX, setRightHTMLToJSX } from '../../store/slices/app-slice';
+import { setHtmlToJSX } from '../../store/slices/app-slice';
 import CodeEditor from '../code-editor';
 import HTMLtoJSX from 'htmltojsx';
 
 export default function JsonEditor() {
   const { globalStyle } = useTheme();
   const t = useTranslation();
-  const { leftHTMLToJSX, rightHTMLToJSX } = useStoreSelector((state) => state.app);
+  const { htmlToJSX } = useStoreSelector((state) => state.app);
   const dispatch = useStoreDispatch();
 
   const htmlToJSXRef = useRef(
@@ -19,9 +19,9 @@ export default function JsonEditor() {
   );
 
   const handleLeftOnChange = (v: string) => {
-    dispatch(setLeftHTMLToJSX(v));
+    dispatch(setHtmlToJSX({ left: v }));
     try {
-      dispatch(setRightHTMLToJSX(htmlToJSXRef.current.convert(v)));
+      dispatch(setHtmlToJSX({ right: htmlToJSXRef.current.convert(v) }));
     } catch (e) {
       return null;
     }
@@ -32,12 +32,12 @@ export default function JsonEditor() {
       <Box sx={{ ...globalStyle.fc, flex: 1 }}>
         <Box sx={{ ...globalStyle.frc, flex: 1 }}>
           <Box sx={{ flex: 1, height: '100%' }}>
-            <CodeEditor language="html" value={leftHTMLToJSX} onChange={(v) => handleLeftOnChange(v)} />
+            <CodeEditor language="html" value={htmlToJSX.left} onChange={(v) => handleLeftOnChange(v)} />
           </Box>
           <Box sx={{ flex: 1, height: '100%' }}>
             <CodeEditor
               language="javascript"
-              value={rightHTMLToJSX}
+              value={htmlToJSX.right}
               options={{
                 minimap: {
                   enabled: false,
@@ -45,7 +45,6 @@ export default function JsonEditor() {
                 tabSize: 2,
                 readOnly: true,
               }}
-              onChange={(v) => dispatch(setRightHTMLToJSX(v))}
             />
           </Box>
         </Box>

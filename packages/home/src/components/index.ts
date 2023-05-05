@@ -13,6 +13,8 @@ import JsonEditor from './json-editor';
 import Base64Editor from './base64-editor';
 import StringEditor from './string-editor';
 import HTMLToJSXEditor from './html-to-jsx-editor';
+import MD5Editor from './md5-editor';
+import AESEditor from './aes-editor';
 
 export {
   Head,
@@ -30,4 +32,6 @@ export {
   Base64Editor,
   StringEditor,
   HTMLToJSXEditor,
+  MD5Editor,
+  AESEditor,
 };

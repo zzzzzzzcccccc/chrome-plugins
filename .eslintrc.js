@@ -36,6 +36,7 @@ module.exports = {
     'react/display-name': IGNORE,
     '@typescript-eslint/no-explicit-any': IGNORE,
     '@typescript-eslint/no-var-requires': IGNORE,
+    '@typescript-eslint/ban-ts-comment': IGNORE,
   },
   overrides: [
     {

@@ -14,5 +14,7 @@
     "default_popup": "index.html?render_type=popup",
     "default_icon": "icon128.png"
   },
-  "permissions": ["activeTab", "storage", "contextMenus"]
+  "chrome_url_overrides": {
+    "newtab": "index.html?render_type=full"
+  }
 }

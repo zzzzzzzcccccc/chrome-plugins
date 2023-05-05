@@ -1,5 +1,5 @@
 import React from 'react';
-import { Head, App, Background } from '../components';
+import { Head, App } from '../components';
 import { HashRouter } from 'react-router-dom';
 
 export default function Home() {
@@ -7,7 +7,6 @@ export default function Home() {
     <>
       <Head />
       <HashRouter>
-        <Background url="./images/bg.jpg" />
         <App />
       </HashRouter>
     </>

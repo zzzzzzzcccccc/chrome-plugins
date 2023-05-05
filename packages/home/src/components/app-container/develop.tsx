@@ -1,6 +1,6 @@
 import React from 'react';
 import AppCard from '../app-card';
-import { useDevelopApps } from './use-apps';
+import { useDevelopApps } from '../../hooks';
 
 function Develop() {
   const apps = useDevelopApps();

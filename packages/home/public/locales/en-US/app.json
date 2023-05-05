@@ -1,5 +1,5 @@
 {
-  "meta.title": "Title",
+  "meta.title": "Tabs Manager",
   "meta.description": "Description",
   "no_result": "No found result.",
   "loading": "Loading...",
@@ -16,9 +16,13 @@
   "day5": "Friday",
   "day6": "Saturday",
   "setting.theme": "Theme",
+  "setting.theme.mode": "Mode",
   "setting.theme.light": "Light",
   "setting.theme.dark": "Dark",
   "setting.theme.system": "Auto",
+  "setting.theme.color_range": "Color Range",
+  "setting.theme.color": "Color",
+  "setting.theme.app_size": "Application icon size",
   "setting.translations": "Language",
   "setting.translations.search_placeholder": "Search languages",
   "setting.translations.zh_cn": "Chinese (Simplified)",
@@ -27,5 +31,11 @@
   "develop.json_editor": "Json Editor",
   "develop.base64": "Base64",
   "develop.string": "String",
-  "develop.html_to_jsx": "Html to JSX"
+  "develop.html_to_jsx": "Html to JSX",
+  "develop.md5": "MD5",
+  "develop.aes": "AES",
+  "develop.aes.secret": "Secret",
+  "develop.aes.iv": "Iv",
+  "develop.aes.mode": "Mode",
+  "develop.aes.pad": "Padding"
 }

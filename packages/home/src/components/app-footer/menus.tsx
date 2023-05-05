@@ -2,7 +2,7 @@ import React from 'react';
 import { Box, Button, Tooltip } from '@mui/material';
 import { CSS_NAME_SPACE } from '../../constants';
 import { useStoreDispatch, useStoreSelector, useTheme, useTranslation } from '../../hooks';
-import { setActiveMenu } from '../../store/slices/app-slice';
+import { setAppState } from '../../store/slices/app-slice';
 
 function Menus() {
   const { theme } = useTheme();
@@ -18,7 +18,7 @@ function Menus() {
   ];
 
   const handleOnClick = (id: string) => {
-    dispatch(setActiveMenu(id));
+    dispatch(setAppState({ activeMenu: id }));
   };
 
   return (

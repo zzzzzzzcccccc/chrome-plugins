@@ -49,7 +49,7 @@ const GlobalStyles = createGlobalStyle<GlobalStylesProps>`
   .${CSS_NAME_SPACE}-click{
     position: relative;
     &:active{
-      background-color: ${(props) => (props.isDark ? 'rgba(0, 0, 0, 0.36)' : 'rgba(255, 255, 255, 0.36)')};
+      background-color: ${(props) => (props.isDark ? 'rgba(255, 255, 255, 0.36)' : 'rgba(0, 0, 0, 0.36)')};
     }
   }
 `;
