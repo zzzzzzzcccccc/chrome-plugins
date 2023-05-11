@@ -1,6 +1,6 @@
 import React from 'react';
+import AppIcon from '../app-icon';
 import { Box, Button, Tooltip } from '@mui/material';
-import { CSS_NAME_SPACE } from '../../constants';
 import { useStoreDispatch, useStoreSelector, useTheme, useTranslation } from '../../hooks';
 import { setAppState } from '../../store/slices/app-slice';
 
@@ -26,18 +26,17 @@ function Menus() {
       {menuList.map((record) => {
         const active = activeMenu === record.id;
         return (
-          <Tooltip key={record.id} title={record.title}>
+          <Tooltip key={record.id} title={record.title} aria-label={record.title}>
             <Button sx={{ minWidth: 'auto', p: 0, borderRadius: 0 }} onClick={() => handleOnClick(record.id)}>
-              <svg
-                className={`${CSS_NAME_SPACE}-fcc`}
+              <AppIcon
+                type="svg"
+                target={`#${record.id}`}
                 style={{
                   width: 36,
                   height: 36,
                   color: active ? theme.palette.primary.main : theme.palette.text.primary,
                 }}
-              >
-                <use xlinkHref={`#${record.id}`} />
-              </svg>
+              />
             </Button>
           </Tooltip>
         );

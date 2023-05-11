@@ -69,7 +69,7 @@ export default function ThemeProvider(props: { children?: React.ReactNode }) {
       ...globalStyle,
       glass: {
         ...globalStyle.glass,
-        backgroundColor: isDark ? 'rgba(0, 0, 0, 0.4)' : 'rgba(255, 255, 255, 0.4)',
+        backgroundColor: isDark ? 'rgba(0, 0, 0, 0.36)' : 'rgba(255, 255, 255, 0.36)',
       },
     }),
     [isDark],

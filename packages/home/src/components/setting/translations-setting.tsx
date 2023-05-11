@@ -48,7 +48,7 @@ export default function TranslationsSetting() {
           onChange={(e) => setKeyword(e.target.value)}
           sx={{ ml: 1, flex: 1 }}
           placeholder={t('setting.translations.search_placeholder') || ''}
-          inputProps={{ 'aria-label': 'search languages' }}
+          inputProps={{ 'aria-label': 'Search Languages' }}
         />
       </Box>
       {!memoTranslations.length ? (

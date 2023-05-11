@@ -37,6 +37,7 @@ module.exports = {
     '@typescript-eslint/no-explicit-any': IGNORE,
     '@typescript-eslint/no-var-requires': IGNORE,
     '@typescript-eslint/ban-ts-comment': IGNORE,
+    '@next/next/no-img-element': IGNORE,
   },
   overrides: [
     {

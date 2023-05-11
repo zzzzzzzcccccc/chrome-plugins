@@ -5,8 +5,6 @@ export default function useAppNavigate() {
 
   const back = () => navigate(-1);
 
-  const toSetting = () => navigate('/setting');
-
   const toJsonEditor = () => navigate('/json-editor');
 
   const toStringEditor = () => navigate('/string-editor');
@@ -19,15 +17,23 @@ export default function useAppNavigate() {
 
   const toAESEditor = () => navigate('/aes-editor');
 
+  const toSHAEditor = () => navigate('/sha-editor');
+
+  const toRabbitEditor = () => navigate('/rabbit-editor');
+
+  const toReadFile = () => navigate('/read-file');
+
   return {
     navigate,
     back,
-    toSetting,
     toJsonEditor,
     toStringEditor,
     toBase64Editor,
     toHTMLToJSXEditor,
     toMD5Editor,
     toAESEditor,
+    toSHAEditor,
+    toRabbitEditor,
+    toReadFile,
   };
 }

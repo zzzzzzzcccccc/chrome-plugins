@@ -1,3 +1,3 @@
-import HTMLToJSXEditor from './html-to-jsx-editor';
+import React from 'react';
 
-export default HTMLToJSXEditor;
+export default React.lazy(() => import('./html-to-jsx-editor'));

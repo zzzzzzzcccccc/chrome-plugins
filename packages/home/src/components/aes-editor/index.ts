@@ -1,3 +1,3 @@
-import AESEditor from './aes-editor';
+import React from 'react';
 
-export default AESEditor;
+export default React.lazy(() => import('./aes-editor'));

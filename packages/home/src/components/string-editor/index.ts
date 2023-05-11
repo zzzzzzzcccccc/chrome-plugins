@@ -1,3 +1,3 @@
-import StringEditor from './string-editor';
+import React from 'react';
 
-export default StringEditor;
+export default React.lazy(() => import('./string-editor'));

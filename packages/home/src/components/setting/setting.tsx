@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import {
   Box,
   IconButton,
@@ -15,15 +15,16 @@ import {
 import CloseIcon from '@mui/icons-material/Close';
 import ThemeSetting from './theme-setting';
 import TranslationsSetting from './translations-setting';
-import { useTranslation, useTheme, useAppNavigate } from '../../hooks';
+import { useTranslation, useTheme, useStoreSelector, useStoreDispatch } from '../../hooks';
 import { CSS_NAME_SPACE } from '../../constants';
+import { setAppState } from '../../store/slices/app-slice';
 
 export default function Setting() {
   const t = useTranslation();
   const { globalStyle, theme } = useTheme();
-  const { back } = useAppNavigate();
+  const dispatch = useStoreDispatch();
+  const { openSetting } = useStoreSelector((state) => state.app);
 
-  const [open, setOpen] = useState(false);
   const [active, setActive] = useState(0);
 
   const menuList = [
@@ -41,19 +42,11 @@ export default function Setting() {
   const Component = menuList[active].component;
 
   const onClose = () => {
-    setOpen(false);
-    back();
+    dispatch(setAppState({ openSetting: false }));
   };
 
-  useEffect(() => {
-    setOpen(true);
-    return () => {
-      setOpen(false);
-    };
-  }, []);
-
   return (
-    <Dialog open={open} onClose={onClose} scroll="paper">
+    <Dialog open={openSetting} onClose={onClose} scroll="paper">
       <DialogTitle sx={{ ...globalStyle.frc }}>
         <Typography variant="body1" sx={{ flex: 1, color: 'primary.main' }}>
           {t('setting')}

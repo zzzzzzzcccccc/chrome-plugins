@@ -5,10 +5,14 @@ import AppContainer from '../app-container';
 import AppFooter from '../app-footer';
 import Background from '../background';
 import { Outlet } from 'react-router-dom';
-import { useTheme } from '../../hooks';
+import { useLayout, useTheme } from '../../hooks';
+import AppSearch from '../app-search';
+import Setting from '../setting';
 
 function Layout() {
   const { globalStyle } = useTheme();
+
+  useLayout();
 
   return (
     <>
@@ -17,6 +21,8 @@ function Layout() {
         <AppHead />
         <AppContainer />
         <AppFooter />
+        <AppSearch />
+        <Setting />
         <Outlet />
       </Box>
     </>

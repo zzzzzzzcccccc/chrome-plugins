@@ -1,9 +1,9 @@
 import React from 'react';
+import AppIcon from '../app-icon';
 import { AppCardProps } from './types';
 import { Box, Typography } from '@mui/material';
 import { CSS_NAME_SPACE } from '../../constants';
 import { useTheme } from '../../hooks';
-import Image from 'next/image';
 
 function AppCard(props: AppCardProps) {
   const { title, onClick, icon } = props;
@@ -21,25 +21,6 @@ function AppCard(props: AppCardProps) {
     }
   };
 
-  const renderIcon = () => {
-    const iconProps = {
-      style: icon.style,
-      className: icon.className,
-    };
-    switch (icon.type) {
-      case 'svg':
-        return (
-          <svg {...iconProps}>
-            <use xlinkHref={icon.target} />
-          </svg>
-        );
-      case 'image':
-        return <Image width={appSize} height={appSize} {...iconProps} alt="icon" src={icon.target} />;
-      default:
-        return null;
-    }
-  };
-
   return (
     <Box
       className={`${CSS_NAME_SPACE}-click`}
@@ -53,16 +34,25 @@ function AppCard(props: AppCardProps) {
         borderRadius: 1,
         width: appSize * 2,
       }}
+      aria-label={title}
       title={title}
       onClick={handleOnClick}
       onKeyDown={handleOnKeyDown}
     >
-      <Box className={`${CSS_NAME_SPACE}-fcc`}>{renderIcon()}</Box>
+      <Box className={`${CSS_NAME_SPACE}-fcc`}>
+        <AppIcon
+          type={icon.type}
+          target={icon.target}
+          style={icon.style}
+          className={icon.className}
+          width={appSize}
+          height={appSize}
+        />
+      </Box>
       <Typography
         variant="body2"
         sx={{ width: '100%', textAlign: 'center', pt: 1, color: theme.palette.text.primary }}
         noWrap
-        className={`${CSS_NAME_SPACE}-fcc`}
       >
         {title}
       </Typography>

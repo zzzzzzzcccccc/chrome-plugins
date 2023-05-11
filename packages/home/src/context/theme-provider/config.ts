@@ -59,4 +59,12 @@ export const globalStyle = {
   glass: {
     backdropFilter: 'blur(40px)',
   },
+  maxZIndex: {
+    zIndex: 1501,
+  },
+  ellipsis: {
+    whiteSpace: 'nowrap',
+    overflow: 'hidden',
+    textOverflow: 'ellipsis',
+  },
 };

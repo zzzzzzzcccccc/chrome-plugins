@@ -13,11 +13,9 @@ export default function AESEditor() {
 
   const cfg = useMemo(
     () => ({
-      iv: CryptoJS.enc.Utf8.parse(aes.iv),
-      // @ts-ignore
-      mode: CryptoJS.mode[aes.mode],
-      // @ts-ignore
-      padding: CryptoJS.pad[aes.pad],
+      iv: CryptoJS.enc.Hex.parse(aes.iv),
+      mode: (CryptoJS.mode as any)[aes.mode],
+      padding: (CryptoJS.pad as any)[aes.pad],
     }),
     [aes],
   );
@@ -29,65 +27,63 @@ export default function AESEditor() {
     color: isDark ? '#fff' : undefined,
   };
 
-  const handleLeftOnchange = (v: string) => {
+  const handleLeftOnchange = (v: string, { secret = aes.secret, ...aesCfg }: Record<string, any> = {}) => {
     dispatch(setAes({ left: v }));
     try {
-      dispatch(setAes({ right: CryptoJS.AES.encrypt(v, aes.secret, cfg).toString() }));
+      dispatch(setAes({ right: CryptoJS.AES.encrypt(v, secret, { ...cfg, ...aesCfg }).toString() }));
     } catch (e) {
       return null;
     }
   };
 
-  const handleRightOnChange = (v: string) => {
+  const handleRightOnChange = (v: string, { secret = aes.secret, ...aesCfg }: Record<string, any> = {}) => {
     dispatch(setAes({ right: v }));
     try {
-      dispatch(setAes({ left: CryptoJS.AES.decrypt(v, aes.secret, cfg).toString(CryptoJS.enc.Utf8) }));
+      dispatch(setAes({ left: CryptoJS.AES.decrypt(v, secret, { ...cfg, ...aesCfg }).toString(CryptoJS.enc.Utf8) }));
     } catch (e) {
       return null;
     }
   };
 
-  const beforeOnChange = () => {
+  const afterOnChange = (options: Record<string, any> = {}) => {
     if (aes.left) {
-      handleLeftOnchange(aes.left);
+      handleLeftOnchange(aes.left, options);
       return;
     }
     if (aes.right) {
-      handleRightOnChange(aes.right);
+      handleRightOnChange(aes.right, options);
     }
   };
 
   const handleModeOnChange = (event: SelectChangeEvent) => {
-    dispatch(setAes({ mode: event.target.value }));
-    beforeOnChange();
+    const { value } = event.target;
+    dispatch(setAes({ mode: value }));
+    afterOnChange({ mode: (CryptoJS.mode as any)[value] });
   };
 
   const handlePadOnChange = (event: SelectChangeEvent) => {
-    dispatch(setAes({ pad: event.target.value }));
-    beforeOnChange();
+    const { value } = event.target;
+    dispatch(setAes({ pad: value }));
+    afterOnChange({ pad: (CryptoJS.pad as any)[value] });
   };
 
   const handleSecretOnChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    dispatch(setAes({ secret: event.target.value }));
-    beforeOnChange();
+    const { value } = event.target;
+    dispatch(setAes({ secret: value }));
+    afterOnChange({ secret: value });
   };
 
   const handleIvOnChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    dispatch(setAes({ iv: event.target.value }));
-    beforeOnChange();
+    const { value } = event.target;
+    dispatch(setAes({ iv: value }));
+    afterOnChange({ iv: CryptoJS.enc.Hex.parse(value) });
   };
 
   const renderMode = () => {
     return (
       <FormControl>
-        <InputLabel id="aes-mode">{t('develop.aes.mode')}</InputLabel>
-        <Select
-          labelId="aes-mode"
-          label={t('develop.aes.mode')}
-          value={aes.mode}
-          size="small"
-          onChange={handleModeOnChange}
-        >
+        <InputLabel id="aes-mode">{t('mode')}</InputLabel>
+        <Select labelId="aes-mode" label={t('mode')} value={aes.mode} size="small" onChange={handleModeOnChange}>
           <MenuItem value="CBC">CBC</MenuItem>
           <MenuItem value="CFB">CFB</MenuItem>
           <MenuItem value="OFB">OFB</MenuItem>
@@ -101,14 +97,8 @@ export default function AESEditor() {
   const renderPad = () => {
     return (
       <FormControl>
-        <InputLabel id="aes-pad">{t('develop.aes.pad')}</InputLabel>
-        <Select
-          labelId="aes-pad"
-          label={t('develop.aes.pad')}
-          value={aes.pad}
-          size="small"
-          onChange={handlePadOnChange}
-        >
+        <InputLabel id="aes-pad">{t('pad')}</InputLabel>
+        <Select labelId="aes-pad" label={t('pad')} value={aes.pad} size="small" onChange={handlePadOnChange}>
           <MenuItem value="Pkcs7">Pkcs7</MenuItem>
           <MenuItem value="AnsiX923">AnsiX923</MenuItem>
           <MenuItem value="Iso10126">Iso10126</MenuItem>
@@ -126,7 +116,7 @@ export default function AESEditor() {
         <TextField
           variant="outlined"
           value={aes.secret}
-          label={t('develop.aes.secret')}
+          label={t('secret')}
           size="small"
           onChange={handleSecretOnChange}
         />
@@ -137,13 +127,7 @@ export default function AESEditor() {
   const renderIv = () => {
     return (
       <FormControl>
-        <TextField
-          variant="outlined"
-          value={aes.iv}
-          label={t('develop.aes.iv')}
-          size="small"
-          onChange={handleIvOnChange}
-        />
+        <TextField variant="outlined" value={aes.iv} label={t('iv')} size="small" onChange={handleIvOnChange} />
       </FormControl>
     );
   };

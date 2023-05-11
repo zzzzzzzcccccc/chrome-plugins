@@ -1,3 +1,3 @@
-import Base64Editor from './base64-editor';
+import React from 'react';
 
-export default Base64Editor;
+export default React.lazy(() => import('./base64-editor'));

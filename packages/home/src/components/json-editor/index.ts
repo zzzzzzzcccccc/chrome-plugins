@@ -1,3 +1,3 @@
-import JsonEditor from './json-editor';
+import React from 'react';
 
-export default JsonEditor;
+export default React.lazy(() => import('./json-editor'));

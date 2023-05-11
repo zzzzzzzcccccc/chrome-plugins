@@ -1,7 +1,9 @@
 class LRUCache<K = string, V = any> {
-  private cache = new Map<K, V>();
+  private readonly cache: Map<K, V>;
 
-  constructor(private capacity: number) {}
+  constructor(private capacity: number, initialValue: Map<K, V> = new Map<K, V>()) {
+    this.cache = initialValue;
+  }
 
   private first() {
     return this.cache.keys().next().value;
@@ -27,6 +29,10 @@ class LRUCache<K = string, V = any> {
     return null;
   }
 
+  public remove(key: K) {
+    this.cache.delete(key);
+  }
+
   public keys() {
     const keys: K[] = [];
     this.cache.forEach((value, key) => keys.push(key));
@@ -37,6 +43,10 @@ class LRUCache<K = string, V = any> {
     const values: V[] = [];
     this.cache.forEach((value) => values.push(value));
     return values;
+  }
+
+  public toJson() {
+    return Object.fromEntries(this.cache) as Record<string, V>;
   }
 }
 

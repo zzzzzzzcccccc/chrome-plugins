@@ -18,7 +18,7 @@ export default function ThemeSetting() {
     return (
       <>
         <Typography variant="subtitle1" sx={{ pb: 1 }}>
-          {t('setting.theme.mode')}
+          {t('mode')}
         </Typography>
         <ButtonGroup>
           <Button
@@ -58,7 +58,7 @@ export default function ThemeSetting() {
         </Typography>
         <Box sx={{ pl: 2, pr: 2 }}>
           <Slider
-            valueLabelDisplay="on"
+            valueLabelDisplay="auto"
             step={1}
             max={9}
             valueLabelFormat={(v) => `${(v + 1) * 10}%`}
@@ -108,7 +108,7 @@ export default function ThemeSetting() {
             step={1}
             min={24}
             max={100}
-            valueLabelDisplay="on"
+            valueLabelDisplay="auto"
             onChange={(_, v) => updateConfiguration({ appSize: v as number })}
           />
         </Box>

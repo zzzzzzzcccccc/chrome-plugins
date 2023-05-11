@@ -1,3 +1,3 @@
-import MD5Editor from './md5-editor';
+import React from 'react';
 
-export default MD5Editor;
+export default React.lazy(() => import('./md5-editor'));

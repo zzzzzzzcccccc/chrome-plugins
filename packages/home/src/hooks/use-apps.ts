@@ -14,8 +14,17 @@ export interface AppItem {
 
 export function useDevelopApps(): AppItem[] {
   const t = useTranslation();
-  const { toJsonEditor, toBase64Editor, toStringEditor, toHTMLToJSXEditor, toMD5Editor, toAESEditor } =
-    useAppNavigate();
+  const {
+    toJsonEditor,
+    toBase64Editor,
+    toStringEditor,
+    toHTMLToJSXEditor,
+    toMD5Editor,
+    toAESEditor,
+    toSHAEditor,
+    toRabbitEditor,
+    toReadFile,
+  } = useAppNavigate();
   const { appSize } = useTheme();
 
   const iconStyle: React.CSSProperties = {
@@ -77,6 +86,33 @@ export function useDevelopApps(): AppItem[] {
       },
       title: t('develop.aes'),
       onClick: toAESEditor,
+    },
+    {
+      icon: {
+        target: ICONS.sha,
+        type: 'image',
+        style: iconStyle,
+      },
+      title: t('develop.sha'),
+      onClick: toSHAEditor,
+    },
+    {
+      icon: {
+        target: '#rabbit',
+        type: 'svg',
+        style: iconStyle,
+      },
+      title: t('develop.rabbit'),
+      onClick: toRabbitEditor,
+    },
+    {
+      icon: {
+        target: '#readFile',
+        type: 'svg',
+        style: iconStyle,
+      },
+      title: t('develop.read_file'),
+      onClick: toReadFile,
     },
   ];
 }
