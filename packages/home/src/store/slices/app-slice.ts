@@ -183,4 +183,5 @@ export const {
   setRabbit,
   setReadFile,
 } = appSlice.actions;
+
 export default appSlice.reducer;

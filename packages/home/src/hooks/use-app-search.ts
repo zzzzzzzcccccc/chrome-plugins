@@ -1,12 +1,16 @@
-import { useState, useRef, useMemo } from 'react';
+import { useState, useRef, useMemo, useEffect } from 'react';
 import { useDevelopApps, AppItem } from './use-apps';
 import { LRUCache, formatString, storage } from '../utils';
 import { APP_SEARCH_LRU_CAPACITY, SESSION_KEYS } from '../constants';
+import { useStoreSelector } from './use-store';
 
 export type RecentKeywordItem = { source: string; date: string };
 
 export default function useAppSearch() {
+  const { openSearch } = useStoreSelector((state) => state.app);
   const developApps = useDevelopApps();
+
+  const openSearchRef = useRef(openSearch);
 
   const [keyword, setKeyword] = useState('');
   const [apps, setApps] = useState<AppItem[]>([]);
@@ -75,11 +79,16 @@ export default function useAppSearch() {
     });
   };
 
+  useEffect(() => {
+    openSearchRef.current = openSearch;
+  }, [openSearch]);
+
   return {
     keyword,
     setKeyword,
     apps,
     filterRecentKeywordMap,
+    openSearch,
     handlerSearchApps,
     handleSearchRecentKeyword,
     addRecentKeyword,

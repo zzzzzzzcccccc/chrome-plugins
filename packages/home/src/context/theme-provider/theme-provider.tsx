@@ -5,7 +5,7 @@ import { ThemeProvider as MThemeProvider, createTheme, Theme } from '@mui/materi
 import GlobalStyles from './global-styles';
 import { useInitialize } from '../../hooks';
 import { storage } from '../../utils';
-import { SESSION_KEYS } from '../../constants';
+import { DEFAULT_BACKGROUND_URL_STORE, SESSION_KEYS } from '../../constants';
 
 export interface IThemeContext {
   mode: 'light' | 'dark' | 'system';
@@ -16,6 +16,8 @@ export interface IThemeContext {
   isDark: boolean;
   theme: Theme;
   appSize: number;
+  backgroundUrl: string;
+  backgroundUrlStore: string[];
   updateConfiguration: (payload: Partial<Configuration>) => void;
 }
 
@@ -28,12 +30,17 @@ const initialContext: IThemeContext = {
   isDark: false,
   theme: createTheme(),
   appSize: 48,
+  backgroundUrl: './images/bg/2.jpg',
+  backgroundUrlStore: [],
   updateConfiguration: () => console.warn('please using ThemeProvider first!!!'),
 };
 
 export const ThemeContext = createContext(initialContext);
 
-type Configuration = Pick<IThemeContext, 'mode' | 'colorRange' | 'primaryColor' | 'appSize'>;
+type Configuration = Pick<
+  IThemeContext,
+  'mode' | 'colorRange' | 'primaryColor' | 'appSize' | 'backgroundUrl' | 'backgroundUrlStore'
+>;
 
 export default function ThemeProvider(props: { children?: React.ReactNode }) {
   const { renderType } = useInitialize();
@@ -45,6 +52,10 @@ export default function ThemeProvider(props: { children?: React.ReactNode }) {
     colorRange: configurationStorage?.colorRange || initialContext.colorRange,
     primaryColor: configurationStorage?.primaryColor || initialContext.primaryColor,
     appSize: configurationStorage?.appSize || initialContext.appSize,
+    backgroundUrl: configurationStorage?.backgroundUrl || initialContext.backgroundUrl,
+    backgroundUrlStore: configurationStorage?.backgroundUrlStore
+      ? Array.from(new Set([...configurationStorage.backgroundUrlStore, ...DEFAULT_BACKGROUND_URL_STORE]))
+      : DEFAULT_BACKGROUND_URL_STORE,
   });
 
   const prefersDarkMode = useMediaQuery('(prefers-color-scheme: dark)');

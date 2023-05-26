@@ -23,3 +23,4 @@ export const BASE_URL_BY_BAIDU = 'https://www.baidu.com';
 export const BASE_URL_BY_GOOGLE = 'https://www.google.com';
 export const BASE_URL_BY_BING = 'https://www.bing.com';
 export const BASE_URL_BY_YAHOO = 'https://search.yahoo.com';
+export const DEFAULT_BACKGROUND_URL_STORE = ['./images/bg/1.jpg', './images/bg/2.jpg'];

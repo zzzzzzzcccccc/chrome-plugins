@@ -8,15 +8,16 @@ import { Outlet } from 'react-router-dom';
 import { useLayout, useTheme } from '../../hooks';
 import AppSearch from '../app-search';
 import Setting from '../setting';
+import Toast from '../toast';
 
 function Layout() {
-  const { globalStyle } = useTheme();
+  const { globalStyle, backgroundUrl } = useTheme();
 
   useLayout();
 
   return (
     <>
-      <Background url="./images/bg.jpg" />
+      <Background url={backgroundUrl} />
       <Box sx={{ ...globalStyle.fc, width: '100%', height: '100%' }}>
         <AppHead />
         <AppContainer />
@@ -25,6 +26,7 @@ function Layout() {
         <Setting />
         <Outlet />
       </Box>
+      <Toast />
     </>
   );
 }

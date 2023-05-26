@@ -7,6 +7,8 @@ import buildSearchUrlByKeyword from './build-search-url-by-keyword';
 import { createLink } from './link';
 import { createFileInput } from './input';
 import formatFileSize from './format-file-size';
+import getQueryVariable from './get-query-variable';
+import loadImage from './load-image';
 
 export type { KeyCode, KeyboardOptions } from './keyboard';
 export type { FileInputOptions } from './input';
@@ -21,4 +23,6 @@ export {
   createLink,
   createFileInput,
   formatFileSize,
+  getQueryVariable,
+  loadImage,
 };

@@ -11,7 +11,6 @@
     "move:root": "mv ./out ./dist && ../../scripts/move.sh ./dist home"
   },
   "dependencies": {
-    "@chrome-plugin/common": "^1.0.3",
     "@emotion/react": "^11.10.6",
     "@emotion/styled": "^11.10.6",
     "@monaco-editor/react": "^4.4.6",

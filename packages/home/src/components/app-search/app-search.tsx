@@ -1,15 +1,7 @@
 import React, { useState } from 'react';
 import { Box, Paper, IconButton, InputBase, Divider, Tabs, Tab, Portal } from '@mui/material';
-import {
-  useStoreSelector,
-  useStoreDispatch,
-  useTheme,
-  useTranslation,
-  useAppSearch,
-  useOutSideClick,
-} from '../../hooks';
+import { useTheme, useTranslation, useAppSearch } from '../../hooks';
 import SearchIcon from '@mui/icons-material/Search';
-import { setAppState } from '../../store/slices/app-slice';
 import Result from './result';
 import AppIcon from '../app-icon';
 import { buildSearchUrlByKeyword, createLink } from '../../utils';
@@ -17,19 +9,17 @@ import { buildSearchUrlByKeyword, createLink } from '../../utils';
 export default function AppSearch() {
   const t = useTranslation();
   const { globalStyle } = useTheme();
-  const { openSearch } = useStoreSelector((state) => state.app);
-  const dispatch = useStoreDispatch();
   const {
     keyword,
     setKeyword,
     apps,
     filterRecentKeywordMap,
+    openSearch,
     handlerSearchApps,
     handleSearchRecentKeyword,
     addRecentKeyword,
     removeRecentKeyword,
   } = useAppSearch();
-  const wrapperRef = useOutSideClick<HTMLDivElement>(() => dispatch(setAppState({ openSearch: false })));
 
   const [source, setSource] = useState('google');
 
@@ -91,7 +81,7 @@ export default function AppSearch() {
         <Box
           sx={{ position: 'fixed', left: '50%', transform: 'translateX(-50%)', top: '10%', ...globalStyle.maxZIndex }}
         >
-          <Paper sx={{ ...globalStyle.fc, ...globalStyle.glass, width: 320 }} elevation={6} ref={wrapperRef}>
+          <Paper sx={{ ...globalStyle.fc, ...globalStyle.glass, width: 320 }} elevation={6}>
             <Box sx={{ ...globalStyle.fcc, pb: 1, width: '100%' }}>
               <Tabs
                 sx={{

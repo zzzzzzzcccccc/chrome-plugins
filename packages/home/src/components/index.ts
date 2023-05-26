@@ -11,7 +11,7 @@ import RealTime from './real-time';
 import Setting from './setting';
 import SVGProvider from './svg-provider';
 import CodeEditor from './code-editor';
-import WithPopper from './with-popper';
+import Toast from './toast';
 import JsonEditor from './json-editor';
 import Base64Editor from './base64-editor';
 import StringEditor from './string-editor';
@@ -36,7 +36,7 @@ export {
   Setting,
   SVGProvider,
   CodeEditor,
-  WithPopper,
+  Toast,
   JsonEditor,
   Base64Editor,
   StringEditor,

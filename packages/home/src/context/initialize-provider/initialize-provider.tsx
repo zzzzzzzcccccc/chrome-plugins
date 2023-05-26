@@ -1,7 +1,6 @@
 import React, { createContext, useState, useEffect, useRef, useCallback } from 'react';
-import { getQueryVariable } from '@chrome-plugin/common';
 import { http } from '../../common';
-import { Keyboard, KeyCode, getPlatform } from '../../utils';
+import { Keyboard, KeyCode, getPlatform, getQueryVariable } from '../../utils';
 
 export interface IInitializeContext {
   loaded: boolean;

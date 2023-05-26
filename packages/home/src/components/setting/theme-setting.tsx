@@ -1,18 +1,83 @@
-import React from 'react';
-import { Button, ButtonGroup, Typography, Box, Paper, Slider } from '@mui/material';
+import React, { useState } from 'react';
+import { Button, ButtonGroup, Typography, Box, Paper, Slider, Stack, TextField } from '@mui/material';
 import LightModeIcon from '@mui/icons-material/LightMode';
 import DarkModeOutlinedIcon from '@mui/icons-material/DarkModeOutlined';
 import SettingsSuggestOutlinedIcon from '@mui/icons-material/SettingsSuggestOutlined';
-import { useTranslation, useTheme } from '../../hooks';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
+import DeleteIcon from '@mui/icons-material/Delete';
+import { useTranslation, useTheme, useToast } from '../../hooks';
 import { COLOR_RANGES } from '../../constants';
+import { loadImage } from '../../utils';
 
 export default function ThemeSetting() {
   const t = useTranslation();
-  const { mode, globalStyle, isDark, primaryColor, colorRange, appSize, primaryColorMapper, updateConfiguration } =
-    useTheme();
+  const {
+    mode,
+    globalStyle,
+    isDark,
+    primaryColor,
+    colorRange,
+    appSize,
+    primaryColorMapper,
+    backgroundUrlStore,
+    backgroundUrl,
+    updateConfiguration,
+  } = useTheme();
+  const { show } = useToast();
+
+  const [customBackgroundUrl, setCustomBackgroundUrl] = useState('');
 
   const getButtonVariant = (target: string) => (target === mode ? 'contained' : 'outlined');
+
+  const handleBackgroundUrlOnKeyDown = async (e: React.KeyboardEvent<HTMLInputElement>) => {
+    const { key } = e;
+    const value = customBackgroundUrl.trim();
+    if (key !== 'Enter') return;
+    if (!value) return;
+    e.stopPropagation();
+    e.preventDefault();
+    if (backgroundUrlStore.indexOf(value) > -1) {
+      show({
+        message: t('setting.theme.custom_background_url.existed'),
+        type: 'warning',
+      });
+      return;
+    }
+    const { error } = await loadImage(value);
+    if (error) {
+      show({
+        message: t('setting.theme.custom_background_url.no_found'),
+        type: 'error',
+      });
+      return;
+    }
+    updateConfiguration({ backgroundUrlStore: [value, ...backgroundUrlStore], backgroundUrl: value });
+    show({
+      message: t('setting.theme.custom_background_url.success'),
+      type: 'success',
+    });
+  };
+
+  const handleBackgroundUrlOnDelete = (url: string) => (e: React.MouseEvent<HTMLDivElement>) => {
+    e.stopPropagation();
+    e.preventDefault();
+    const current = backgroundUrlStore.filter((v) => url !== v);
+    if (!current.length) {
+      show({
+        message: t('setting.theme.custom_background_url.delete.failed'),
+        type: 'warning',
+      });
+      return;
+    }
+    updateConfiguration({
+      backgroundUrlStore: current,
+      backgroundUrl: current.indexOf(url) > -1 ? backgroundUrl : current[0],
+    });
+    show({
+      message: t('setting.theme.custom_background_url.delete.success'),
+      type: 'success',
+    });
+  };
 
   const renderMode = () => {
     return (
@@ -116,12 +181,60 @@ export default function ThemeSetting() {
     );
   };
 
+  const renderBackground = () => {
+    return (
+      <>
+        <Box sx={{ ...globalStyle.fr, alignItems: 'center', justifyContent: 'space-between' }}>
+          <Typography variant="subtitle1">{t('setting.theme.background_url')}</Typography>
+          <TextField
+            variant="standard"
+            onKeyDown={handleBackgroundUrlOnKeyDown}
+            value={customBackgroundUrl}
+            onChange={(e) => setCustomBackgroundUrl(e.target.value)}
+            size="small"
+            sx={{ width: 240 }}
+            placeholder={t('setting.theme.custom_background_url.placeholder') || ''}
+            label={t('setting.theme.custom_background_url')}
+          />
+        </Box>
+        <Stack direction="row" flexWrap="wrap">
+          {backgroundUrlStore.map((url, index) => {
+            const active = url === backgroundUrl;
+            return (
+              <Box
+                sx={{ ml: index % 4 === 0 ? 0 : 0.5, mt: 0.5, position: 'relative', cursor: 'pointer' }}
+                key={index}
+                onClick={() => updateConfiguration({ backgroundUrl: url })}
+              >
+                <img
+                  src={url}
+                  alt={t('setting.theme.background_url') || ''}
+                  loading="lazy"
+                  style={{ width: 96, height: 96, display: 'block' }}
+                />
+                {active && (
+                  <Box sx={{ position: 'absolute', left: '50%', top: '50%', transform: 'translate(-50%, -50%)' }}>
+                    <CheckCircleIcon sx={{ color: isDark ? '#000' : '#fff' }} />
+                  </Box>
+                )}
+                <Box sx={{ position: 'absolute', right: 0, top: 0 }} onClick={handleBackgroundUrlOnDelete(url)}>
+                  <DeleteIcon sx={{ color: isDark ? '#000' : '#fff' }} />
+                </Box>
+              </Box>
+            );
+          })}
+        </Stack>
+      </>
+    );
+  };
+
   return (
     <>
       {renderMode()}
       {renderColorRange()}
       {renderColor()}
       {renderAppSize()}
+      {renderBackground()}
     </>
   );
 }

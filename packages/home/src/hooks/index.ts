@@ -7,8 +7,9 @@ import useAppNavigate from './use-app-navigate';
 import { useDevelopApps } from './use-apps';
 import useLayout from './use-layout';
 import useAppSearch from './use-app-search';
-import useOutSideClick from './use-out-side-click';
 import useFileInput from './use-file-input';
+import useOutSideClick from './use-out-side-click';
+import useToast from './use-toast';
 
 export type { AppItem } from './use-apps';
 export type { RecentKeywordItem } from './use-app-search';
@@ -24,6 +25,7 @@ export {
   useDevelopApps,
   useLayout,
   useAppSearch,
-  useOutSideClick,
   useFileInput,
+  useOutSideClick,
+  useToast,
 };
