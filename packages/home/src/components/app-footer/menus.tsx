@@ -2,39 +2,35 @@ import React from 'react';
 import AppIcon from '../app-icon';
 import { Box, Button, Tooltip } from '@mui/material';
 import { useStoreDispatch, useStoreSelector, useTheme, useTranslation } from '../../hooks';
-import { setAppState } from '../../store/slices/app-slice';
+import { setActive } from '../../store/slices/menu-slice';
 
 function Menus() {
   const { theme } = useTheme();
   const t = useTranslation();
-  const { activeMenu } = useStoreSelector((state) => state.app);
+  const { active, list } = useStoreSelector((state) => state.menu);
   const dispatch = useStoreDispatch();
 
-  const menuList = [
-    {
-      id: 'develop',
-      title: t('develop.title'),
-    },
-  ];
-
   const handleOnClick = (id: string) => {
-    dispatch(setAppState({ activeMenu: id }));
+    dispatch(setActive(id));
   };
 
   return (
     <Box>
-      {menuList.map((record) => {
-        const active = activeMenu === record.id;
+      {list.map((record, index) => {
+        const enabled = active === record.id;
+        const isFirst = index === 0;
         return (
-          <Tooltip key={record.id} title={record.title} aria-label={record.title}>
-            <Button sx={{ minWidth: 'auto', p: 0, borderRadius: 0 }} onClick={() => handleOnClick(record.id)}>
+          <Tooltip key={record.id} title={t(record.title) as string} aria-label={t(record.title) as string}>
+            <Button
+              sx={{ minWidth: 'auto', p: 0, borderRadius: 0, ml: isFirst ? 0 : 1 }}
+              onClick={() => handleOnClick(record.id)}
+            >
               <AppIcon
-                type="svg"
-                target={`#${record.id}`}
+                {...record.icon}
                 style={{
                   width: 36,
                   height: 36,
-                  color: active ? theme.palette.primary.main : theme.palette.text.primary,
+                  color: enabled ? theme.palette.primary.main : theme.palette.text.primary,
                 }}
               />
             </Button>

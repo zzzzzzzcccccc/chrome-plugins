@@ -23,6 +23,13 @@
   "baidu": "Baidu",
   "bing": "Bing",
   "yahoo": "Yahoo",
+  "taobao": "Taobao",
+  "tmall": "Tmall",
+  "jd": "Jingdong",
+  "steam": "Steam",
+  "youtube": "YouTube",
+  "bilibili": "Bilibili",
+  "tiktok": "Tiktok",
   "application": "Application",
   "recent_keyword": "Recent keywords",
   "click_or_drag_file_title": "Click or drag file to this area to upload",
@@ -55,5 +62,9 @@
   "develop.aes": "AES",
   "develop.sha": "SHA",
   "develop.rabbit": "Rabbit",
-  "develop.read_file": "File Metadata"
+  "develop.read_file": "File Metadata",
+  "shop.title": "Shop",
+  "social.title": "Social contact",
+  "game.title": "Game",
+  "media.title": "Media"
 }

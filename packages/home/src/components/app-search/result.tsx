@@ -12,30 +12,29 @@ import {
   ListItemText,
   IconButton,
 } from '@mui/material';
-import { useStoreDispatch, useTheme, useTranslation, RecentKeywordItem } from '../../hooks';
+import { useStoreDispatch, useTheme, useTranslation, RecentKeywordItem, useAppNavigate } from '../../hooks';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { setAppState } from '../../store/slices/app-slice';
+import { AppItem } from '../../store/slices/menu-slice';
 
 export default function Result(props: ResultProps) {
   const { apps, filterRecentKeywordMap, onClickRecentKeyword, onRemoveRecentKeyword } = props;
 
   const t = useTranslation();
   const { globalStyle } = useTheme();
+  const { appJump } = useAppNavigate();
   const dispatch = useStoreDispatch();
 
-  const handleAppOnClick = (
-    event: React.MouseEvent<HTMLElement> | React.KeyboardEvent<HTMLElement>,
-    cb?: () => void,
-  ) => {
+  const handleAppOnClick = (event: React.MouseEvent<HTMLElement> | React.KeyboardEvent<HTMLElement>, app: AppItem) => {
     event.stopPropagation();
     dispatch(setAppState({ openSearch: false }));
-    cb?.();
+    appJump(app.url, app.jumpMethod);
   };
 
-  const handleOnKeyDown = (event: React.KeyboardEvent<HTMLElement>, cb?: () => void) => {
+  const handleOnKeyDown = (event: React.KeyboardEvent<HTMLElement>, app: AppItem) => {
     const { key } = event;
     if (key === 'Enter') {
-      handleAppOnClick(event, cb);
+      handleAppOnClick(event, app);
     }
   };
 
@@ -97,8 +96,8 @@ export default function Result(props: ResultProps) {
             <ListItem
               key={index}
               disablePadding
-              onClick={(e) => handleAppOnClick(e, app.onClick)}
-              onKeyDown={(e) => handleOnKeyDown(e, app.onClick)}
+              onClick={(e) => handleAppOnClick(e, app)}
+              onKeyDown={(e) => handleOnKeyDown(e, app)}
             >
               <ListItemButton>
                 <ListItemIcon sx={{ minWidth: 'auto' }}>
@@ -110,7 +109,7 @@ export default function Result(props: ResultProps) {
                     style={{ width: 20, height: 20 }}
                   />
                 </ListItemIcon>
-                <ListItemText sx={{ pl: 1 }} primary={app.title} />
+                <ListItemText sx={{ pl: 1 }} primary={t(app.title) as string} />
               </ListItemButton>
             </ListItem>
           ))}

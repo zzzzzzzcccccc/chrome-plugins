@@ -1,14 +1,16 @@
 import { useState, useRef, useMemo, useEffect } from 'react';
-import { useDevelopApps, AppItem } from './use-apps';
 import { LRUCache, formatString, storage } from '../utils';
 import { APP_SEARCH_LRU_CAPACITY, SESSION_KEYS } from '../constants';
 import { useStoreSelector } from './use-store';
+import { AppItem } from '../store/slices/menu-slice';
+import useTranslation from './use-translation';
 
 export type RecentKeywordItem = { source: string; date: string };
 
 export default function useAppSearch() {
   const { openSearch } = useStoreSelector((state) => state.app);
-  const developApps = useDevelopApps();
+  const { list } = useStoreSelector((state) => state.menu);
+  const t = useTranslation();
 
   const openSearchRef = useRef(openSearch);
 
@@ -23,7 +25,7 @@ export default function useAppSearch() {
     new LRUCache<string, RecentKeywordItem>(APP_SEARCH_LRU_CAPACITY, new Map(Object.entries(recentKeywordMap))),
   );
 
-  const allApps = useMemo(() => developApps, [developApps]);
+  const allApps = useMemo(() => list.flatMap((record) => record.apps), [list]);
 
   const handlerSearchApps = (target: string) => {
     const value = target.trim();
@@ -31,7 +33,9 @@ export default function useAppSearch() {
       !value
         ? []
         : allApps.filter(
-            (app) => formatString.toLocaleLowerCase(app.title).indexOf(formatString.toLocaleLowerCase(value)) > -1,
+            (app) =>
+              formatString.toLocaleLowerCase(t(app.title) as string).indexOf(formatString.toLocaleLowerCase(value)) >
+              -1,
           ),
     );
   };

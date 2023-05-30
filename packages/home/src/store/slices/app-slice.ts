@@ -8,7 +8,6 @@ export type VisualFile = {
 };
 
 export interface AppState {
-  activeMenu: string;
   openSetting: boolean;
   openSearch: boolean;
   json: {
@@ -57,7 +56,6 @@ export interface AppState {
 }
 
 const initialState: AppState = {
-  activeMenu: 'develop',
   openSetting: false,
   openSearch: false,
   json: {
