@@ -83,6 +83,8 @@
   "develop.rabbit": "Rabbit",
   "develop.read_file": "文件源数据",
   "develop.json_yaml_editor": "Json Yaml互转",
+  "develop.xml_json_editor": "Json Xml互转",
+  "develop.url_parse": "Url 解析",
   "shop.title": "购物",
   "social.title": "社交",
   "game.title": "游戏",

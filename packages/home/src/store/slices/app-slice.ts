@@ -1,4 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { SVGS } from '../../constants';
 
 export type VisualFile = {
   name: string;
@@ -10,6 +11,7 @@ export type VisualFile = {
 export interface AppState {
   openSetting: boolean;
   openSearch: boolean;
+  activeSetting: string;
   contextMenu: {
     open: boolean;
     x: number;
@@ -64,11 +66,26 @@ export interface AppState {
     left: string;
     right: string;
   };
+  jsonXml: {
+    left: string;
+    right: string;
+  };
+  urlParse: {
+    list: string[];
+    result: {
+      url: string;
+      validate: boolean;
+      protocol?: string;
+      domain?: string;
+      queryParams: { key: string; value: string }[];
+    }[];
+  };
 }
 
 const initialState: AppState = {
   openSetting: false,
   openSearch: false,
+  activeSetting: SVGS.theme,
   contextMenu: {
     open: false,
     x: 0,
@@ -139,6 +156,58 @@ var2: false
 var3: 100
 `,
   },
+  jsonXml: {
+    left: JSON.stringify({ var1: 'value', var2: false, var3: 100 }, null, 2),
+    right: `<var1>value</var1>
+<var2>false</var2>
+<var3>100</var3>
+`,
+  },
+  urlParse: {
+    list: ['https://domain.hello-world?a=1&b=2&c=3&c=4&c=5', 'https://domain.hello-world?ids=1,2,3,4'],
+    result: [
+      {
+        url: 'https://domain.hello-world?a=1&b=2&c=3&c=4&c=5',
+        validate: true,
+        protocol: 'https:',
+        domain: 'domain.hello-world',
+        queryParams: [
+          {
+            key: 'a',
+            value: '1',
+          },
+          {
+            key: 'b',
+            value: '2',
+          },
+          {
+            key: 'c',
+            value: '3',
+          },
+          {
+            key: 'c',
+            value: '4',
+          },
+          {
+            key: 'c',
+            value: '5',
+          },
+        ],
+      },
+      {
+        url: 'https://domain.hello-world?ids=1,2,3,4',
+        validate: true,
+        protocol: 'https:',
+        domain: 'domain.hello-world',
+        queryParams: [
+          {
+            key: 'ids',
+            value: '1,2,3,4',
+          },
+        ],
+      },
+    ],
+  },
 };
 
 const appSlice = createSlice({
@@ -199,6 +268,14 @@ const appSlice = createSlice({
       const keys = Object.keys(action.payload) as (keyof AppState['jsonYaml'])[];
       keys.forEach((key) => ((state.jsonYaml as any)[key] = action.payload[key]));
     },
+    setJsonXml: (state, action: PayloadAction<Partial<AppState['jsonXml']>>) => {
+      const keys = Object.keys(action.payload) as (keyof AppState['jsonXml'])[];
+      keys.forEach((key) => ((state.jsonXml as any)[key] = action.payload[key]));
+    },
+    setUrlParse: (state, action: PayloadAction<Partial<AppState['urlParse']>>) => {
+      const keys = Object.keys(action.payload) as (keyof AppState['urlParse'])[];
+      keys.forEach((key) => ((state.urlParse as any)[key] = action.payload[key]));
+    },
   },
 });
 
@@ -215,6 +292,8 @@ export const {
   setRabbit,
   setReadFile,
   setJsonYaml,
+  setJsonXml,
+  setUrlParse,
 } = appSlice.actions;
 
 export default appSlice.reducer;

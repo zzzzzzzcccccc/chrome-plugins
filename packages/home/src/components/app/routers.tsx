@@ -10,6 +10,8 @@ import SHAEditor from '../sha-editor';
 import RabbitEditor from '../rabbit-editor';
 import ReadFile from '../read-file';
 import JsonYamlEditor from '../json-yaml-editor';
+import XmlJsonEditor from '../xml-json-editor';
+import UrlParse from '../url-parse';
 
 const routers = [
   {
@@ -89,6 +91,22 @@ const routers = [
     element: (
       <LazyWrapper>
         <JsonYamlEditor />
+      </LazyWrapper>
+    ),
+  },
+  {
+    path: 'xml-json-editor',
+    element: (
+      <LazyWrapper>
+        <XmlJsonEditor />
+      </LazyWrapper>
+    ),
+  },
+  {
+    path: 'url-parse',
+    element: (
+      <LazyWrapper>
+        <UrlParse />
       </LazyWrapper>
     ),
   },

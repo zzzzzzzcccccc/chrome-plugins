@@ -10,6 +10,7 @@ import formatFileSize from './format-file-size';
 import getQueryVariable from './get-query-variable';
 import loadImage from './load-image';
 import timer from './timer';
+import { parseURL } from './url';
 
 export type { KeyCode, KeyboardOptions } from './keyboard';
 export type { FileInputOptions } from './input';
@@ -27,4 +28,5 @@ export {
   getQueryVariable,
   loadImage,
   timer,
+  parseURL,
 };

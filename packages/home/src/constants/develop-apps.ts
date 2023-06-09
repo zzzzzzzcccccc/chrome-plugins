@@ -102,6 +102,24 @@ const DEVELOP_APPS: AppItem[] = [
     url: '/json-yaml-editor',
     jumpMethod: 'internal',
   },
+  {
+    icon: {
+      target: `#${SVGS.xml}`,
+      type: 'svg',
+    },
+    title: 'develop.xml_json_editor',
+    url: '/xml-json-editor',
+    jumpMethod: 'internal',
+  },
+  {
+    icon: {
+      target: `#${SVGS.url}`,
+      type: 'svg',
+    },
+    title: 'develop.url_parse',
+    url: 'url-parse',
+    jumpMethod: 'internal',
+  },
 ];
 
 export default DEVELOP_APPS;

@@ -13,6 +13,7 @@ import SVGProvider from './svg-provider';
 import CodeEditor from './code-editor';
 import Toast from './toast';
 import ContextMenu from './context-menu';
+import TagInput from './tag-input';
 import JsonEditor from './json-editor';
 import Base64Editor from './base64-editor';
 import StringEditor from './string-editor';
@@ -23,6 +24,8 @@ import SHAEditor from './sha-editor';
 import RabbitEditor from './rabbit-editor';
 import ReadFile from './read-file';
 import JsonYamlEditor from './json-yaml-editor';
+import XmlJsonEditor from './xml-json-editor';
+import UrlParse from './url-parse';
 
 export {
   Head,
@@ -40,6 +43,7 @@ export {
   CodeEditor,
   Toast,
   ContextMenu,
+  TagInput,
   JsonEditor,
   Base64Editor,
   StringEditor,
@@ -50,4 +54,6 @@ export {
   RabbitEditor,
   ReadFile,
   JsonYamlEditor,
+  XmlJsonEditor,
+  UrlParse,
 };

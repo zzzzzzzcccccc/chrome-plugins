@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import {
   Box,
   IconButton,
@@ -25,9 +25,7 @@ export default function Setting() {
   const t = useTranslation();
   const { globalStyle, theme } = useTheme();
   const dispatch = useStoreDispatch();
-  const { openSetting } = useStoreSelector((state) => state.app);
-
-  const [active, setActive] = useState(0);
+  const { openSetting, activeSetting } = useStoreSelector((state) => state.app);
 
   const menuList = [
     {
@@ -46,10 +44,14 @@ export default function Setting() {
       component: ApplicationSetting,
     },
   ];
-  const Component = menuList[active].component;
+  const Component = menuList.find((menu) => menu.id === activeSetting)?.component as any;
 
   const onClose = () => {
     dispatch(setAppState({ openSetting: false }));
+  };
+
+  const handleOnClick = (id: string) => () => {
+    dispatch(setAppState({ activeSetting: id }));
   };
 
   return (
@@ -64,11 +66,11 @@ export default function Setting() {
       </DialogTitle>
       <DialogContent sx={{ ...globalStyle.fr, height: 360, p: 0, width: 600 }} dividers>
         <List sx={{ height: '100%', overflow: 'auto', pt: 0, width: 160 }}>
-          {menuList.map((menu, index) => {
-            const selected = index === active;
+          {menuList.map((menu) => {
+            const selected = activeSetting === menu.id;
             const color = selected ? theme.palette.primary.main : undefined;
             return (
-              <ListItemButton key={index} selected={selected} onClick={() => setActive(index)}>
+              <ListItemButton key={menu.id} selected={selected} onClick={handleOnClick(menu.id)}>
                 <ListItemIcon sx={{ minWidth: 'auto' }}>
                   <AppIcon target={`#${menu.id}`} type="svg" style={{ width: 24, height: 24 }} />
                 </ListItemIcon>

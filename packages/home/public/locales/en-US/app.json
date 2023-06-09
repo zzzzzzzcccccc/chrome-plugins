@@ -84,6 +84,8 @@
   "develop.rabbit": "Rabbit",
   "develop.read_file": "File Metadata",
   "develop.json_yaml_editor": "Json Yaml",
+  "develop.xml_json_editor": "Json Xml",
+  "develop.url_parse": "Url Parse",
   "shop.title": "Shop",
   "social.title": "Social contact",
   "game.title": "Game",

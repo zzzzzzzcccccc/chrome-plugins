@@ -38,6 +38,8 @@ const SVGS = {
   github: 'github',
   applicationSetting: 'application_setting',
   yaml: 'yaml',
+  xml: 'xml',
+  url: 'url',
 };
 
 export default SVGS;
