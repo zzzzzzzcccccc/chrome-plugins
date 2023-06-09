@@ -19,18 +19,16 @@ export default function Base64Editor() {
   };
 
   const handleLeftOnchange = (v: string) => {
-    dispatch(setBase64({ left: v }));
     try {
-      dispatch(setBase64({ right: CryptoJS.enc.Base64.stringify(CryptoJS.enc.Utf8.parse(v)) }));
+      dispatch(setBase64({ left: v, right: CryptoJS.enc.Base64.stringify(CryptoJS.enc.Utf8.parse(v)) }));
     } catch (e) {
       return null;
     }
   };
 
   const handleRightOnChange = (v: string) => {
-    dispatch(setBase64({ right: v }));
     try {
-      dispatch(setBase64({ left: CryptoJS.enc.Base64.parse(v).toString(CryptoJS.enc.Utf8) }));
+      dispatch(setBase64({ left: CryptoJS.enc.Base64.parse(v).toString(CryptoJS.enc.Utf8), right: v }));
     } catch (e) {
       return null;
     }

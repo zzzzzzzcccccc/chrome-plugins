@@ -26,19 +26,20 @@ export default function RabbitEditor() {
   };
 
   const handleLeftOnchange = (v: string, { secret = rabbit.secret, ...rabbitCfg }: Record<string, any> = {}) => {
-    dispatch(setRabbit({ left: v }));
     try {
-      dispatch(setRabbit({ right: CryptoJS.Rabbit.encrypt(v, secret, { ...cfg, ...rabbitCfg }).toString() }));
+      dispatch(setRabbit({ left: v, right: CryptoJS.Rabbit.encrypt(v, secret, { ...cfg, ...rabbitCfg }).toString() }));
     } catch (e) {
       return null;
     }
   };
 
   const handleRightOnChange = (v: string, { secret = rabbit.secret, ...rabbitCfg }: Record<string, any> = {}) => {
-    dispatch(setRabbit({ right: v }));
     try {
       dispatch(
-        setRabbit({ left: CryptoJS.Rabbit.decrypt(v, secret, { ...cfg, ...rabbitCfg }).toString(CryptoJS.enc.Utf8) }),
+        setRabbit({
+          left: CryptoJS.Rabbit.decrypt(v, secret, { ...cfg, ...rabbitCfg }).toString(CryptoJS.enc.Utf8),
+          right: v,
+        }),
       );
     } catch (e) {
       return null;

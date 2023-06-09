@@ -19,9 +19,8 @@ export default function MD5Editor() {
   };
 
   const handleLeftOnchange = (v: string) => {
-    dispatch(setMd5({ left: v }));
     try {
-      dispatch(setMd5({ right: CryptoJS.MD5(v).toString() }));
+      dispatch(setMd5({ left: v, right: CryptoJS.MD5(v).toString() }));
     } catch (e) {
       return null;
     }

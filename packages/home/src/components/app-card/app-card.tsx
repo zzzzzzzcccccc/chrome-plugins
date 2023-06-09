@@ -6,7 +6,7 @@ import { CSS_NAME_SPACE } from '../../constants';
 import { useTheme } from '../../hooks';
 
 function AppCard(props: AppCardProps) {
-  const { title, onClick, icon } = props;
+  const { title, onClick, icon, ref, style } = props;
 
   const { globalStyle, theme, appSize } = useTheme();
 
@@ -33,7 +33,9 @@ function AppCard(props: AppCardProps) {
         cursor: 'pointer',
         borderRadius: 1,
         width: appSize * 2,
+        ...style,
       }}
+      ref={ref}
       aria-label={title}
       title={title}
       onClick={handleOnClick}

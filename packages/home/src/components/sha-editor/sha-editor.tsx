@@ -19,9 +19,8 @@ export default function MD5Editor() {
   };
 
   const handleLeftOnchange = (v: string, { mode = sha.mode }: Record<string, any> = {}) => {
-    dispatch(setSha({ left: v }));
     try {
-      dispatch(setSha({ right: (CryptoJS as any)[mode](v) }));
+      dispatch(setSha({ left: v, right: (CryptoJS as any)[mode](v).toString() }));
     } catch (e) {
       return null;
     }

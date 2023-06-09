@@ -1,13 +1,26 @@
-import { useInitialize, useStoreDispatch, useStoreSelector } from './index';
-import { useEffect } from 'react';
+import React, { useEffect } from 'react';
+import useInitialize from './use-initialize';
+import { useStoreSelector, useStoreDispatch } from './use-store';
 import { KeyCode } from '../utils';
 import { KEYBOARD_KEYS } from '../constants';
-import { setAppState } from '../store/slices/app-slice';
+import { setAppState, setContextMenu } from '../store/slices/app-slice';
 
 export default function useLayout() {
   const { pushKeyboardHandler } = useInitialize();
-  const { openSetting, openSearch } = useStoreSelector((state) => state.app);
+  const { openSetting, openSearch, contextMenu } = useStoreSelector((state) => state.app);
   const dispatch = useStoreDispatch();
+
+  const handleOnContextMenu = (e: React.MouseEvent<HTMLDivElement>) => {
+    e.stopPropagation();
+    e.preventDefault();
+    dispatch(
+      setContextMenu({
+        open: !contextMenu.open,
+        x: e.clientX,
+        y: e.clientY,
+      }),
+    );
+  };
 
   useEffect(() => {
     const handler = (keyCode: KeyCode, event: KeyboardEvent) => {
@@ -28,4 +41,8 @@ export default function useLayout() {
     };
     return pushKeyboardHandler(handler);
   }, [dispatch, pushKeyboardHandler, openSetting, openSearch]);
+
+  return {
+    handleOnContextMenu,
+  };
 }

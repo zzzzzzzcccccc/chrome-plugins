@@ -15,9 +15,11 @@ import {
 import CloseIcon from '@mui/icons-material/Close';
 import ThemeSetting from './theme-setting';
 import TranslationsSetting from './translations-setting';
+import ApplicationSetting from './application-setting';
 import { useTranslation, useTheme, useStoreSelector, useStoreDispatch } from '../../hooks';
-import { CSS_NAME_SPACE } from '../../constants';
+import { SVGS } from '../../constants';
 import { setAppState } from '../../store/slices/app-slice';
+import AppIcon from '../app-icon';
 
 export default function Setting() {
   const t = useTranslation();
@@ -30,13 +32,18 @@ export default function Setting() {
   const menuList = [
     {
       title: t('setting.theme'),
-      id: 'theme',
+      id: SVGS.theme,
       component: ThemeSetting,
     },
     {
       title: t('setting.translations'),
-      id: 'language',
+      id: SVGS.language,
       component: TranslationsSetting,
+    },
+    {
+      title: t('setting.applications'),
+      id: SVGS.applicationSetting,
+      component: ApplicationSetting,
     },
   ];
   const Component = menuList[active].component;
@@ -62,12 +69,10 @@ export default function Setting() {
             const color = selected ? theme.palette.primary.main : undefined;
             return (
               <ListItemButton key={index} selected={selected} onClick={() => setActive(index)}>
-                <ListItemIcon>
-                  <svg className={`${CSS_NAME_SPACE}-fcc`} style={{ width: 24, height: 24, color }}>
-                    <use xlinkHref={`#${menu.id}`} />
-                  </svg>
+                <ListItemIcon sx={{ minWidth: 'auto' }}>
+                  <AppIcon target={`#${menu.id}`} type="svg" style={{ width: 24, height: 24 }} />
                 </ListItemIcon>
-                <ListItemText primary={menu.title} sx={{ color }} />
+                <ListItemText primary={menu.title} sx={{ color, pl: 0.5 }} />
               </ListItemButton>
             );
           })}

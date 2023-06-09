@@ -1,33 +1,36 @@
 import React from 'react';
 import { ApplicationProps } from './types';
+import { Container } from '@mui/material';
 import AppCard from '../app-card';
 import { useTheme, useTranslation, useAppNavigate } from '../../hooks';
 import { AppItem } from '../../store/slices/menu-slice';
 
-function Application(props: ApplicationProps) {
+const Application = (props: ApplicationProps) => {
   const { apps } = props;
   const t = useTranslation();
   const { appJump } = useAppNavigate();
-  const { appSize } = useTheme();
+  const { appSize, globalStyle } = useTheme();
 
-  const handleOnClick = (app: AppItem) => () => {
-    appJump(app.url, app.jumpMethod);
-  };
+  const handleOnClick =
+    (app: AppItem) => (event: React.MouseEvent<HTMLDivElement> | React.KeyboardEvent<HTMLDivElement>) => {
+      event.stopPropagation();
+      appJump(app.url, app.jumpMethod);
+    };
 
   return (
-    <>
-      {apps.map((app, index) => {
+    <Container sx={{ ...globalStyle.fr, flexWrap: 'wrap' }}>
+      {apps.map((app) => {
         return (
           <AppCard
+            key={app.url}
             onClick={handleOnClick(app)}
-            key={index}
             icon={{ ...app.icon, style: { width: appSize, height: appSize } }}
             title={t(app.title) as string}
           />
         );
       })}
-    </>
+    </Container>
   );
-}
+};
 
 export default Application;

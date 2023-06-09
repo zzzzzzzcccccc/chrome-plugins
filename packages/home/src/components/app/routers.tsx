@@ -9,6 +9,7 @@ import AESEditor from '../aes-editor';
 import SHAEditor from '../sha-editor';
 import RabbitEditor from '../rabbit-editor';
 import ReadFile from '../read-file';
+import JsonYamlEditor from '../json-yaml-editor';
 
 const routers = [
   {
@@ -80,6 +81,14 @@ const routers = [
     element: (
       <LazyWrapper>
         <ReadFile />
+      </LazyWrapper>
+    ),
+  },
+  {
+    path: 'json-yaml-editor',
+    element: (
+      <LazyWrapper>
+        <JsonYamlEditor />
       </LazyWrapper>
     ),
   },

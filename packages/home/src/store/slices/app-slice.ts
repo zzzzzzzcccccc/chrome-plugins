@@ -10,6 +10,13 @@ export type VisualFile = {
 export interface AppState {
   openSetting: boolean;
   openSearch: boolean;
+  contextMenu: {
+    open: boolean;
+    x: number;
+    y: number;
+    width: number;
+    height: number;
+  };
   json: {
     left: string;
     right: string;
@@ -53,11 +60,22 @@ export interface AppState {
     files: VisualFile[];
     selectedIndex: number;
   };
+  jsonYaml: {
+    left: string;
+    right: string;
+  };
 }
 
 const initialState: AppState = {
   openSetting: false,
   openSearch: false,
+  contextMenu: {
+    open: false,
+    x: 0,
+    y: 0,
+    width: 160,
+    height: 300,
+  },
   json: {
     left: JSON.stringify({ var1: 'value', var2: 100, var3: false }, null, 2),
     right: JSON.stringify([{ var1: 'value', var2: 100, var3: false }], null, 2),
@@ -114,6 +132,13 @@ const initialState: AppState = {
     files: [],
     selectedIndex: -1,
   },
+  jsonYaml: {
+    left: JSON.stringify({ var1: 'value', var2: false, var3: 100 }, null, 2),
+    right: `var1: value
+var2: false
+var3: 100
+`,
+  },
 };
 
 const appSlice = createSlice({
@@ -123,6 +148,10 @@ const appSlice = createSlice({
     setAppState: (state, action: PayloadAction<Partial<AppState>>) => {
       const keys = Object.keys(action.payload) as (keyof AppState)[];
       keys.forEach((key) => ((state as any)[key] = action.payload[key]));
+    },
+    setContextMenu: (state, action: PayloadAction<Partial<AppState['contextMenu']>>) => {
+      const keys = Object.keys(action.payload) as (keyof AppState['contextMenu'])[];
+      keys.forEach((key) => ((state.contextMenu as any)[key] = action.payload[key]));
     },
     setJson: (state, action: PayloadAction<Partial<AppState['json']>>) => {
       const keys = Object.keys(action.payload) as (keyof AppState['json'])[];
@@ -166,11 +195,16 @@ const appSlice = createSlice({
         }
       });
     },
+    setJsonYaml: (state, action: PayloadAction<Partial<AppState['jsonYaml']>>) => {
+      const keys = Object.keys(action.payload) as (keyof AppState['jsonYaml'])[];
+      keys.forEach((key) => ((state.jsonYaml as any)[key] = action.payload[key]));
+    },
   },
 });
 
 export const {
   setAppState,
+  setContextMenu,
   setJson,
   setBase64,
   setString,
@@ -180,6 +214,7 @@ export const {
   setSha,
   setRabbit,
   setReadFile,
+  setJsonYaml,
 } = appSlice.actions;
 
 export default appSlice.reducer;

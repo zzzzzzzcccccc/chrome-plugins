@@ -19,9 +19,8 @@ export default function JsonEditor() {
   );
 
   const handleLeftOnChange = (v: string) => {
-    dispatch(setHtmlToJSX({ left: v }));
     try {
-      dispatch(setHtmlToJSX({ right: htmlToJSXRef.current.convert(v) }));
+      dispatch(setHtmlToJSX({ left: v, right: htmlToJSXRef.current.convert(v) }));
     } catch (e) {
       return null;
     }

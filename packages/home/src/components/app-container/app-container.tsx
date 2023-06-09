@@ -1,5 +1,5 @@
 import React, { useMemo } from 'react';
-import { Box, Container } from '@mui/material';
+import { Box } from '@mui/material';
 import Application from './application';
 import { useTheme, useStoreSelector, useRect } from '../../hooks';
 
@@ -9,23 +9,23 @@ function AppContainer() {
   const rect = useRect(document.body);
   const menuIndex = useMemo(() => list.map((m) => m.id).indexOf(active), [active, list]);
 
+  const sw = rect?.width || 0;
+
   return (
     <Box sx={{ flex: 1, width: '100%', overflow: 'hidden' }}>
       <Box
         sx={{
-          width: list.length * 100 + '%',
+          width: list.length * sw,
           height: '100%',
           ...globalStyle.fr,
           flexWrap: 'nowrap',
-          transform: `translateX(${-menuIndex * (rect?.width || 0)}px)`,
+          transform: `translateX(${-menuIndex * sw}px)`,
           transition: 'transform 0.5s ease',
         }}
       >
         {list.map((record) => (
-          <Box key={record.id} sx={{ width: '100%', height: '100%' }}>
-            <Container sx={{ ...globalStyle.fr, flexWrap: 'wrap' }}>
-              <Application apps={record.apps} />
-            </Container>
+          <Box sx={{ width: sw, height: '100%', overflow: 'auto' }} key={record.id}>
+            <Application apps={record.apps} id={record.id} />
           </Box>
         ))}
       </Box>

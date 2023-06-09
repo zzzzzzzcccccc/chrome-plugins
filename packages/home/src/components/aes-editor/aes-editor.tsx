@@ -28,18 +28,18 @@ export default function AESEditor() {
   };
 
   const handleLeftOnchange = (v: string, { secret = aes.secret, ...aesCfg }: Record<string, any> = {}) => {
-    dispatch(setAes({ left: v }));
     try {
-      dispatch(setAes({ right: CryptoJS.AES.encrypt(v, secret, { ...cfg, ...aesCfg }).toString() }));
+      dispatch(setAes({ left: v, right: CryptoJS.AES.encrypt(v, secret, { ...cfg, ...aesCfg }).toString() }));
     } catch (e) {
       return null;
     }
   };
 
   const handleRightOnChange = (v: string, { secret = aes.secret, ...aesCfg }: Record<string, any> = {}) => {
-    dispatch(setAes({ right: v }));
     try {
-      dispatch(setAes({ left: CryptoJS.AES.decrypt(v, secret, { ...cfg, ...aesCfg }).toString(CryptoJS.enc.Utf8) }));
+      dispatch(
+        setAes({ left: CryptoJS.AES.decrypt(v, secret, { ...cfg, ...aesCfg }).toString(CryptoJS.enc.Utf8), right: v }),
+      );
     } catch (e) {
       return null;
     }

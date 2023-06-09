@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import { Typography } from '@mui/material';
 import { useTheme, useTranslation } from '../../hooks';
+import { timer } from '../../utils';
 
 function RealTime() {
   const t = useTranslation();
@@ -27,10 +28,10 @@ function RealTime() {
   }, [dateInstance]);
 
   useEffect(() => {
-    const timer = setInterval(() => setInstance(new Date()), 1000 / 60);
+    const timerId = timer.setInterval(() => setInstance(new Date()), 1000 / 60);
 
     return () => {
-      clearInterval(timer);
+      timer.clearInterval(timerId);
     };
   }, []);
 

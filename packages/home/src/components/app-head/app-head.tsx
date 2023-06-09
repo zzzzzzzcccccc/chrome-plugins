@@ -2,9 +2,9 @@ import React from 'react';
 import { Box, IconButton, Tooltip, Typography } from '@mui/material';
 import RealTime from '../real-time';
 import { useTheme, useTranslation, useStoreDispatch, useInitialize, useStoreSelector } from '../../hooks';
-import SearchIcon from '@mui/icons-material/Search';
-import SettingsIcon from '@mui/icons-material/Settings';
 import { setAppState } from '../../store/slices/app-slice';
+import AppIcon from '../app-icon';
+import { SVGS } from '../../constants';
 
 function AppHead() {
   const t = useTranslation();
@@ -44,12 +44,12 @@ function AppHead() {
       <Box sx={{ ...globalStyle.frc, justifyContent: 'flex-end', flex: 1 }}>
         <Tooltip title={renderTitle(t('search'), isMac ? 'Command + s' : 'Alt + s')}>
           <IconButton size="small" sx={{ ...globalStyle.fcc }} onClick={handleSearchOnClick}>
-            <SearchIcon />
+            <AppIcon target={`#${SVGS.search}`} type="svg" style={{ width: 20, height: 20 }} />
           </IconButton>
         </Tooltip>
         <Tooltip title={renderTitle(t('setting'), isMac ? 'Command + o' : 'Alt + o')}>
           <IconButton size="small" sx={{ ...globalStyle.fcc }} onClick={handleSettingOnClick}>
-            <SettingsIcon />
+            <AppIcon target={`#${SVGS.setting}`} type="svg" style={{ width: 20, height: 20 }} />
           </IconButton>
         </Tooltip>
         <RealTime />

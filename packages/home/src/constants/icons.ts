@@ -1,0 +1,19 @@
+const ICONS = {
+  md5: './images/icons/md5.jpeg',
+  base64: './images/icons/base64.png',
+  aes: './images/icons/aes.png',
+  sha: './images/icons/sha.png',
+  taoBao: './images/icons/taobao.png',
+  tmall: './images/icons/tmall.png',
+  jd: './images/icons/jd.png',
+  steam: './images/icons/steam.png',
+  vimeo: './images/icons/vimeo.png',
+  spotify: './images/icons/spotify.png',
+  soundCloud: './images/icons/sound_cloud.png',
+  pandora: './images/icons/pandora.png',
+  amazonMusic: './images/icons/amazon_music.png',
+  kuaishou: './images/icons/kuaishou.webp',
+  tencentVideo: './images/icons/tencent_video.png',
+};
+
+export default ICONS;
