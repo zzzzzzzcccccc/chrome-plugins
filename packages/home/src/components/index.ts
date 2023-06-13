@@ -26,6 +26,9 @@ import ReadFile from './read-file';
 import JsonYamlEditor from './json-yaml-editor';
 import XmlJsonEditor from './xml-json-editor';
 import UrlParse from './url-parse';
+import CssJsEditor from './css-js-editor';
+import CssEditor from './css-editor';
+import JsonSchemaEditor from './json-schema-editor';
 
 export {
   Head,
@@ -56,4 +59,7 @@ export {
   JsonYamlEditor,
   XmlJsonEditor,
   UrlParse,
+  CssJsEditor,
+  CssEditor,
+  JsonSchemaEditor,
 };

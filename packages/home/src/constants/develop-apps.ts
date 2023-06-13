@@ -117,7 +117,34 @@ const DEVELOP_APPS: AppItem[] = [
       type: 'svg',
     },
     title: 'develop.url_parse',
-    url: 'url-parse',
+    url: '/url-parse',
+    jumpMethod: 'internal',
+  },
+  {
+    icon: {
+      target: `#${SVGS.css}`,
+      type: 'svg',
+    },
+    title: 'develop.css_js_editor',
+    url: '/css-js-editor',
+    jumpMethod: 'internal',
+  },
+  {
+    icon: {
+      target: `#${SVGS.lessSassStylus}`,
+      type: 'svg',
+    },
+    title: 'develop.css_editor',
+    url: '/css-editor',
+    jumpMethod: 'internal',
+  },
+  {
+    icon: {
+      target: `#${SVGS.jsonSchema}`,
+      type: 'svg',
+    },
+    title: 'develop.json_schema_editor',
+    url: '/json-schema-editor',
     jumpMethod: 'internal',
   },
 ];

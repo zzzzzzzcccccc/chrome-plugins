@@ -4,6 +4,5 @@
 **/*.html
 package.json
 packages/**/dist
-packages/**/public/js/*
 packages/**/.next
-packages/**/public/vs/*
+packages/**/public

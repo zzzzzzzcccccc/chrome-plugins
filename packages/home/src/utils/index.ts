@@ -11,6 +11,8 @@ import getQueryVariable from './get-query-variable';
 import loadImage from './load-image';
 import timer from './timer';
 import { parseURL } from './url';
+import { transformToCss } from './css';
+import { transformToSchema } from './json';
 
 export type { KeyCode, KeyboardOptions } from './keyboard';
 export type { FileInputOptions } from './input';
@@ -29,4 +31,6 @@ export {
   loadImage,
   timer,
   parseURL,
+  transformToCss,
+  transformToSchema,
 };

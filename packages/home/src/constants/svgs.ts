@@ -40,6 +40,9 @@ const SVGS = {
   yaml: 'yaml',
   xml: 'xml',
   url: 'url',
+  css: 'css',
+  lessSassStylus: 'lessSassStylus',
+  jsonSchema: 'json_schema',
 };
 
 export default SVGS;

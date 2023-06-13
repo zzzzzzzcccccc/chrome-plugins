@@ -25,5 +25,7 @@ export const BASE_URL_BY_GOOGLE = 'https://www.google.com';
 export const BASE_URL_BY_BING = 'https://www.bing.com';
 export const BASE_URL_BY_YAHOO = 'https://search.yahoo.com';
 export const DEFAULT_BACKGROUND_URL_STORE = ['./images/bg/1.jpg', './images/bg/2.jpg'];
+export const BASE_SASS_LIB_URL = './sass/sass.min.js';
+export const BASE_SASS_LIB_WORKER_URL = `./sass/sass.worker.js`;
 
 export { ICONS, SVGS, DEVELOP_APPS, SHOP_APPS, GAME_APPS, MEDIA_APPS };

@@ -1,4 +1,5 @@
-import { AppItem, RecentKeywordItem } from '../../hooks';
+import { RecentKeywordItem } from '../../hooks';
+import { AppItem } from '../../store/slices/menu-slice';
 
 export interface ResultProps {
   apps: AppItem[];

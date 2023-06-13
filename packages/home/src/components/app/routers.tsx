@@ -12,6 +12,9 @@ import ReadFile from '../read-file';
 import JsonYamlEditor from '../json-yaml-editor';
 import XmlJsonEditor from '../xml-json-editor';
 import UrlParse from '../url-parse';
+import CssJsEditor from '../css-js-editor';
+import CssEditor from '../css-editor';
+import JsonSchemaEditor from '../json-schema-editor';
 
 const routers = [
   {
@@ -107,6 +110,30 @@ const routers = [
     element: (
       <LazyWrapper>
         <UrlParse />
+      </LazyWrapper>
+    ),
+  },
+  {
+    path: 'css-js-editor',
+    element: (
+      <LazyWrapper>
+        <CssJsEditor />
+      </LazyWrapper>
+    ),
+  },
+  {
+    path: 'css-editor',
+    element: (
+      <LazyWrapper>
+        <CssEditor />
+      </LazyWrapper>
+    ),
+  },
+  {
+    path: 'json-schema-editor',
+    element: (
+      <LazyWrapper>
+        <JsonSchemaEditor />
       </LazyWrapper>
     ),
   },

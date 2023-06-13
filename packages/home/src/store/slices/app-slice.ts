@@ -80,6 +80,21 @@ export interface AppState {
       queryParams: { key: string; value: string }[];
     }[];
   };
+  cssJs: {
+    left: string;
+    right: string;
+  };
+  css: {
+    left: string;
+    right: string;
+    mode: string;
+    inline: boolean;
+  };
+  schema: {
+    left: string;
+    right: string;
+    mode: string;
+  };
 }
 
 const initialState: AppState = {
@@ -208,6 +223,92 @@ var3: 100
       },
     ],
   },
+  cssJs: {
+    left: `#wrapper{
+  color: red;
+}
+.wrapper{
+  flex: row;
+  flex-direction: column;
+  align-items: center;
+}
+ul li{
+  display: inline-block;
+  border-radius: 4px;
+}`,
+    right: `const styles = {
+  "#wrapper": {
+    "color": "red"
+  },
+  ".wrapper": {
+    "flex": "row",
+    "flexDirection": "column",
+    "alignItems": "center"
+  },
+  "ul li": {
+    "display": "inline-block",
+    "borderRadius": "4px"
+  }
+}`,
+  },
+  css: {
+    left: `@red: red;
+.wrapper{
+  flex: row;
+  flex-direction: column;
+  align-items: center;
+  &-item{
+    color: @red;
+    > div {
+      border-radius: 4px;
+      color: @red;
+    }
+  }
+}`,
+    right: `.wrapper {
+  flex: row;
+  flex-direction: column;
+  align-items: center;
+}
+.wrapper-item {
+  color: red;
+}
+.wrapper-item > div {
+  border-radius: 4px;
+  color: red;
+}
+`,
+    mode: 'less',
+    inline: false,
+  },
+  schema: {
+    mode: 'json',
+    left: `{
+  "id": 1,
+  "var1": "value",
+  "var2": 100,
+  "var3": false
+}`,
+    right: `{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "title": "Root",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "number"
+    },
+    "var1": {
+      "type": "string"
+    },
+    "var2": {
+      "type": "number"
+    },
+    "var3": {
+      "type": "boolean"
+    }
+  }
+}`,
+  },
 };
 
 const appSlice = createSlice({
@@ -276,6 +377,18 @@ const appSlice = createSlice({
       const keys = Object.keys(action.payload) as (keyof AppState['urlParse'])[];
       keys.forEach((key) => ((state.urlParse as any)[key] = action.payload[key]));
     },
+    setCssJs: (state, action: PayloadAction<Partial<AppState['cssJs']>>) => {
+      const keys = Object.keys(action.payload) as (keyof AppState['cssJs'])[];
+      keys.forEach((key) => ((state.cssJs as any)[key] = action.payload[key]));
+    },
+    setCss: (state, action: PayloadAction<Partial<AppState['css']>>) => {
+      const keys = Object.keys(action.payload) as (keyof AppState['css'])[];
+      keys.forEach((key) => ((state.css as any)[key] = action.payload[key]));
+    },
+    setSchema: (state, action: PayloadAction<Partial<AppState['schema']>>) => {
+      const keys = Object.keys(action.payload) as (keyof AppState['schema'])[];
+      keys.forEach((key) => ((state.schema as any)[key] = action.payload[key]));
+    },
   },
 });
 
@@ -294,6 +407,9 @@ export const {
   setJsonYaml,
   setJsonXml,
   setUrlParse,
+  setCssJs,
+  setCss,
+  setSchema,
 } = appSlice.actions;
 
 export default appSlice.reducer;

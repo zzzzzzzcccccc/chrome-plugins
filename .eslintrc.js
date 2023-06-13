@@ -46,5 +46,11 @@ module.exports = {
         'max-len': IGNORE,
       },
     },
+    {
+      files: ['next-env.d.ts'],
+      rules: {
+        '@typescript-eslint/no-unused-vars': IGNORE,
+      },
+    },
   ],
 };
