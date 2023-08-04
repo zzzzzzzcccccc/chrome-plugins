@@ -15,7 +15,7 @@ import {
 import CloseIcon from '@mui/icons-material/Close';
 import ThemeSetting from './theme-setting';
 import TranslationsSetting from './translations-setting';
-import ApplicationSetting from './application-setting';
+import TypeSetting from './type-setting';
 import { useTranslation, useTheme, useStoreSelector, useStoreDispatch } from '../../hooks';
 import { SVGS } from '../../constants';
 import { setAppState } from '../../store/slices/app-slice';
@@ -39,9 +39,9 @@ export default function Setting() {
       component: TranslationsSetting,
     },
     {
-      title: t('setting.applications'),
-      id: SVGS.applicationSetting,
-      component: ApplicationSetting,
+      title: t('type'),
+      id: SVGS.type,
+      component: TypeSetting,
     },
   ];
   const Component = menuList.find((menu) => menu.id === activeSetting)?.component as any;

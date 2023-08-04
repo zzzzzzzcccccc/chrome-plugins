@@ -8,25 +8,26 @@ import { Outlet } from 'react-router-dom';
 import { useLayout, useTheme } from '../../hooks';
 import AppSearch from '../app-search';
 import Setting from '../setting';
+import { CollectWebsiteFormWithDialog } from '../collect-website-form';
 import Toast from '../toast';
-import ContextMenu from '../context-menu';
 
 function Layout() {
   const { globalStyle, backgroundUrl } = useTheme();
-  const { handleOnContextMenu } = useLayout();
+
+  useLayout();
 
   return (
     <>
       <Background url={backgroundUrl} />
-      <Box sx={{ ...globalStyle.fc, width: '100%', height: '100%' }} onContextMenu={handleOnContextMenu}>
+      <Box sx={{ ...globalStyle.fc, width: '100%', height: '100%' }}>
         <AppHead />
         <AppContainer />
         <AppFooter />
         <AppSearch />
         <Setting />
+        <CollectWebsiteFormWithDialog />
         <Outlet />
       </Box>
-      <ContextMenu />
       <Toast />
     </>
   );

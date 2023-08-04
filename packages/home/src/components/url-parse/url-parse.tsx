@@ -45,7 +45,7 @@ function UrlParse() {
         <Box sx={{ ...globalStyle.fr, flex: 1 }}>
           <Box sx={{ width: '50%', height: '100%' }}>
             <Box sx={{ width: '100%', height: '100%', p: 1 }}>
-              <TagInput value={urlParse.list} onChange={handleLeftOnChange} />
+              <TagInput inputProps={{ autoFocus: true }} value={urlParse.list} onChange={handleLeftOnChange} />
             </Box>
           </Box>
           <Box sx={{ width: '50%', height: '100%', overflow: 'hidden' }}>

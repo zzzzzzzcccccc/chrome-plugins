@@ -6,7 +6,7 @@ import { useTheme, useTranslation, useAppNavigate } from '../../hooks';
 import { AppItem } from '../../store/slices/menu-slice';
 
 const Application = (props: ApplicationProps) => {
-  const { apps } = props;
+  const { apps, enableTab } = props;
   const t = useTranslation();
   const { appJump } = useAppNavigate();
   const { appSize, globalStyle } = useTheme();
@@ -22,6 +22,7 @@ const Application = (props: ApplicationProps) => {
       {apps.map((app) => {
         return (
           <AppCard
+            enableTab={enableTab}
             key={app.url}
             onClick={handleOnClick(app)}
             icon={{ ...app.icon, style: { width: appSize, height: appSize } }}

@@ -1,4 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { ChromeTab } from '@chrome-plugin/common';
 import { SVGS } from '../../constants';
 
 export type VisualFile = {
@@ -11,6 +12,8 @@ export type VisualFile = {
 export interface AppState {
   openSetting: boolean;
   openSearch: boolean;
+  openCollectWebsiteForm: boolean;
+  activeBrowserTab?: ChromeTab;
   activeSetting: string;
   contextMenu: {
     open: boolean;
@@ -100,6 +103,7 @@ export interface AppState {
 const initialState: AppState = {
   openSetting: false,
   openSearch: false,
+  openCollectWebsiteForm: false,
   activeSetting: SVGS.theme,
   contextMenu: {
     open: false,

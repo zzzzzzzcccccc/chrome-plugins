@@ -11,4 +11,5 @@ export interface AppCardProps {
     className?: string;
   };
   style?: React.CSSProperties;
+  enableTab?: boolean;
 }

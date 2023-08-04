@@ -14,6 +14,7 @@ import CodeEditor from './code-editor';
 import Toast from './toast';
 import ContextMenu from './context-menu';
 import TagInput from './tag-input';
+import CollectWebsiteForm from './collect-website-form';
 import JsonEditor from './json-editor';
 import Base64Editor from './base64-editor';
 import StringEditor from './string-editor';
@@ -47,6 +48,7 @@ export {
   Toast,
   ContextMenu,
   TagInput,
+  CollectWebsiteForm,
   JsonEditor,
   Base64Editor,
   StringEditor,

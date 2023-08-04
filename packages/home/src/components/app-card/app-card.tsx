@@ -6,7 +6,7 @@ import { CSS_NAME_SPACE } from '../../constants';
 import { useTheme } from '../../hooks';
 
 function AppCard(props: AppCardProps) {
-  const { title, onClick, icon, ref, style } = props;
+  const { title, onClick, icon, ref, style, enableTab } = props;
 
   const { globalStyle, theme, appSize } = useTheme();
 
@@ -24,7 +24,7 @@ function AppCard(props: AppCardProps) {
   return (
     <Box
       className={`${CSS_NAME_SPACE}-click`}
-      tabIndex={0}
+      tabIndex={enableTab ? 0 : -1}
       sx={{
         ...globalStyle.fcc,
         p: 1,

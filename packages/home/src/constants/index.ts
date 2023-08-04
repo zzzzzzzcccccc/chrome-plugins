@@ -7,6 +7,7 @@ import MEDIA_APPS from './media-apps';
 
 export const HTTP_TIME_OUT = 10000;
 export const SESSION_KEYS = {
+  store: '__store__',
   theme: '__theme__',
   language: '__language__',
   recentKeyword: '__recent_keyword__',
@@ -28,4 +29,10 @@ export const DEFAULT_BACKGROUND_URL_STORE = ['./images/bg/1.jpg', './images/bg/2
 export const BASE_SASS_LIB_URL = './sass/sass.min.js';
 export const BASE_SASS_LIB_WORKER_URL = `./sass/sass.worker.js`;
 
+export const DEFAULT_APPS: Record<string, typeof DEVELOP_APPS> = {
+  develop: DEVELOP_APPS,
+  shop: SHOP_APPS,
+  game: GAME_APPS,
+  media: MEDIA_APPS,
+};
 export { ICONS, SVGS, DEVELOP_APPS, SHOP_APPS, GAME_APPS, MEDIA_APPS };

@@ -27,6 +27,7 @@ function Menus() {
             >
               <AppIcon
                 {...record.icon}
+                target={record.icon.type === 'svg' ? `#${record.icon.target}` : record.icon.target}
                 style={{
                   width: 36,
                   height: 36,

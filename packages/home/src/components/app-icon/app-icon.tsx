@@ -19,6 +19,16 @@ export default function AppIcon(props: AppIconProps) {
         </svg>
       );
     case 'image':
-      return <Image width={width} height={height} priority {...commonProps} alt="icon" src={target} />;
+      return (
+        <Image
+          width={width}
+          height={height}
+          priority
+          {...commonProps}
+          style={{ objectFit: 'contain', ...commonProps.style }}
+          alt="icon"
+          src={target}
+        />
+      );
   }
 }

@@ -1,14 +1,15 @@
 /** @type {import('next').NextConfig} */
 
 const nextConfig = {
-  reactStrictMode: false,
+  reactStrictMode: true,
   output: 'export',
   images: {
     unoptimized: true,
   },
   assetPrefix: './',
-  webpack: (config) => {
+  webpack: (config, { isServer }) => {
     config.resolve.fallback = { fs: false, child_process: false };
+    config.experiments = { asyncWebAssembly: true, syncWebAssembly: true };
     return config;
   },
 };

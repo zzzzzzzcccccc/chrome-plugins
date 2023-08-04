@@ -1,4 +1,6 @@
 const SVGS = {
+  type: 'type',
+  collect: 'collect',
   setting: 'setting',
   search: 'search',
   json: 'json',
@@ -43,6 +45,24 @@ const SVGS = {
   css: 'css',
   lessSassStylus: 'lessSassStylus',
   jsonSchema: 'json_schema',
+  chatGPT: 'chat_gpt',
+  ngaBBS: 'nga_bbs',
+  epic: 'epic',
+  gog: 'gog',
+  ea: 'ea',
+  ubisoft: 'ubisoft',
+  blizzard: 'blizzard',
+  reddit: 'reddit',
+  ign: 'ign',
+  curseForge: 'curseForge',
+  amazon: 'amazon',
+  ebay: 'ebay',
+  walmart: 'walmart',
+  stackoverflow: 'stackoverflow',
+  mdn: 'mdn',
+  hackerNews: 'hacker_news',
+  jueJin: 'jue_jin',
+  codesandbox: 'codesandbox',
 };
 
 export default SVGS;

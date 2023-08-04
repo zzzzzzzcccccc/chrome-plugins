@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { AppCardProps } from '../../components/app-card';
-import { DEVELOP_APPS, SHOP_APPS, GAME_APPS, MEDIA_APPS } from '../../constants';
+import { SVGS } from '../../constants';
 
 export interface AppItem {
   title: string;
@@ -22,43 +22,43 @@ export interface MenuState {
 }
 
 const initialState: MenuState = {
-  active: 'develop',
+  active: SVGS.develop,
   list: [
     {
-      id: 'develop',
+      id: SVGS.develop,
       title: 'develop.title',
       icon: {
-        target: '#develop',
+        target: SVGS.develop,
         type: 'svg',
       },
-      apps: DEVELOP_APPS,
+      apps: [],
     },
     {
-      id: 'shop',
+      id: SVGS.shop,
       title: 'shop.title',
       icon: {
-        target: '#shop',
+        target: SVGS.shop,
         type: 'svg',
       },
-      apps: SHOP_APPS,
+      apps: [],
     },
     {
-      id: 'game',
+      id: SVGS.game,
       title: 'game.title',
       icon: {
-        target: '#game',
+        target: SVGS.game,
         type: 'svg',
       },
-      apps: GAME_APPS,
+      apps: [],
     },
     {
-      id: 'media',
+      id: SVGS.media,
       title: 'media.title',
       icon: {
-        target: '#media',
+        target: SVGS.media,
         type: 'svg',
       },
-      apps: MEDIA_APPS,
+      apps: [],
     },
   ],
 };
@@ -70,9 +70,28 @@ const menuSlice = createSlice({
     setActive: (state, action: PayloadAction<MenuState['active']>) => {
       state.active = action.payload;
     },
+    addMenu: (state, action: PayloadAction<{ item: Omit<MenuItem, 'apps'>; type?: 'push' | 'unshift' }>) => {
+      const { type = 'push', item } = action.payload;
+      state.list[type]({ ...item, apps: [] });
+    },
+    addRemoteApp: (
+      state,
+      action: PayloadAction<{ item: Omit<AppItem, 'jumpMethod'>; id: string; type?: 'push' | 'unshift' }>,
+    ) => {
+      const { id, item, type = 'push' } = action.payload;
+      if (state.list.map((i) => i.id).indexOf(id) === -1) {
+        return;
+      }
+      state.list = state.list.map((record) => {
+        if (record.id === id) {
+          record.apps[type]({ ...item, jumpMethod: 'remote' });
+        }
+        return record;
+      });
+    },
   },
 });
 
-export const { setActive } = menuSlice.actions;
+export const { setActive, addMenu, addRemoteApp } = menuSlice.actions;
 
 export default menuSlice.reducer;

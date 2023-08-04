@@ -14,6 +14,60 @@ const DEVELOP_APPS: AppItem[] = [
   },
   {
     icon: {
+      target: `#${SVGS.chatGPT}`,
+      type: 'svg',
+    },
+    title: 'chat_gpt',
+    url: 'https://chat.openai.com',
+    jumpMethod: 'remote',
+  },
+  {
+    icon: {
+      target: `#${SVGS.stackoverflow}`,
+      type: 'svg',
+    },
+    title: 'stackoverflow',
+    url: 'https://stackoverflow.com',
+    jumpMethod: 'remote',
+  },
+  {
+    icon: {
+      target: `#${SVGS.mdn}`,
+      type: 'svg',
+    },
+    title: 'mdn',
+    url: 'https://developer.mozilla.org',
+    jumpMethod: 'remote',
+  },
+  {
+    icon: {
+      target: `#${SVGS.hackerNews}`,
+      type: 'svg',
+    },
+    title: 'hacker_news',
+    url: 'https://news.ycombinator.com',
+    jumpMethod: 'remote',
+  },
+  {
+    icon: {
+      target: `#${SVGS.jueJin}`,
+      type: 'svg',
+    },
+    title: 'jue_jin',
+    url: 'https://juejin.cn',
+    jumpMethod: 'remote',
+  },
+  {
+    icon: {
+      target: `#${SVGS.codesandbox}`,
+      type: 'svg',
+    },
+    title: 'codesandbox',
+    url: 'https://codesandbox.io',
+    jumpMethod: 'remote',
+  },
+  {
+    icon: {
       target: `#${SVGS.json}`,
       type: 'svg',
     },

@@ -1,6 +1,7 @@
 import React, { useMemo } from 'react';
 import { Box } from '@mui/material';
 import Application from './application';
+import { DEFAULT_APPS } from '../../constants';
 import { useTheme, useStoreSelector, useRect } from '../../hooks';
 
 function AppContainer() {
@@ -19,13 +20,18 @@ function AppContainer() {
           height: '100%',
           ...globalStyle.fr,
           flexWrap: 'nowrap',
+          willChange: 'transform',
           transform: `translateX(${-menuIndex * sw}px)`,
           transition: 'transform 0.5s ease',
         }}
       >
         {list.map((record) => (
           <Box sx={{ width: sw, height: '100%', overflow: 'auto' }} key={record.id}>
-            <Application apps={record.apps} id={record.id} />
+            <Application
+              enableTab={active === record.id}
+              apps={[...(DEFAULT_APPS?.[record.id] || []), ...record.apps]}
+              id={record.id}
+            />
           </Box>
         ))}
       </Box>

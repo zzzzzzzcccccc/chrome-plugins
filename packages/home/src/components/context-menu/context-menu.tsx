@@ -23,9 +23,6 @@ export default function ContextMenu() {
 
   const handleOnClick = (id: string) => () => {
     const taskMapper = {
-      [SVGS.applicationSetting]: () => {
-        dispatch(setAppState({ openSetting: true, activeSetting: SVGS.applicationSetting }));
-      },
       [SVGS.search]: () => {
         dispatch(setAppState({ openSearch: true }));
       },
@@ -40,7 +37,6 @@ export default function ContextMenu() {
   const menuList = [
     { id: SVGS.search, title: t('search') },
     { id: SVGS.setting, title: t('setting') },
-    { id: SVGS.applicationSetting, title: t('add_application') },
   ];
 
   return (

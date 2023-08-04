@@ -1,6 +1,6 @@
 import { useState, useRef, useMemo, useEffect } from 'react';
 import { LRUCache, formatString, storage } from '../utils';
-import { APP_SEARCH_LRU_CAPACITY, SESSION_KEYS } from '../constants';
+import { APP_SEARCH_LRU_CAPACITY, SESSION_KEYS, DEFAULT_APPS } from '../constants';
 import { useStoreSelector } from './use-store';
 import { AppItem } from '../store/slices/menu-slice';
 import useTranslation from './use-translation';
@@ -25,7 +25,10 @@ export default function useAppSearch() {
     new LRUCache<string, RecentKeywordItem>(APP_SEARCH_LRU_CAPACITY, new Map(Object.entries(recentKeywordMap))),
   );
 
-  const allApps = useMemo(() => list.flatMap((record) => record.apps), [list]);
+  const allApps = useMemo(
+    () => list.flatMap((record) => [...(DEFAULT_APPS?.[record.id] || []), ...record.apps]),
+    [list],
+  );
 
   const handlerSearchApps = (target: string) => {
     const value = target.trim();

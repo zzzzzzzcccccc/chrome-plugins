@@ -7,6 +7,8 @@ export interface IInitializeContext {
   renderType: 'popup' | 'full';
   platform: string;
   isMac: boolean;
+  isRenderPopup: boolean;
+  isRenderFull: boolean;
   updateContext: (payload: InitializeProviderContext) => InitializeProviderContext | null;
   pushKeyboardHandler: (cb: (keyCode: KeyCode, event: KeyboardEvent) => void) => void;
   removeKeyboardHandler: (cb: (keyCode: KeyCode, event: KeyboardEvent) => void) => void;
@@ -22,6 +24,8 @@ const initialContext: IInitializeContext = {
   renderType: 'full',
   platform: 'unknown',
   isMac: false,
+  isRenderPopup: false,
+  isRenderFull: false,
   updateContext: () => null,
   pushKeyboardHandler: () => null,
   removeKeyboardHandler: () => null,
@@ -35,6 +39,8 @@ export default function InitializeProvider(props: { children?: React.ReactNode }
     renderType: initialContext.renderType,
     platform: initialContext.platform,
     isMac: initialContext.isMac,
+    isRenderPopup: initialContext.isRenderPopup,
+    isRenderFull: initialContext.isRenderFull,
   });
   const keyboardRef = useRef<Keyboard<HTMLElement> | null>(null);
 
@@ -63,10 +69,17 @@ export default function InitializeProvider(props: { children?: React.ReactNode }
 
   useEffect(() => {
     const mounted = () => {
-      const renderType = getQueryVariable<IInitializeContext['renderType']>('render_type');
+      const renderType = getQueryVariable<IInitializeContext['renderType']>('render_type') || 'full';
       const platform = getPlatform();
       http.initialize();
-      updateContext({ loaded: true, renderType: renderType || 'full', platform, isMac: platform === 'mac' });
+      updateContext({
+        loaded: true,
+        renderType,
+        platform,
+        isMac: platform === 'mac',
+        isRenderPopup: renderType === 'popup',
+        isRenderFull: renderType === 'full',
+      });
     };
 
     mounted();

@@ -16,5 +16,6 @@
   },
   "chrome_url_overrides": {
     "newtab": "index.html?render_type=full"
-  }
+  },
+  "permissions": ["activeTab"]
 }

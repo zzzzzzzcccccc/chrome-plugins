@@ -11,6 +11,7 @@
     "move:root": "mv ./out ./dist && ../../scripts/move.sh ./dist home"
   },
   "dependencies": {
+    "@chrome-plugin/common": "^1.0.3",
     "@emotion/react": "^11.10.6",
     "@emotion/styled": "^11.10.6",
     "@monaco-editor/react": "^4.4.6",
@@ -26,18 +27,20 @@
     "i18next": "^22.4.12",
     "i18next-http-backend": "^2.2.0",
     "js-yaml": "^4.1.0",
+    "json-to-graphql-query": "^2.2.5",
     "less": "^4.1.3",
     "monaco-editor": "^0.36.1",
-    "next": "13.2.4",
-    "next-i18next": "^13.2.2",
+    "next": "13.4.12",
     "postcss": "^8.4.24",
     "postcss-js": "^4.0.1",
+    "quicktype-core": "^23.0.63",
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-i18next": "^12.2.0",
     "react-redux": "^8.0.5",
     "react-router-dom": "^6.10.0",
     "redux-logger": "^3.0.6",
+    "redux-persist": "^6.0.0",
     "styled-components": "^5.3.9"
   },
   "devDependencies": {
