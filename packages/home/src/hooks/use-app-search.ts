@@ -10,7 +10,7 @@ export type RecentKeywordItem = { source: string; date: string };
 
 export default function useAppSearch() {
   const { openSearch } = useStoreSelector((state) => state.app);
-  const { list } = useMenus();
+  const { apps: allApps } = useMenus();
   const t = useTranslation();
 
   const openSearchRef = useRef(openSearch);
@@ -24,11 +24,6 @@ export default function useAppSearch() {
 
   const lruCacheRef = useRef(
     new LRUCache<string, RecentKeywordItem>(APP_SEARCH_LRU_CAPACITY, new Map(Object.entries(recentKeywordMap))),
-  );
-
-  const allApps = useMemo(
-    () => list.flatMap((record) => [...(DEFAULT_APPS?.[record.id] || []), ...record.apps]),
-    [list],
   );
 
   const handlerSearchApps = (target: string) => {

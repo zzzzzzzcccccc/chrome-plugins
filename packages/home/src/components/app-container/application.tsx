@@ -2,14 +2,15 @@ import React from 'react';
 import { ApplicationProps } from './types';
 import { Container, MenuItem } from '@mui/material';
 import AppCard from '../app-card';
-import { useTheme, useTranslation, useAppNavigate, useStoreDispatch, useToast } from '../../hooks';
+import { useTheme, useTranslation, useAppNavigate, useStoreDispatch, useToast, useMenus } from '../../hooks';
 import { AppItem, removeRemoteApp } from '../../store/slices/menu-slice';
 import { DEFAULT_APP_LIST } from '../../constants';
 
 const Application = (props: ApplicationProps) => {
-  const { apps, enableTab, id } = props;
+  const { enableTab, id } = props;
   const t = useTranslation();
   const dispatch = useStoreDispatch();
+  const { apps } = useMenus();
   const { show } = useToast();
   const { appJump } = useAppNavigate();
   const { appSize, globalStyle } = useTheme();
@@ -26,11 +27,8 @@ const Application = (props: ApplicationProps) => {
   };
 
   const handleOnDeleteApp = (app: AppItem) => {
-    dispatch(removeRemoteApp({ id, url: app.url }));
-    show({
-      message: t('delete_success'),
-      type: 'success',
-    });
+    dispatch(removeRemoteApp({ url: app.url }));
+    show({ message: t('delete_success'), type: 'success' });
   };
 
   const getMenus = (app: AppItem) => {
@@ -51,18 +49,20 @@ const Application = (props: ApplicationProps) => {
 
   return (
     <Container sx={{ ...globalStyle.fr, flexWrap: 'wrap' }}>
-      {apps.map((app) => {
-        return (
-          <AppCard
-            enableTab={enableTab}
-            key={app.url}
-            onClick={handleOnClick(app)}
-            icon={{ ...app.icon, style: { width: appSize, height: appSize } }}
-            title={t(app.title) as string}
-            menus={getMenus(app)}
-          />
-        );
-      })}
+      {apps
+        .filter((app) => app.parentId === id)
+        .map((app) => {
+          return (
+            <AppCard
+              enableTab={enableTab}
+              key={app.url}
+              onClick={handleOnClick(app)}
+              icon={{ ...app.icon, style: { width: appSize, height: appSize } }}
+              title={t(app.title) as string}
+              menus={getMenus(app)}
+            />
+          );
+        })}
     </Container>
   );
 };

@@ -2,7 +2,7 @@ import { AppItem } from '../store/slices/menu-slice';
 import ICONS from './icons';
 import SVGS from './svgs';
 
-const DEVELOP_APPS: AppItem[] = [
+const DEVELOP_APPS: Omit<AppItem, 'parentId'>[] = [
   {
     icon: {
       target: `#${SVGS.github}`,

@@ -4,7 +4,9 @@ import Menus from './menus';
 import { useTheme } from '../../hooks';
 
 function AppFooter() {
-  const { globalStyle } = useTheme();
+  const { globalStyle, appRenderMode } = useTheme();
+
+  if (appRenderMode !== 'carousel') return null;
 
   return (
     <Box sx={{ width: '100%', ...globalStyle.fcc, pb: 2 }}>

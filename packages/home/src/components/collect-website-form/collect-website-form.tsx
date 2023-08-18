@@ -1,12 +1,12 @@
 import React from 'react';
 import { Box, FormControl, TextField, Select, MenuItem, InputLabel, Stack, FormHelperText } from '@mui/material';
 import { FormState, CollectWebsiteFormProps } from './types';
-import { useStoreSelector, useTranslation } from '../../hooks';
+import { useMenus, useTranslation } from '../../hooks';
 
 function CollectWebsiteForm(props: CollectWebsiteFormProps) {
   const { value, onChange, errors = [] } = props;
   const t = useTranslation();
-  const { list } = useStoreSelector((state) => state.menu);
+  const { list } = useMenus();
 
   const handleOnChange = (payload: Partial<FormState>) => {
     onChange?.(payload);

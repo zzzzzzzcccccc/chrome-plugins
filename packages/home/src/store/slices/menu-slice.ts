@@ -7,23 +7,25 @@ export interface AppItem {
   icon: AppCardProps['icon'];
   url: string;
   jumpMethod: 'internal' | 'remote';
+  parentId: string;
 }
 
 export interface MenuItem {
   id: string;
   title: string;
-  apps: AppItem[];
   icon: AppCardProps['icon'];
 }
 
 export interface MenuState {
   active: string;
   list: MenuItem[];
+  apps: AppItem[];
 }
 
 const initialState: MenuState = {
   active: SVGS.develop,
   list: [],
+  apps: [],
 };
 
 const menuSlice = createSlice({
@@ -33,37 +35,22 @@ const menuSlice = createSlice({
     setActive: (state, action: PayloadAction<MenuState['active']>) => {
       state.active = action.payload;
     },
-    addMenu: (state, action: PayloadAction<{ item: Omit<MenuItem, 'apps'>; type?: 'push' | 'unshift' }>) => {
+    addMenu: (state, action: PayloadAction<{ item: MenuItem; type?: 'push' | 'unshift' }>) => {
       const { type = 'push', item } = action.payload;
-      state.list[type]({ ...item, apps: [] });
+      state.list[type](item);
     },
     removeMenu: (state, action: PayloadAction<{ id: string }>) => {
       const { id } = action.payload;
       state.list = state.list.filter((record) => record.id !== id);
+      state.apps = state.apps.filter((record) => record.parentId !== id);
     },
-    addRemoteApp: (
-      state,
-      action: PayloadAction<{ item: Omit<AppItem, 'jumpMethod'>; id: string; type?: 'push' | 'unshift' }>,
-    ) => {
-      const { id, item, type = 'push' } = action.payload;
-      if (state.list.map((i) => i.id).indexOf(id) === -1) {
-        return;
-      }
-      state.list = state.list.map((record) => {
-        if (record.id === id) {
-          record.apps[type]({ ...item, jumpMethod: 'remote' });
-        }
-        return record;
-      });
+    addRemoteApp: (state, action: PayloadAction<{ item: Omit<AppItem, 'jumpMethod'>; type?: 'push' | 'unshift' }>) => {
+      const { item, type = 'push' } = action.payload;
+      state.apps[type]({ ...item, jumpMethod: 'remote' });
     },
-    removeRemoteApp: (state, action: PayloadAction<{ id: string; url: string }>) => {
-      const { id, url } = action.payload;
-      state.list = state.list.map((record) => {
-        if (record.id === id) {
-          record.apps = record.apps.filter((app) => app.url !== url);
-        }
-        return record;
-      });
+    removeRemoteApp: (state, action: PayloadAction<{ url: string }>) => {
+      const { url } = action.payload;
+      state.apps = state.apps.filter((record) => record.url !== url);
     },
   },
 });

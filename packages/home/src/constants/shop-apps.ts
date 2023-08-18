@@ -2,7 +2,7 @@ import { AppItem } from '../store/slices/menu-slice';
 import ICONS from './icons';
 import SVGS from './svgs';
 
-const SHOP_APPS: AppItem[] = [
+const SHOP_APPS: Omit<AppItem, 'parentId'>[] = [
   {
     icon: {
       target: ICONS.taoBao,

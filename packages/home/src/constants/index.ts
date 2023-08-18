@@ -4,7 +4,7 @@ import DEVELOP_APPS from './develop-apps';
 import SHOP_APPS from './shop-apps';
 import GAME_APPS from './game-apps';
 import MEDIA_APPS from './media-apps';
-import { MenuItem } from '../store/slices/menu-slice';
+import { AppItem, MenuItem } from '../store/slices/menu-slice';
 
 export const CHROME_MESSAGE_NAME_SPACE = '___CHROME_TAB_MANAGER___';
 export const HTTP_STATUS_SUCCESS = 200;
@@ -42,7 +42,6 @@ export const DEFAULT_MENUS: Record<string, MenuItem> = {
       target: SVGS.develop,
       type: 'svg',
     },
-    apps: [],
   },
   [SVGS.shop]: {
     id: SVGS.shop,
@@ -51,7 +50,6 @@ export const DEFAULT_MENUS: Record<string, MenuItem> = {
       target: SVGS.shop,
       type: 'svg',
     },
-    apps: [],
   },
   [SVGS.game]: {
     id: SVGS.game,
@@ -60,7 +58,6 @@ export const DEFAULT_MENUS: Record<string, MenuItem> = {
       target: SVGS.game,
       type: 'svg',
     },
-    apps: [],
   },
   [SVGS.media]: {
     id: SVGS.media,
@@ -69,23 +66,22 @@ export const DEFAULT_MENUS: Record<string, MenuItem> = {
       target: SVGS.media,
       type: 'svg',
     },
-    apps: [],
   },
 };
 export const DEFAULT_MENU_LIST = Object.keys(DEFAULT_MENUS).reduce((acc, key) => {
   acc.push(DEFAULT_MENUS[key]);
   return acc;
 }, [] as MenuItem[]);
-export const DEFAULT_APPS: Record<string, typeof DEVELOP_APPS> = {
-  develop: DEVELOP_APPS,
-  shop: SHOP_APPS,
-  game: GAME_APPS,
-  media: MEDIA_APPS,
+export const DEFAULT_APPS: Record<string, AppItem[]> = {
+  [SVGS.develop]: DEVELOP_APPS.map((item) => ({ ...item, parentId: SVGS.develop })),
+  [SVGS.shop]: SHOP_APPS.map((item) => ({ ...item, parentId: SVGS.shop })),
+  [SVGS.game]: GAME_APPS.map((item) => ({ ...item, parentId: SVGS.game })),
+  [SVGS.media]: MEDIA_APPS.map((item) => ({ ...item, parentId: SVGS.media })),
 };
 export const DEFAULT_APP_LIST = Object.keys(DEFAULT_APPS).reduce((acc, key) => {
   acc.push(...DEFAULT_APPS[key]);
   return acc;
-}, [] as typeof DEVELOP_APPS);
+}, [] as AppItem[]);
 export const DEFAULT_HTTP_METHODS: Record<string, string> = {
   GET: 'get',
   POST: 'post',

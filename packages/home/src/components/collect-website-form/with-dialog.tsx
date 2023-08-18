@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useMemo } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Dialog, DialogTitle, DialogContent, DialogActions, Typography, IconButton, Button } from '@mui/material';
 import { ChromeTab } from '@chrome-plugin/common';
 import CollectWebsiteForm from './collect-website-form';
@@ -6,7 +6,6 @@ import { useMenus, useStoreDispatch, useStoreSelector, useTheme, useToast, useTr
 import { setAppState } from '../../store/slices/app-slice';
 import { addRemoteApp } from '../../store/slices/menu-slice';
 import CloseIcon from '@mui/icons-material/Close';
-import { DEFAULT_APPS } from '../../constants';
 import { FormState, ErrorState } from './types';
 
 function coverValue(tab?: ChromeTab) {
@@ -23,15 +22,10 @@ function WithDialog() {
   const { globalStyle } = useTheme();
   const { show } = useToast();
   const { openCollectWebsiteForm, activeBrowserTab } = useStoreSelector((state) => state.app);
-  const { list } = useMenus();
+  const { apps } = useMenus();
   const dispatch = useStoreDispatch();
   const [value, setValue] = useState<FormState>(coverValue(activeBrowserTab));
   const [errors, setErrors] = useState<ErrorState[]>([]);
-
-  const allApps = useMemo(
-    () => list.flatMap((record) => [...(DEFAULT_APPS?.[record.id] || []), ...record.apps]),
-    [list],
-  );
 
   const getErrors = (target = value) => {
     const result: ErrorState[] = [];
@@ -61,13 +55,14 @@ function WithDialog() {
       setErrors(currentErrors);
       return;
     }
-    if (allApps.filter((item) => item.url === value.url).length) {
+    if (apps.filter((item) => item.url === value.url).length) {
       show({ message: t('collect_form.url.exist'), type: 'error' });
       return;
     }
     dispatch(
       addRemoteApp({
         item: {
+          parentId: value.id,
           title: value.title,
           url: value.url,
           icon: {
@@ -75,13 +70,9 @@ function WithDialog() {
             type: 'image',
           },
         },
-        id: value.id,
       }),
     );
-    show({
-      message: t('collect_form.save.success'),
-      type: 'success',
-    });
+    show({ message: t('collect_form.save.success'), type: 'success' });
     onClose();
   };
 

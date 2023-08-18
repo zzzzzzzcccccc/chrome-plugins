@@ -9,6 +9,7 @@ import { DEFAULT_BACKGROUND_URL_STORE, SESSION_KEYS } from '../../constants';
 
 export interface IThemeContext {
   mode: 'light' | 'dark' | 'system';
+  appRenderMode: 'carousel' | 'accordion';
   primaryColorMapper: Record<string, Record<string, string>>;
   colorRange: string;
   primaryColor: string;
@@ -23,6 +24,7 @@ export interface IThemeContext {
 
 const initialContext: IThemeContext = {
   mode: 'system',
+  appRenderMode: 'carousel',
   primaryColorMapper,
   colorRange: '600',
   primaryColor: 'deepOrange',
@@ -39,7 +41,7 @@ export const ThemeContext = createContext(initialContext);
 
 type Configuration = Pick<
   IThemeContext,
-  'mode' | 'colorRange' | 'primaryColor' | 'appSize' | 'backgroundUrl' | 'backgroundUrlStore'
+  'mode' | 'colorRange' | 'primaryColor' | 'appSize' | 'backgroundUrl' | 'backgroundUrlStore' | 'appRenderMode'
 >;
 
 export default function ThemeProvider(props: { children?: React.ReactNode }) {
@@ -53,6 +55,7 @@ export default function ThemeProvider(props: { children?: React.ReactNode }) {
     primaryColor: configurationStorage?.primaryColor || initialContext.primaryColor,
     appSize: configurationStorage?.appSize || initialContext.appSize,
     backgroundUrl: configurationStorage?.backgroundUrl || initialContext.backgroundUrl,
+    appRenderMode: configurationStorage?.appRenderMode || initialContext.appRenderMode,
     backgroundUrlStore: configurationStorage?.backgroundUrlStore
       ? Array.from(new Set([...configurationStorage.backgroundUrlStore, ...DEFAULT_BACKGROUND_URL_STORE]))
       : DEFAULT_BACKGROUND_URL_STORE,

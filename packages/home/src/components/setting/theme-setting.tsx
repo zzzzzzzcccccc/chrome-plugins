@@ -3,6 +3,8 @@ import { Button, ButtonGroup, Typography, Box, Paper, Slider, Stack, TextField }
 import LightModeIcon from '@mui/icons-material/LightMode';
 import DarkModeOutlinedIcon from '@mui/icons-material/DarkModeOutlined';
 import SettingsSuggestOutlinedIcon from '@mui/icons-material/SettingsSuggestOutlined';
+import ViewCarouselIcon from '@mui/icons-material/ViewCarousel';
+import UnfoldLessDoubleIcon from '@mui/icons-material/UnfoldLessDouble';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { useTranslation, useTheme, useToast } from '../../hooks';
@@ -22,12 +24,15 @@ export default function ThemeSetting() {
     backgroundUrlStore,
     backgroundUrl,
     updateConfiguration,
+    appRenderMode,
   } = useTheme();
   const { show } = useToast();
 
   const [customBackgroundUrl, setCustomBackgroundUrl] = useState('');
 
   const getButtonVariant = (target: string) => (target === mode ? 'contained' : 'outlined');
+
+  const getAppContainerButtonVariant = (target: string) => (target === appRenderMode ? 'contained' : 'outlined');
 
   const handleBackgroundUrlOnKeyDown = async (e: React.KeyboardEvent<HTMLInputElement>) => {
     const { key } = e;
@@ -109,6 +114,34 @@ export default function ThemeSetting() {
             onClick={() => updateConfiguration({ mode: 'system' })}
           >
             {t('setting.theme.system')}
+          </Button>
+        </ButtonGroup>
+      </>
+    );
+  };
+
+  const renderAppContainerMode = () => {
+    return (
+      <>
+        <Typography variant="subtitle1" sx={{ pb: 1, pt: 1 }}>
+          {t('setting.theme.custom_app_container_mode')}
+        </Typography>
+        <ButtonGroup>
+          <Button
+            endIcon={<ViewCarouselIcon />}
+            sx={{ ...globalStyle.ttn }}
+            variant={getAppContainerButtonVariant('carousel')}
+            onClick={() => updateConfiguration({ appRenderMode: 'carousel' })}
+          >
+            <span>{t('carousel')}</span>
+          </Button>
+          <Button
+            endIcon={<UnfoldLessDoubleIcon />}
+            sx={{ ...globalStyle.ttn }}
+            variant={getAppContainerButtonVariant('accordion')}
+            onClick={() => updateConfiguration({ appRenderMode: 'accordion' })}
+          >
+            <span>{t('accordion')}</span>
           </Button>
         </ButtonGroup>
       </>
@@ -231,6 +264,7 @@ export default function ThemeSetting() {
   return (
     <>
       {renderMode()}
+      {renderAppContainerMode()}
       {renderColorRange()}
       {renderColor()}
       {renderAppSize()}

@@ -2,7 +2,7 @@ import { AppItem } from '../store/slices/menu-slice';
 import ICONS from './icons';
 import SVGS from './svgs';
 
-const GAME_APPS: AppItem[] = [
+const GAME_APPS: Omit<AppItem, 'parentId'>[] = [
   {
     icon: {
       target: ICONS.steam,
