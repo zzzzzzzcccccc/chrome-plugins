@@ -2,11 +2,11 @@ import React, { useMemo } from 'react';
 import { Box } from '@mui/material';
 import Application from './application';
 import { DEFAULT_APPS } from '../../constants';
-import { useTheme, useStoreSelector, useRect } from '../../hooks';
+import { useTheme, useRect, useMenus } from '../../hooks';
 
 function AppContainer() {
   const { globalStyle } = useTheme();
-  const { active, list } = useStoreSelector((state) => state.menu);
+  const { active, list } = useMenus();
   const rect = useRect(document.body);
   const menuIndex = useMemo(() => list.map((m) => m.id).indexOf(active), [active, list]);
 

@@ -1,5 +1,6 @@
-import React, { useEffect } from 'react';
+import React, { useRef, useEffect, useCallback } from 'react';
 import useInitialize from './use-initialize';
+import useAppNavigate from './use-app-navigate';
 import { useStoreSelector, useStoreDispatch } from './use-store';
 import { KeyCode } from '../utils';
 import { KEYBOARD_KEYS } from '../constants';
@@ -7,7 +8,9 @@ import { setAppState, setContextMenu } from '../store/slices/app-slice';
 
 export default function useLayout() {
   const { pushKeyboardHandler } = useInitialize();
-  const { openSetting, openSearch, contextMenu } = useStoreSelector((state) => state.app);
+  const { location, appJump } = useAppNavigate();
+  const { openSetting, openSearch, contextMenu, lastPathname } = useStoreSelector((state) => state.app);
+  const firstRenderRef = useRef(true);
   const dispatch = useStoreDispatch();
 
   const handleOnContextMenu = (e: React.MouseEvent<HTMLDivElement>) => {
@@ -21,6 +24,13 @@ export default function useLayout() {
       }),
     );
   };
+
+  const runLastPage = useCallback(() => {
+    if (firstRenderRef.current && location.pathname === '/' && lastPathname !== '/') {
+      appJump(lastPathname);
+    }
+    firstRenderRef.current = false;
+  }, [location, lastPathname, appJump]);
 
   useEffect(() => {
     const handler = (keyCode: KeyCode, event: KeyboardEvent) => {
@@ -41,6 +51,11 @@ export default function useLayout() {
     };
     return pushKeyboardHandler(handler);
   }, [dispatch, pushKeyboardHandler, openSetting, openSearch]);
+
+  useEffect(() => {
+    const timer = setTimeout(runLastPage, 0);
+    return () => clearTimeout(timer);
+  }, [runLastPage]);
 
   return {
     handleOnContextMenu,

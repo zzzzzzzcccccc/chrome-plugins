@@ -7,6 +7,7 @@ export type ChromeWindow = chrome.windows.Window;
 export type ChromeWindowCreateData = chrome.windows.CreateData;
 export type ChromeCreateProperties = chrome.contextMenus.CreateProperties;
 export type ChromeOnClickData = chrome.contextMenus.OnClickData;
+export type ChromeDeclarativeNetRequestRule = chrome.declarativeNetRequest.Rule;
 
 export type OnMessageCallback<T, R> = (message: T, messageSender: MessageSender, sendResponse: SendResponse<R>) => void;
 
@@ -90,4 +91,74 @@ export function onContextMenus(cb: (data: ChromeOnClickData, tab?: ChromeTab) =>
 
 export function onInstalled(cb: () => void) {
   chrome.runtime.onInstalled.addListener(cb);
+}
+
+export async function getDeclarativeNetRequestDynamicRules() {
+  try {
+    const rules = await chrome.declarativeNetRequest.getDynamicRules();
+    return {
+      rules,
+      error: null,
+    };
+  } catch (error) {
+    return {
+      rules: [] as ChromeDeclarativeNetRequestRule[],
+      error,
+    };
+  }
+}
+
+export async function updateDeclarativeNetDynamicRules({
+  addRules = [],
+  removeRuleIds = [],
+}: {
+  addRules?: ChromeDeclarativeNetRequestRule[];
+  removeRuleIds?: number[];
+}) {
+  try {
+    await chrome.declarativeNetRequest.updateDynamicRules({
+      addRules,
+      removeRuleIds,
+    });
+    return { addRules, removeRuleIds, error: null };
+  } catch (error) {
+    return { addRules, removeRuleIds, error };
+  }
+}
+
+export async function scriptExecuteByActiveWindow(callback: () => void) {
+  const { tab, error } = await getCurrentTab();
+  if (!tab) {
+    return { error, tab };
+  }
+  try {
+    await chrome.scripting.executeScript({
+      target: { tabId: tab.id as number },
+      func: callback,
+    });
+    return {
+      error: null,
+      tab,
+    };
+  } catch (error) {
+    return {
+      error,
+      tab,
+    };
+  }
+}
+
+export async function scriptRegisterContentScripts(scripts: RegisteredContentScript[]) {
+  try {
+    await chrome.scripting.registerContentScripts(scripts);
+    return {
+      scripts,
+      error: null,
+    };
+  } catch (error) {
+    return {
+      scripts: [] as RegisteredContentScript[],
+      error,
+    };
+  }
 }

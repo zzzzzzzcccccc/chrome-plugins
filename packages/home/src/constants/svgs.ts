@@ -63,6 +63,7 @@ const SVGS = {
   hackerNews: 'hacker_news',
   jueJin: 'jue_jin',
   codesandbox: 'codesandbox',
+  httpBlocking: 'http_blocking',
 };
 
 export default SVGS;

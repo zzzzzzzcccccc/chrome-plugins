@@ -15,6 +15,7 @@ import UrlParse from '../url-parse';
 import CssJsEditor from '../css-js-editor';
 import CssEditor from '../css-editor';
 import JsonSchemaEditor from '../json-schema-editor';
+import HttpBlocking from '../http-blocking';
 
 const routers = [
   {
@@ -134,6 +135,14 @@ const routers = [
     element: (
       <LazyWrapper>
         <JsonSchemaEditor />
+      </LazyWrapper>
+    ),
+  },
+  {
+    path: 'http-blocking',
+    element: (
+      <LazyWrapper>
+        <HttpBlocking />
       </LazyWrapper>
     ),
   },

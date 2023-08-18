@@ -4,12 +4,13 @@ import { APP_SEARCH_LRU_CAPACITY, SESSION_KEYS, DEFAULT_APPS } from '../constant
 import { useStoreSelector } from './use-store';
 import { AppItem } from '../store/slices/menu-slice';
 import useTranslation from './use-translation';
+import useMenus from './use-menus';
 
 export type RecentKeywordItem = { source: string; date: string };
 
 export default function useAppSearch() {
   const { openSearch } = useStoreSelector((state) => state.app);
-  const { list } = useStoreSelector((state) => state.menu);
+  const { list } = useMenus();
   const t = useTranslation();
 
   const openSearchRef = useRef(openSearch);

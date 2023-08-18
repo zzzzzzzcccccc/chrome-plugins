@@ -2,14 +2,14 @@ import React, { useState, useEffect, useMemo } from 'react';
 import { Dialog, DialogTitle, DialogContent, DialogActions, Typography, IconButton, Button } from '@mui/material';
 import { ChromeTab } from '@chrome-plugin/common';
 import CollectWebsiteForm from './collect-website-form';
-import { useStoreDispatch, useStoreSelector, useTheme, useToast, useTranslation } from '../../hooks';
+import { useMenus, useStoreDispatch, useStoreSelector, useTheme, useToast, useTranslation } from '../../hooks';
 import { setAppState } from '../../store/slices/app-slice';
 import { addRemoteApp } from '../../store/slices/menu-slice';
 import CloseIcon from '@mui/icons-material/Close';
 import { DEFAULT_APPS } from '../../constants';
 import { FormState, ErrorState } from './types';
 
-function covertValue(tab?: ChromeTab) {
+function coverValue(tab?: ChromeTab) {
   return {
     title: tab?.title || '',
     url: tab?.url || '',
@@ -22,12 +22,10 @@ function WithDialog() {
   const t = useTranslation();
   const { globalStyle } = useTheme();
   const { show } = useToast();
-  const {
-    app: { openCollectWebsiteForm, activeBrowserTab },
-    menu: { list },
-  } = useStoreSelector((state) => state);
+  const { openCollectWebsiteForm, activeBrowserTab } = useStoreSelector((state) => state.app);
+  const { list } = useMenus();
   const dispatch = useStoreDispatch();
-  const [value, setValue] = useState<FormState>(covertValue(activeBrowserTab));
+  const [value, setValue] = useState<FormState>(coverValue(activeBrowserTab));
   const [errors, setErrors] = useState<ErrorState[]>([]);
 
   const allApps = useMemo(
@@ -88,7 +86,7 @@ function WithDialog() {
   };
 
   useEffect(() => {
-    setValue(covertValue(activeBrowserTab));
+    setValue(coverValue(activeBrowserTab));
   }, [activeBrowserTab]);
 
   return (

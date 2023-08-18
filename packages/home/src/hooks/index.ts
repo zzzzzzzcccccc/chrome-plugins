@@ -10,6 +10,9 @@ import useFileInput from './use-file-input';
 import useOutSideClick from './use-out-side-click';
 import useToast from './use-toast';
 import useRect from './use-rect';
+import useToggle from './use-toggle';
+import { useSession, useStorage } from './use-storage-and-session';
+import useMenus from './use-menus';
 
 export type { RecentKeywordItem } from './use-app-search';
 
@@ -27,4 +30,8 @@ export {
   useOutSideClick,
   useToast,
   useRect,
+  useToggle,
+  useSession,
+  useStorage,
+  useMenus,
 };

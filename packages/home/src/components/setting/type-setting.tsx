@@ -60,7 +60,7 @@ function TypeSetting() {
       return;
     }
     if (listTitles.indexOf(value.title) > -1) {
-      show({ message: t('add_type.title_existed'), type: 'warning' });
+      show({ message: t('add_type.title.existed'), type: 'warning' });
       return;
     }
     dispatch(

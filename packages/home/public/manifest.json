@@ -17,5 +17,27 @@
   "chrome_url_overrides": {
     "newtab": "index.html?render_type=full"
   },
-  "permissions": ["activeTab"]
+  "background": {
+    "service_worker": "chrome/background.js"
+  },
+  "content_scripts": [
+    {
+      "matches": ["https://*/*", "http://*/*"],
+      "js": ["chrome/http-intercept.js"],
+      "all_frames": true,
+      "run_at": "document_start",
+      "world": "MAIN",
+      "exclude_matches": ["http://*/*.csv", "http://*/*.json", "http://*/*.xml", "https://*/*.csv", "https://*/*.json", "https://*/*.xml"]
+    },
+    {
+      "matches": ["https://*/*", "http://*/*"],
+      "js": ["chrome/inject.js"],
+      "all_frames": true,
+      "run_at": "document_start",
+      "world": "ISOLATED",
+      "exclude_matches": ["http://*/*.csv", "http://*/*.json", "http://*/*.xml", "https://*/*.csv", "https://*/*.json", "https://*/*.xml"]
+    }
+  ],
+  "permissions": ["activeTab"],
+  "host_permissions": ["http://*/*", "https://*/*"]
 }

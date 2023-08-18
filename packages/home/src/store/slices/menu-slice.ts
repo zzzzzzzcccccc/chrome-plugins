@@ -23,44 +23,7 @@ export interface MenuState {
 
 const initialState: MenuState = {
   active: SVGS.develop,
-  list: [
-    {
-      id: SVGS.develop,
-      title: 'develop.title',
-      icon: {
-        target: SVGS.develop,
-        type: 'svg',
-      },
-      apps: [],
-    },
-    {
-      id: SVGS.shop,
-      title: 'shop.title',
-      icon: {
-        target: SVGS.shop,
-        type: 'svg',
-      },
-      apps: [],
-    },
-    {
-      id: SVGS.game,
-      title: 'game.title',
-      icon: {
-        target: SVGS.game,
-        type: 'svg',
-      },
-      apps: [],
-    },
-    {
-      id: SVGS.media,
-      title: 'media.title',
-      icon: {
-        target: SVGS.media,
-        type: 'svg',
-      },
-      apps: [],
-    },
-  ],
+  list: [],
 };
 
 const menuSlice = createSlice({
@@ -73,6 +36,10 @@ const menuSlice = createSlice({
     addMenu: (state, action: PayloadAction<{ item: Omit<MenuItem, 'apps'>; type?: 'push' | 'unshift' }>) => {
       const { type = 'push', item } = action.payload;
       state.list[type]({ ...item, apps: [] });
+    },
+    removeMenu: (state, action: PayloadAction<{ id: string }>) => {
+      const { id } = action.payload;
+      state.list = state.list.filter((record) => record.id !== id);
     },
     addRemoteApp: (
       state,
@@ -89,9 +56,18 @@ const menuSlice = createSlice({
         return record;
       });
     },
+    removeRemoteApp: (state, action: PayloadAction<{ id: string; url: string }>) => {
+      const { id, url } = action.payload;
+      state.list = state.list.map((record) => {
+        if (record.id === id) {
+          record.apps = record.apps.filter((app) => app.url !== url);
+        }
+        return record;
+      });
+    },
   },
 });
 
-export const { setActive, addMenu, addRemoteApp } = menuSlice.actions;
+export const { setActive, addMenu, removeMenu, addRemoteApp, removeRemoteApp } = menuSlice.actions;
 
 export default menuSlice.reducer;

@@ -1,6 +1,7 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { ChromeTab } from '@chrome-plugin/common';
 import { SVGS } from '../../constants';
+import { HttpBlockingItem } from '../../model';
 
 export type VisualFile = {
   name: string;
@@ -15,6 +16,7 @@ export interface AppState {
   openCollectWebsiteForm: boolean;
   activeBrowserTab?: ChromeTab;
   activeSetting: string;
+  lastPathname: string;
   contextMenu: {
     open: boolean;
     x: number;
@@ -98,6 +100,11 @@ export interface AppState {
     right: string;
     mode: string;
   };
+  httpBlocking: {
+    rules: Record<string, HttpBlockingItem>;
+    openIds: string[];
+    activeIds: string[];
+  };
 }
 
 const initialState: AppState = {
@@ -105,6 +112,7 @@ const initialState: AppState = {
   openSearch: false,
   openCollectWebsiteForm: false,
   activeSetting: SVGS.theme,
+  lastPathname: '/',
   contextMenu: {
     open: false,
     x: 0,
@@ -313,6 +321,11 @@ ul li{
   }
 }`,
   },
+  httpBlocking: {
+    rules: {},
+    openIds: [],
+    activeIds: [],
+  },
 };
 
 const appSlice = createSlice({
@@ -393,6 +406,26 @@ const appSlice = createSlice({
       const keys = Object.keys(action.payload) as (keyof AppState['schema'])[];
       keys.forEach((key) => ((state.schema as any)[key] = action.payload[key]));
     },
+    setHttpBlocking: (state, action: PayloadAction<Partial<AppState['httpBlocking']>>) => {
+      const keys = Object.keys(action.payload) as (keyof AppState['httpBlocking'])[];
+      keys.forEach((key) => ((state.httpBlocking as any)[key] = action.payload[key]));
+    },
+    setHttpBlockingRule: (state, action: PayloadAction<{ id: string; item: Partial<HttpBlockingItem> }>) => {
+      const { id, item } = action.payload;
+      state.httpBlocking.rules[id] = { ...state.httpBlocking.rules[id], ...item };
+    },
+    setHttpBlockingOpenId: (state, action: PayloadAction<{ id: string; open: boolean }>) => {
+      const { id, open } = action.payload;
+      state.httpBlocking.openIds = open
+        ? state.httpBlocking.openIds.concat(id)
+        : state.httpBlocking.openIds.filter((i) => i !== id);
+    },
+    setHttpBlockingActiveId: (state, action: PayloadAction<{ id: string; open: boolean }>) => {
+      const { id, open } = action.payload;
+      state.httpBlocking.activeIds = open
+        ? state.httpBlocking.activeIds.concat(id)
+        : state.httpBlocking.activeIds.filter((i) => i !== id);
+    },
   },
 });
 
@@ -414,6 +447,10 @@ export const {
   setCssJs,
   setCss,
   setSchema,
+  setHttpBlocking,
+  setHttpBlockingRule,
+  setHttpBlockingOpenId,
+  setHttpBlockingActiveId,
 } = appSlice.actions;
 
 export default appSlice.reducer;

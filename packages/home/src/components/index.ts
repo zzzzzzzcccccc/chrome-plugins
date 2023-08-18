@@ -15,6 +15,8 @@ import Toast from './toast';
 import ContextMenu from './context-menu';
 import TagInput from './tag-input';
 import CollectWebsiteForm from './collect-website-form';
+import ConfirmDialog from './confirm-dialog';
+import BoxInput from './box-input';
 import JsonEditor from './json-editor';
 import Base64Editor from './base64-editor';
 import StringEditor from './string-editor';
@@ -30,6 +32,7 @@ import UrlParse from './url-parse';
 import CssJsEditor from './css-js-editor';
 import CssEditor from './css-editor';
 import JsonSchemaEditor from './json-schema-editor';
+import HttpBlocking from './http-blocking';
 
 export {
   Head,
@@ -49,6 +52,8 @@ export {
   ContextMenu,
   TagInput,
   CollectWebsiteForm,
+  ConfirmDialog,
+  BoxInput,
   JsonEditor,
   Base64Editor,
   StringEditor,
@@ -64,4 +69,5 @@ export {
   CssJsEditor,
   CssEditor,
   JsonSchemaEditor,
+  HttpBlocking,
 };

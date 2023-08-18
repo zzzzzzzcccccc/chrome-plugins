@@ -59,6 +59,15 @@ const DEVELOP_APPS: AppItem[] = [
   },
   {
     icon: {
+      target: `#${SVGS.httpBlocking}`,
+      type: 'svg',
+    },
+    title: 'develop.http_blocking',
+    url: '/http-blocking',
+    jumpMethod: 'internal',
+  },
+  {
+    icon: {
       target: `#${SVGS.codesandbox}`,
       type: 'svg',
     },

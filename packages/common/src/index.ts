@@ -12,6 +12,10 @@ import {
   createContextMenus,
   onContextMenus,
   onInstalled,
+  getDeclarativeNetRequestDynamicRules,
+  updateDeclarativeNetDynamicRules,
+  scriptExecuteByActiveWindow,
+  scriptRegisterContentScripts,
 } from './chrome';
 export type {
   ChromeTab,
@@ -22,6 +26,7 @@ export type {
   ChromeWindow,
   ChromeWindowCreateData,
   ChromeOnClickData,
+  ChromeDeclarativeNetRequestRule,
 } from './chrome';
 
 import { getScreenWidthHeight, canvasToBlob, canvasToBase64 } from './element';
@@ -52,6 +57,10 @@ export {
   createContextMenus,
   onContextMenus,
   onInstalled,
+  getDeclarativeNetRequestDynamicRules,
+  updateDeclarativeNetDynamicRules,
+  scriptExecuteByActiveWindow,
+  scriptRegisterContentScripts,
   getScreenWidthHeight,
   canvasToBlob,
   canvasToBase64,

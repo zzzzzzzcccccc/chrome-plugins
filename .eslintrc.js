@@ -38,6 +38,8 @@ module.exports = {
     '@typescript-eslint/no-var-requires': IGNORE,
     '@typescript-eslint/ban-ts-comment': IGNORE,
     '@next/next/no-img-element': IGNORE,
+    '@typescript-eslint/no-non-null-assertion': IGNORE,
+    '@typescript-eslint/no-unused-vars': IGNORE,
   },
   overrides: [
     {

@@ -1,6 +1,6 @@
 import LRUCache from './lru-cache';
 import formatString from './format-string';
-import storage from './storage';
+import { session, storage, StorageAndSession } from './storage-and-session';
 import Keyboard from './keyboard';
 import getPlatform from './get-platform';
 import buildSearchUrlByKeyword from './build-search-url-by-keyword';
@@ -20,6 +20,8 @@ export type { FileInputOptions } from './input';
 export {
   LRUCache,
   formatString,
+  StorageAndSession,
+  session,
   storage,
   Keyboard,
   getPlatform,
