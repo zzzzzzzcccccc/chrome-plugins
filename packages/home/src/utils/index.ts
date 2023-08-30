@@ -13,6 +13,7 @@ import timer from './timer';
 import { parseURL } from './url';
 import { transformToCss } from './css';
 import { transformToSchema } from './json';
+import PixiImageEditor, { imagePixiImageEditorInstance } from './pixi-image-editor';
 
 export type { KeyCode, KeyboardOptions } from './keyboard';
 export type { FileInputOptions } from './input';
@@ -35,4 +36,6 @@ export {
   parseURL,
   transformToCss,
   transformToSchema,
+  PixiImageEditor,
+  imagePixiImageEditorInstance,
 };

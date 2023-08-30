@@ -1,6 +1,6 @@
 import { useState, useEffect, useCallback, useRef } from 'react';
 
-export default function useRect<Element extends HTMLElement>(target: Element) {
+export default function useRect<Element extends HTMLElement>(target: Element | null) {
   const [rect, setRect] = useState<DOMRect | null>(null);
   const resizeObserverRef = useRef<ResizeObserver | null>(null);
 

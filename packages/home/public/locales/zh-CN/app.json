@@ -1,6 +1,6 @@
 {
   "meta.title": "标签管理",
-  "meta.description": "描述",
+  "meta.description": "一个管理浏览器标签的插件",
   "bookmark_current_site": "收藏当前网站",
   "no_result": "暂无数据",
   "loading": "加载中...",
@@ -141,6 +141,10 @@
   "develop.response.header": "响应头(Response Header)",
   "develop.delete_all.title": "⚠️删除所有数据",
   "develop.delete_all.message": "确定删除所有数据？",
+  "develop.image_editor": "图片编辑",
+  "develop.image_editor.import": "导入图片",
+  "develop.image_editor.select_error": "请选择图片",
+  "develop.image_editor.clear": "重制",
   "shop.title": "购物",
   "social.title": "社交",
   "game.title": "游戏",

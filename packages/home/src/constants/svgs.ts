@@ -64,6 +64,7 @@ const SVGS = {
   jueJin: 'jue_jin',
   codesandbox: 'codesandbox',
   httpBlocking: 'http_blocking',
+  imageEditor: 'image_editor',
 };
 
 export default SVGS;

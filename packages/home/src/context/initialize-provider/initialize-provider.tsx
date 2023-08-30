@@ -12,11 +12,13 @@ export interface IInitializeContext {
   updateContext: (payload: InitializeProviderContext) => InitializeProviderContext | null;
   pushKeyboardHandler: (cb: (keyCode: KeyCode, event: KeyboardEvent) => void) => void;
   removeKeyboardHandler: (cb: (keyCode: KeyCode, event: KeyboardEvent) => void) => void;
+  removeOnResizeHandler: (cb: () => void) => void;
+  pushOnResizeHandler: (cb: () => void) => () => void;
 }
 
 export type InitializeProviderContext = Omit<
   IInitializeContext,
-  'updateContext' | 'pushKeyboardHandler' | 'removeKeyboardHandler'
+  'updateContext' | 'pushKeyboardHandler' | 'removeKeyboardHandler' | 'removeOnResizeHandler' | 'pushOnResizeHandler'
 >;
 
 const initialContext: IInitializeContext = {
@@ -29,6 +31,8 @@ const initialContext: IInitializeContext = {
   updateContext: () => null,
   pushKeyboardHandler: () => null,
   removeKeyboardHandler: () => null,
+  removeOnResizeHandler: () => null,
+  pushOnResizeHandler: () => () => null,
 };
 
 export const InitializeContext = createContext(initialContext);
@@ -43,6 +47,7 @@ export default function InitializeProvider(props: { children?: React.ReactNode }
     isRenderFull: initialContext.isRenderFull,
   });
   const keyboardRef = useRef<Keyboard<HTMLElement> | null>(null);
+  const onResizeRef = useRef<(() => void)[]>([]);
 
   const updateContext = (payload: Partial<InitializeProviderContext>) => {
     const current = payload;
@@ -65,6 +70,20 @@ export default function InitializeProvider(props: { children?: React.ReactNode }
       };
     },
     [removeKeyboardHandler],
+  );
+
+  const removeOnResizeHandler = useCallback((cb: () => void) => {
+    onResizeRef.current = onResizeRef.current.filter((item) => item !== cb);
+  }, []);
+
+  const pushOnResizeHandler = useCallback(
+    (cb: () => void) => {
+      if (onResizeRef.current.indexOf(cb) === -1) {
+        onResizeRef.current.push(cb);
+      }
+      return () => removeOnResizeHandler(cb);
+    },
+    [removeOnResizeHandler],
   );
 
   useEffect(() => {
@@ -101,8 +120,29 @@ export default function InitializeProvider(props: { children?: React.ReactNode }
     };
   }, []);
 
+  useEffect(() => {
+    const handler = () => {
+      onResizeRef.current.forEach((cb) => cb());
+    };
+
+    window.addEventListener('resize', handler);
+
+    return () => {
+      window.removeEventListener('resize', handler);
+    };
+  }, []);
+
   return (
-    <InitializeContext.Provider value={{ ...context, updateContext, pushKeyboardHandler, removeKeyboardHandler }}>
+    <InitializeContext.Provider
+      value={{
+        ...context,
+        updateContext,
+        pushKeyboardHandler,
+        removeKeyboardHandler,
+        pushOnResizeHandler,
+        removeOnResizeHandler,
+      }}
+    >
       {context.loaded ? props.children : null}
     </InitializeContext.Provider>
   );

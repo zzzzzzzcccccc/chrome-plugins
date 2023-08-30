@@ -16,6 +16,7 @@ import CssJsEditor from '../css-js-editor';
 import CssEditor from '../css-editor';
 import JsonSchemaEditor from '../json-schema-editor';
 import HttpBlocking from '../http-blocking';
+import ImageEditor from '../image-editor';
 
 const routers = [
   {
@@ -143,6 +144,14 @@ const routers = [
     element: (
       <LazyWrapper>
         <HttpBlocking />
+      </LazyWrapper>
+    ),
+  },
+  {
+    path: 'image-editor',
+    element: (
+      <LazyWrapper>
+        <ImageEditor />
       </LazyWrapper>
     ),
   },

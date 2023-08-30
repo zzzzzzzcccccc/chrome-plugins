@@ -210,6 +210,15 @@ const DEVELOP_APPS: Omit<AppItem, 'parentId'>[] = [
     url: '/json-schema-editor',
     jumpMethod: 'internal',
   },
+  {
+    icon: {
+      target: `#${SVGS.imageEditor}`,
+      type: 'svg',
+    },
+    title: 'develop.image_editor',
+    url: '/image-editor',
+    jumpMethod: 'internal',
+  },
 ];
 
 export default DEVELOP_APPS;

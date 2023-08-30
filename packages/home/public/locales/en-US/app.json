@@ -1,6 +1,6 @@
 {
   "meta.title": "Tabs Manager",
-  "meta.description": "Description",
+  "meta.description": "A plugin to manage browser tabs",
   "bookmark_current_site": "Bookmark current site",
   "no_result": "No found result.",
   "loading": "Loading...",
@@ -142,6 +142,10 @@
   "develop.response.header": "Response Header",
   "develop.delete_all.title": "⚠️Clear Data",
   "develop.delete_all.message": "Do you really want to delete all data ?",
+  "develop.image_editor": "Image Editor",
+  "develop.image_editor.import": "Import image",
+  "develop.image_editor.select_error": "Please select an image",
+  "develop.image_editor.clear": "Clear",
   "shop.title": "Shop",
   "social.title": "Social contact",
   "game.title": "Game",

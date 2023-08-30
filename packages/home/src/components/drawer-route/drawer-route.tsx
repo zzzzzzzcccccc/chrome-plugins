@@ -1,12 +1,13 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Drawer, Box, IconButton, Divider, Typography } from '@mui/material';
 import { DrawerRouteProps } from './types';
-import { useTheme, useAppNavigate } from '../../hooks';
+import { useTheme, useAppNavigate, useInitialize } from '../../hooks';
 import CloseIcon from '@mui/icons-material/Close';
 
 export default function DrawerRoute(props: DrawerRouteProps) {
   const { title, children } = props;
 
+  const { pushOnResizeHandler } = useInitialize();
   const { globalStyle } = useTheme();
   const { back } = useAppNavigate();
 
@@ -34,21 +35,17 @@ export default function DrawerRoute(props: DrawerRouteProps) {
         timerRef.current = null;
       }
     };
-
     const handler = () => {
       removeTimer();
       timerRef.current = setTimeout(() => setWidth(document.body.clientWidth), 500);
     };
-
-    const rb = new ResizeObserver(handler);
-
-    rb.observe(document.body);
+    const unbind = pushOnResizeHandler(handler);
 
     return () => {
       removeTimer();
-      rb.disconnect();
+      unbind();
     };
-  }, []);
+  }, [pushOnResizeHandler]);
 
   return (
     <Drawer open={open} anchor="right" onClose={onClose}>

@@ -6,6 +6,7 @@ import GAME_APPS from './game-apps';
 import MEDIA_APPS from './media-apps';
 import { AppItem, MenuItem } from '../store/slices/menu-slice';
 
+export const FAVICON_URL = './icon16.png';
 export const CHROME_MESSAGE_NAME_SPACE = '___CHROME_TAB_MANAGER___';
 export const HTTP_STATUS_SUCCESS = 200;
 export const HTTP_STATUS_TEXT_SUCCESS = 'OK';
