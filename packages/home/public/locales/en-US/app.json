@@ -145,6 +145,7 @@
   "develop.image_editor": "Image Editor",
   "develop.image_editor.import": "Import image",
   "develop.image_editor.select_error": "Please select an image",
+  "develop.image_editor.export": "Export image",
   "develop.image_editor.clear": "Clear",
   "shop.title": "Shop",
   "social.title": "Social contact",

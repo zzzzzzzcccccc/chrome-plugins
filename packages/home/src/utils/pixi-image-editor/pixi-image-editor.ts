@@ -1,129 +1,146 @@
 import * as PIXI from 'pixi.js';
-import { ImageConfig, SpriteActionType } from './types';
+import pixiStore from './pixi-store';
 import PixiSprite from './pixi-sprite';
-
-type PointerEventType = 'pointermove' | 'pointerup' | 'pointerupOutside';
+import PixiStageEvent from './pixi-stage-event';
+import { CreateAppPayload, ImageConfig, OnChangePayload, SpriteActionType } from './types';
+import { createDownloadLink } from '../link';
+import loadImage from '../load-image';
 
 class PixiImageEditor {
-  private images = new Map<string, ImageConfig>();
-  private pixiSprites = new Map<string, PixiSprite>();
   private appInstance: PIXI.Application | null = null;
-  private onPointerEventCallbacks = new Map<PointerEventType, Set<(event: PIXI.FederatedPointerEvent) => void>>();
-  private selectedUrl = '';
+  private pixiStageEvent: PixiStageEvent | null = null;
+  private onChange?: (payload: OnChangePayload) => void;
 
-  public createApp() {
+  public createApp(payload: CreateAppPayload, onChangeCallback?: (payload: OnChangePayload) => void) {
+    pixiStore.configuration = payload;
+    this.onChange = onChangeCallback;
+
     if (!this.appInstance) {
+      PIXI.settings.SCALE_MODE = PIXI.SCALE_MODES.NEAREST;
+      PIXI.settings.RESOLUTION = window.devicePixelRatio || 1;
+
       this.appInstance = new PIXI.Application({
         resizeTo: window,
-        background: 'transparent',
+        antialias: true,
       });
+      this.appInstance.stage.hitArea = this.appInstance.screen;
+      this.appInstance.stage.sortableChildren = true;
     }
-    this.appInstance.stage.interactive = true;
-    this.appInstance.stage.hitArea = this.appInstance.screen;
-    this.addListener();
+    this.pixiStageEvent = new PixiStageEvent(this.appInstance.stage);
+    this.pixiStageEvent.on();
+    this.pixiStageEvent.push('pointerdown', () => this.handleStageOnPointerDown());
+    this.insertSpritesCache();
     return this.appInstance;
   }
 
   public destroy() {
     if (this.appInstance) {
-      this.removeListener();
+      this.pixiStageEvent?.off();
+      this.pixiStageEvent = null;
+
+      this.onChange = void 0;
       this.appInstance.destroy(true);
       this.appInstance = null;
-      this.selectedUrl = '';
-      this.cleanPixiSprite();
+
+      pixiStore.configuration = null;
+      pixiStore.selectedUrl = '';
     }
   }
 
-  public addImage(payload: ImageConfig) {
-    this.images.set(payload.url, payload);
+  public clean() {
+    pixiStore.selectedUrl = '';
+    pixiStore.cleanPixiSprite();
 
-    const pixiSprite = new PixiSprite(payload, (type, instance) => this.handleSpriteOnChange(type, instance, payload));
+    this.pixiStageEvent?.cleanCallbacks(['pointermove', 'pointerup', 'pointerupOutside']);
+    this.appInstance?.stage.removeChildren();
+  }
 
-    this.addPixiSprite(payload.url, pixiSprite);
-    this.hiddenSpriteOtherTools(payload.url);
-    this.selectedUrl = payload.url;
+  public async pushImage(file: File) {
+    if (/^image/gi.test(file.type)) {
+      const url = URL.createObjectURL(file);
+      const { image } = await loadImage(url);
+      if (image) {
+        const payload = { url, width: image.width, height: image.height };
+        const pixiSprite = new PixiSprite(payload, (type, instance) => {
+          this.handleSpriteOnChange(type, instance, payload);
+          this.onChange?.({ type, instance });
+        });
+
+        pixiStore.selectedUrl = url;
+        pixiStore.pushPixiSprite(url, pixiSprite);
+
+        this.hiddenSpriteTools(url);
+        this.appendSprite(pixiSprite);
+      }
+    }
+  }
+
+  public downloadImage() {
+    this.hiddenSpriteTools();
+
+    const canvas = this.appInstance?.renderer.extract.canvas(this.appInstance.stage, this.appInstance?.screen);
+
+    if (canvas) {
+      const url = canvas.toDataURL?.('image/png', 1) || '';
+      const link = createDownloadLink(url, `image_${Date.now()}.png`);
+      link.click();
+      link.remove();
+    }
+  }
+
+  private insertSpritesCache() {
+    const sprites = pixiStore.pixiSprites;
+    if (sprites.size) {
+      this.hiddenSpriteTools();
+      sprites.forEach((pixiSprite) => this.appendSprite(pixiSprite));
+    }
+  }
+
+  private appendSprite(pixiSprite: PixiSprite) {
     this.appInstance?.stage.addChild(pixiSprite.container);
 
-    this.addPointerEventCallback('pointermove', (event) => pixiSprite.handleOnPointermove(event));
-    this.addPointerEventCallback('pointerup', (event) => pixiSprite.handleOnPointermoveEnd(event));
-    this.addPointerEventCallback('pointerupOutside', (event) => pixiSprite.handleOnPointermoveEnd(event));
+    this.pixiStageEvent?.push('pointermove', (event) => pixiSprite.event.drag(event));
+    this.pixiStageEvent?.push('pointerup', () => pixiSprite.event.dragEnd());
+    this.pixiStageEvent?.push('pointerupOutside', () => pixiSprite.event.dragEnd());
 
-    this.addPointerEventCallback('pointermove', (event) => pixiSprite.handleOnResizeButtonPointermove(event));
-    this.addPointerEventCallback('pointerup', (event) => pixiSprite.handleOnResizeButtonPointermoveEnd(event));
-    this.addPointerEventCallback('pointerupOutside', (event) => pixiSprite.handleOnResizeButtonPointermoveEnd(event));
+    this.pixiStageEvent?.push('pointermove', (event) => pixiSprite.event.resize(event));
+    this.pixiStageEvent?.push('pointerup', () => pixiSprite.event.resizeEnd());
+    this.pixiStageEvent?.push('pointerupOutside', () => pixiSprite.event.resizeEnd());
+
+    this.pixiStageEvent?.push('pointermove', (event) => pixiSprite.event.rotate(event));
+    this.pixiStageEvent?.push('pointerup', () => pixiSprite.event.rotateEnd());
+    this.pixiStageEvent?.push('pointerupOutside', () => pixiSprite.event.rotateEnd());
   }
 
-  public cleanImages() {
-    this.images.clear();
-    this.removeListener();
-    this.appInstance?.stage.removeChildren();
-    this.selectedUrl = '';
-    this.cleanPixiSprite();
-  }
-
-  private addPixiSprite(url: string, pixiSprite: PixiSprite) {
-    this.pixiSprites.set(url, pixiSprite);
-  }
-
-  private cleanPixiSprite() {
-    this.pixiSprites.clear();
-  }
-
-  private addListener() {
-    this.appInstance?.stage.on('pointermove', (event) => this.handleOnPointermove(event));
-    this.appInstance?.stage.on('pointerup', (event) => this.handleOnPointerup(event));
-    this.appInstance?.stage.on('pointerupoutside', (event) => this.handleOnPointerupOutside(event));
-  }
-
-  private removeListener() {
-    this.appInstance?.stage.off('pointermove', (event) => this.handleOnPointermove(event));
-    this.appInstance?.stage.off('pointerup', (event) => this.handleOnPointerup(event));
-    this.appInstance?.stage.off('pointerupoutside', (event) => this.handleOnPointerupOutside(event));
-    this.removeAllPointerEventCallbacks();
-  }
-
-  private addPointerEventCallback(eventType: PointerEventType, callback: (event: PIXI.FederatedPointerEvent) => void) {
-    if (!this.onPointerEventCallbacks.has(eventType)) {
-      this.onPointerEventCallbacks.set(eventType, new Set());
-    }
-    this.onPointerEventCallbacks.get(eventType)?.add(callback);
-  }
-
-  private removeAllPointerEventCallbacks() {
-    this.onPointerEventCallbacks.clear();
-  }
-
-  private handleOnPointermove(event: PIXI.FederatedPointerEvent) {
-    this.onPointerEventCallbacks.get('pointermove')?.forEach((callback) => callback(event));
-  }
-
-  private handleOnPointerup(event: PIXI.FederatedPointerEvent) {
-    this.onPointerEventCallbacks.get('pointerup')?.forEach((callback) => callback(event));
-  }
-
-  private handleOnPointerupOutside(event: PIXI.FederatedPointerEvent) {
-    this.onPointerEventCallbacks.get('pointerupOutside')?.forEach((callback) => callback(event));
+  private handleStageOnPointerDown() {
+    this.hiddenSpriteTools();
   }
 
   private handleSpriteOnChange(type: SpriteActionType, pixiSprite: PixiSprite, imageConfig: ImageConfig) {
-    if (type === SpriteActionType.PointerDown) {
-      if (this.selectedUrl === imageConfig.url) {
-        this.selectedUrl = '';
-        pixiSprite.hiddenTools();
-      } else {
-        this.selectedUrl = imageConfig.url;
-        pixiSprite.drawTools();
-        this.hiddenSpriteOtherTools(imageConfig.url);
+    if ([SpriteActionType.DragStart, SpriteActionType.ResizeStart].includes(type)) {
+      if (pixiStore.selectedUrl !== imageConfig.url) {
+        pixiSprite.showTools();
+        this.hiddenSpriteTools();
       }
     }
   }
 
-  private hiddenSpriteOtherTools(url: string) {
-    this.pixiSprites.forEach((pixiSprite, key) => {
-      if (key !== url) {
-        pixiSprite.hiddenTools();
-      }
-    });
+  private hiddenSpriteTools(url = '') {
+    if (!url) {
+      pixiStore.selectedUrl = '';
+      pixiStore.pixiSprites.forEach((pixiSprite) => pixiSprite.hiddenTools());
+    } else {
+      pixiStore.selectedUrl = url;
+      pixiStore.pixiSprites.forEach((pixiSprite, key) => {
+        if (key !== url) {
+          pixiSprite.hiddenTools();
+        }
+      });
+    }
+  }
+
+  get app() {
+    return this.appInstance;
   }
 }
 

@@ -4,7 +4,7 @@ import { session, storage, StorageAndSession } from './storage-and-session';
 import Keyboard from './keyboard';
 import getPlatform from './get-platform';
 import buildSearchUrlByKeyword from './build-search-url-by-keyword';
-import { createLink } from './link';
+import { createLink, createDownloadLink } from './link';
 import { createFileInput } from './input';
 import formatFileSize from './format-file-size';
 import getQueryVariable from './get-query-variable';
@@ -28,6 +28,7 @@ export {
   getPlatform,
   buildSearchUrlByKeyword,
   createLink,
+  createDownloadLink,
   createFileInput,
   formatFileSize,
   getQueryVariable,

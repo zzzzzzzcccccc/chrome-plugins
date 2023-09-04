@@ -144,6 +144,7 @@
   "develop.image_editor": "图片编辑",
   "develop.image_editor.import": "导入图片",
   "develop.image_editor.select_error": "请选择图片",
+  "develop.image_editor.export": "导出图片",
   "develop.image_editor.clear": "重制",
   "shop.title": "购物",
   "social.title": "社交",

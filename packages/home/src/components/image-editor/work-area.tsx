@@ -1,13 +1,13 @@
 import React, { useRef } from 'react';
 import { Box, AppBar, Toolbar, Tooltip, IconButton, Stack } from '@mui/material';
 import AddPhotoAlternateIcon from '@mui/icons-material/AddPhotoAlternate';
-import ClearIcon from '@mui/icons-material/Clear';
-import { useTheme, useToast, useTranslation } from '../../hooks';
-import { loadImage, imagePixiImageEditorInstance } from '../../utils';
+import DeleteIcon from '@mui/icons-material/Delete';
+import PhotoIcon from '@mui/icons-material/Photo';
+import { useTheme, useTranslation } from '../../hooks';
+import { imagePixiImageEditorInstance } from '../../utils';
 
 function WorkArea() {
   const { globalStyle, theme } = useTheme();
-  const { show } = useToast();
   const t = useTranslation();
   const inputRef = useRef<HTMLInputElement | null>(null);
 
@@ -18,31 +18,26 @@ function WorkArea() {
     }
   };
 
-  const reset = () => {
-    imagePixiImageEditorInstance.cleanImages();
-  };
-
-  const handleOnFileChange = async (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleOnFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { files } = event.target;
     if (!files || !files.length) return;
-    const file = files[0];
-    if (!/^image/gi.test(file.type)) {
-      show({ message: t('develop.image_editor.select_error'), type: 'error' });
-      return;
+    for (let i = 0; i < files.length; i++) {
+      imagePixiImageEditorInstance.pushImage(files[i]);
     }
-    const url = URL.createObjectURL(file);
-    const { image } = await loadImage(url);
-    if (!image) {
-      show({ message: t('develop.image_editor.select_error'), type: 'error' });
-      return;
-    }
-    const { width, height } = image;
-    imagePixiImageEditorInstance.addImage({ url, width, height, name: file.name, type: file.type, size: file.size });
   };
 
   const actions = [
     { icon: <AddPhotoAlternateIcon />, title: t('develop.image_editor.import'), callback: selectFile },
-    { icon: <ClearIcon />, title: t('develop.image_editor.clear'), callback: reset },
+    {
+      icon: <PhotoIcon />,
+      title: t('develop.image_editor.export'),
+      callback: () => imagePixiImageEditorInstance.downloadImage(),
+    },
+    {
+      icon: <DeleteIcon />,
+      title: t('develop.image_editor.clear'),
+      callback: () => imagePixiImageEditorInstance.clean(),
+    },
   ];
 
   return (
@@ -72,6 +67,7 @@ function WorkArea() {
         type="file"
         onChange={handleOnFileChange}
         accept="image/*"
+        multiple
         style={{ width: 0, height: 0, display: 'none', position: 'absolute', top: 0, left: 0 }}
       />
     </>
