@@ -27,6 +27,7 @@ export const KEYBOARD_KEYS = {
   alt_o: 'alto',
 };
 export const APP_SEARCH_LRU_CAPACITY = 20;
+export const BASE_FONT_URL = './images/icons/font.js';
 export const BASE_URL_BY_BAIDU = 'https://www.baidu.com';
 export const BASE_URL_BY_GOOGLE = 'https://www.google.com';
 export const BASE_URL_BY_BING = 'https://www.bing.com';

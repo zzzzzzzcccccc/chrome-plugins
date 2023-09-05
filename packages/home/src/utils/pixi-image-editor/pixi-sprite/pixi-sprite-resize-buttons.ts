@@ -5,14 +5,14 @@ import { ResizeButton } from '../types';
 const RESIZE_BUTTON_SIZE = 10;
 const RESIZE_BUTTON_RADIUS = 2;
 const RESIZE_BUTTONS: Record<string, ResizeButton> = {
-  topLeft: { size: RESIZE_BUTTON_SIZE, radius: RESIZE_BUTTON_RADIUS, cursor: 'se-resize' },
-  topCenter: { size: RESIZE_BUTTON_SIZE, radius: RESIZE_BUTTON_RADIUS, cursor: 'n-resize' },
-  topRight: { size: RESIZE_BUTTON_SIZE, radius: RESIZE_BUTTON_RADIUS, cursor: 'sw-resize' },
-  rightCenter: { size: RESIZE_BUTTON_SIZE, radius: RESIZE_BUTTON_RADIUS, cursor: 'e-resize' },
-  bottomRight: { size: RESIZE_BUTTON_SIZE, radius: RESIZE_BUTTON_RADIUS, cursor: 'se-resize' },
-  bottomCenter: { size: RESIZE_BUTTON_SIZE, radius: RESIZE_BUTTON_RADIUS, cursor: 'n-resize' },
-  bottomLeft: { size: RESIZE_BUTTON_SIZE, radius: RESIZE_BUTTON_RADIUS, cursor: 'sw-resize' },
-  leftCenter: { size: RESIZE_BUTTON_SIZE, radius: RESIZE_BUTTON_RADIUS, cursor: 'e-resize' },
+  topLeft: { size: RESIZE_BUTTON_SIZE, radius: RESIZE_BUTTON_RADIUS, cursor: 'nwse-resize' },
+  topCenter: { size: RESIZE_BUTTON_SIZE, radius: RESIZE_BUTTON_RADIUS, cursor: 'ns-resize' },
+  topRight: { size: RESIZE_BUTTON_SIZE, radius: RESIZE_BUTTON_RADIUS, cursor: 'nesw-resize' },
+  rightCenter: { size: RESIZE_BUTTON_SIZE, radius: RESIZE_BUTTON_RADIUS, cursor: 'ew-resize' },
+  bottomRight: { size: RESIZE_BUTTON_SIZE, radius: RESIZE_BUTTON_RADIUS, cursor: 'nwse-resize' },
+  bottomCenter: { size: RESIZE_BUTTON_SIZE, radius: RESIZE_BUTTON_RADIUS, cursor: 'ns-resize' },
+  bottomLeft: { size: RESIZE_BUTTON_SIZE, radius: RESIZE_BUTTON_RADIUS, cursor: 'nesw-resize' },
+  leftCenter: { size: RESIZE_BUTTON_SIZE, radius: RESIZE_BUTTON_RADIUS, cursor: 'ew-resize' },
 };
 
 class PixiSpriteResizeButtons {

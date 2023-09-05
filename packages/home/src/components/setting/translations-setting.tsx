@@ -12,7 +12,15 @@ type Translation = {
 
 const translations: Translation[] = [
   { value: 'zh-CN', content: '🇨🇳' },
+  { value: 'zh-HK', content: '🇨🇳' },
   { value: 'en-US', content: '🇺🇸' },
+  { value: 'pt-PT', content: '🇵🇹' },
+  { value: 'sp-SP', content: '🇪🇸' },
+  { value: 'de-DE', content: '🇩🇪' },
+  { value: 'fr-FR', content: '🇫🇷' },
+  { value: 'it-IT', content: '🇮🇹' },
+  { value: 'ja-JA', content: '🇯🇵' },
+  { value: 'ko-KO', content: '🇰🇷' },
 ];
 
 export default function TranslationsSetting() {
@@ -40,7 +48,7 @@ export default function TranslationsSetting() {
   }, [nation, keyword, t]);
 
   return (
-    <>
+    <Box sx={{ width: '100%', height: '100%', ...globalStyle.fc }}>
       <Box sx={{ ...globalStyle.frc }}>
         <SearchIcon />
         <InputBase
@@ -56,7 +64,7 @@ export default function TranslationsSetting() {
           {t('no_result')}
         </Typography>
       ) : (
-        <List sx={{ maxHeight: 240, overflow: 'auto' }}>
+        <List sx={{ flex: 1, overflow: 'auto' }}>
           {memoTranslations.map((record) => {
             return (
               <ListItem key={record.value} disablePadding disableGutters>
@@ -73,6 +81,6 @@ export default function TranslationsSetting() {
           })}
         </List>
       )}
-    </>
+    </Box>
   );
 }

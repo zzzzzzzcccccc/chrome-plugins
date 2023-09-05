@@ -1,6 +1,6 @@
 import React from 'react';
 import Script from 'next/script';
-import { BASE_SASS_LIB_URL } from '../constants';
+import { BASE_FONT_URL, BASE_SASS_LIB_URL } from '../constants';
 import { Head, App } from '../components';
 
 export default function Home() {
@@ -8,6 +8,7 @@ export default function Home() {
     <>
       <Head />
       <App />
+      <Script type="text/javascript" src={BASE_FONT_URL} defer />
       <Script type="text/javascript" src={BASE_SASS_LIB_URL} defer />
     </>
   );

@@ -1,7 +1,7 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { ChromeTab } from '@chrome-plugin/common';
 import { SVGS } from '../../constants';
-import { HttpBlockingItem, SpriteItem } from '../../model';
+import { HttpBlockingItem } from '../../model';
 
 export type VisualFile = {
   name: string;
