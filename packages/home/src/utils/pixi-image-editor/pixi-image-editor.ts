@@ -1,3 +1,4 @@
+import '@pixi/unsafe-eval';
 import * as PIXI from 'pixi.js';
 import pixiStore from './pixi-store';
 import PixiSprite from './pixi-sprite';

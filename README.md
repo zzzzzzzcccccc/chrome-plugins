@@ -11,7 +11,7 @@
 
 ## Tab Manager / 标签管理
 
-- [Install address/安装地址](TODO)
+- [Install address/安装地址](https://chrome.google.com/webstore/detail/tabs-manager/jfehcpbjlleaoehgcbolfeddjjifhabg?hl=zh-CN&authuser=0)
 
 ![image](screenshot/home/1.jpg)
 ![image](screenshot/home/2.jpg)
