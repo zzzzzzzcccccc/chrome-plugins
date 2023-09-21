@@ -1,6 +1,6 @@
 {
   "name": "@chrome-plugin/home",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "description": "Chrome plugin by Home App",
   "license": "MIT",
   "scripts": {
@@ -13,7 +13,7 @@
     "build:chrome:dev": "rimraf ./public/chrome && rollup -c rollup.config.js"
   },
   "dependencies": {
-    "@chrome-plugin/common": "^1.1.0",
+    "@chrome-plugin/common": "^1.2.0",
     "@emotion/react": "^11.10.6",
     "@emotion/styled": "^11.10.6",
     "@monaco-editor/react": "^4.4.6",
