@@ -167,5 +167,10 @@
   "collect_form.title.no_found": "請輸入標題",
   "collect_form.url.no_found": "請輸入網站域名",
   "collect_form.id.no_found": "請選擇分類",
-  "collect_form.url.exist": "網站已存在"
+  "collect_form.url.exist": "網站已存在",
+  "timestamp_target": "目標",
+  "timestamp_unit": "單位",
+  "timestamp_result": "結果",
+  "timestamp_unit_second": "秒",
+  "timestamp_unit_millisecond": "毫秒"
 }

@@ -168,5 +168,11 @@
   "collect_form.title.no_found": "제목을 입력하세요",
   "collect_form.url.no_found": "URL을 입력하세요",
   "collect_form.id.no_found": "유형을 선택하세요",
-  "collect_form.url.exist": "이 웹 사이트는 이미 존재합니다"
+  "collect_form.url.exist": "이 웹 사이트는 이미 존재합니다",
+  "timestamp_formatting": "타임스탬프 형식",
+  "timestamp_target": "대상",
+  "timestamp_unit": "단위",
+  "timestamp_result": "결과",
+  "timestamp_unit_second": "초",
+  "timestamp_unit_millisecond": "밀리초"
 }

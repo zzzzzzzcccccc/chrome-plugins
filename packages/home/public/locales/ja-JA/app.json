@@ -168,5 +168,11 @@
   "collect_form.title.no_found": "タイトルを入力してください",
   "collect_form.url.no_found": "URLを入力してください",
   "collect_form.id.no_found": "タイプを選択してください",
-  "collect_form.url.exist": "ウェブサイトは既に存在します"
+  "collect_form.url.exist": "ウェブサイトは既に存在します",
+  "timestamp_formatting": "タイムスタンプのフォーマット",
+  "timestamp_target": "ターゲット",
+  "timestamp_unit": "単位",
+  "timestamp_result": "結果",
+  "timestamp_unit_second": "秒",
+  "timestamp_unit_millisecond": "ミリ秒"
 }

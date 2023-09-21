@@ -167,5 +167,11 @@
   "collect_form.title.no_found": "请输入标题",
   "collect_form.url.no_found": "请输入网站域名",
   "collect_form.id.no_found": "请选择分类",
-  "collect_form.url.exist": "网站已存在"
+  "collect_form.url.exist": "网站已存在",
+  "timestamp_formatting": "时间戳格式化",
+  "timestamp_target": "目标",
+  "timestamp_unit": "单位",
+  "timestamp_result": "结果",
+  "timestamp_unit_second": "秒",
+  "timestamp_unit_millisecond": "毫秒"
 }

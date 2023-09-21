@@ -168,5 +168,11 @@
   "collect_form.title.no_found": "Please enter the title",
   "collect_form.url.no_found": "Please enter the url",
   "collect_form.id.no_found": "Please select a type",
-  "collect_form.url.exist": "The website already exists"
+  "collect_form.url.exist": "The website already exists",
+  "timestamp_formatting": "Timestamp formatting",
+  "timestamp_target": "Target",
+  "timestamp_unit": "Unit",
+  "timestamp_result": "Result",
+  "timestamp_unit_second": "Second",
+  "timestamp_unit_millisecond": "Millisecond"
 }

@@ -168,5 +168,11 @@
   "collect_form.title.no_found": "Inserisci il titolo, per favore",
   "collect_form.url.no_found": "Inserisci l'URL, per favore",
   "collect_form.id.no_found": "Seleziona un tipo, per favore",
-  "collect_form.url.exist": "Il sito web esiste già"
+  "collect_form.url.exist": "Il sito web esiste già",
+  "timestamp_formatting": "Formattazione timestamp",
+  "timestamp_target": "Obiettivo",
+  "timestamp_unit": "Unità",
+  "timestamp_result": "Risultato",
+  "timestamp_unit_second": "Secondo",
+  "timestamp_unit_millisecond": "Millisecondo"
 }
