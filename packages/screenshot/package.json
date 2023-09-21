@@ -1,6 +1,6 @@
 {
   "name": "@chrome-plugin/screenshot",
-  "version": "1.0.4",
+  "version": "1.1.0",
   "description": "Chrome plugin by Screenshot OCR",
   "files": [
     "dist"
@@ -25,7 +25,7 @@
     "rollup": "^3.15.0"
   },
   "dependencies": {
-    "@chrome-plugin/common": "^1.0.4",
+    "@chrome-plugin/common": "^1.1.0",
     "core-js": "^3.28.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",

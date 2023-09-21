@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.1.0](https://github.com/zzzzzzzcccccc/chrome-plugins/compare/@chrome-plugin/common@1.0.1...@chrome-plugin/common@1.1.0) (2023-09-21)
+
+
+### Features
+
+* add contextMenus ([9f638e6](https://github.com/zzzzzzzcccccc/chrome-plugins/commit/9f638e6432a956246290b5cde6b10cc799894f1a))
+* add http-blocking chrome plugin ([034ba86](https://github.com/zzzzzzzcccccc/chrome-plugins/commit/034ba867759098abe4c6d98d51eae7579d767510))
+
+
+
+
+
 ## [1.0.4](https://github.com/zzzzzzzcccccc/chrome-plugins/compare/@chrome-plugin/common@1.0.1...@chrome-plugin/common@1.0.4) (2023-09-05)
 
 
