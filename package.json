@@ -29,7 +29,7 @@
   "keywords": [
     "Chrome Plugins"
   ],
-  "author": "z304307393@163.com",
+  "author": "z304307393@163.com by Chen Zou",
   "license": "MIT",
   "devDependencies": {
     "@next/eslint-plugin-next": "^13.2.4",
