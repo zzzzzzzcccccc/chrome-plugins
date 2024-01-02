@@ -13,6 +13,5 @@
     "start": "yarn run build -w",
     "build": "rimraf dist && rollup -c rollup.config.js"
   },
-  "author": "",
   "license": "MIT"
 }

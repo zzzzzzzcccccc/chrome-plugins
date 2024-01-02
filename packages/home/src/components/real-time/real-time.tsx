@@ -28,13 +28,13 @@ function RealTime() {
   const [formData, setFormData] = useState(defaultFormValue);
   const { theme, globalStyle } = useTheme();
 
-  const { month, date, day, hours, minute, seconds, timestamp } = useMemo(
+  const { month, date, day, hours, minute, seconds, timestamp, localeString } = useMemo(
     () => formatDate(dateInstance),
     [dateInstance],
   );
 
   const handleOnClick = (event: React.MouseEvent<HTMLButtonElement>) => {
-    setFormData((prev) => ({ ...prev, current: timestamp + '' }));
+    setFormData((prev) => ({ ...prev, current: timestamp + '', result: localeString }));
     setAnchorEl(event.currentTarget);
   };
 

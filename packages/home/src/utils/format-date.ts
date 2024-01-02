@@ -7,6 +7,7 @@ export default function formatDate(dateInstance: Date) {
   const hours = dateInstance.getHours();
   const minute = dateInstance.getMinutes();
   const seconds = dateInstance.getSeconds();
+  const localeString = dateInstance.toLocaleString();
 
   return {
     timestamp,
@@ -17,5 +18,6 @@ export default function formatDate(dateInstance: Date) {
     hours: hours < 10 ? `0${hours}` : hours,
     minute: minute < 10 ? `0${minute}` : minute,
     seconds: seconds < 10 ? `0${seconds}` : seconds,
+    localeString,
   };
 }
