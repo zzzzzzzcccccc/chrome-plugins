@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.3.0](https://github.com/zzzzzzzcccccc/chrome-plugins/compare/@chrome-plugin/common@1.2.0...@chrome-plugin/common@1.3.0) (2024-03-07)
+
+
+### Bug Fixes
+
+* real-time bug ([07e0ac1](https://github.com/zzzzzzzcccccc/chrome-plugins/commit/07e0ac1753afdccea88feac721b18ba08f9558e2))
+
+
+### Features
+
+* improve rollup and babel version ([1dc7b1c](https://github.com/zzzzzzzcccccc/chrome-plugins/commit/1dc7b1c60f7ddb9fd226e8f5f5b42c3636ba8457))
+
+
+
+
+
 # [1.2.0](https://github.com/zzzzzzzcccccc/chrome-plugins/compare/@chrome-plugin/common@1.0.1...@chrome-plugin/common@1.2.0) (2023-09-21)
 
 
