@@ -173,5 +173,14 @@
   "timestamp_unit": "单位",
   "timestamp_result": "结果",
   "timestamp_unit_second": "秒",
-  "timestamp_unit_millisecond": "毫秒"
+  "timestamp_unit_millisecond": "毫秒",
+  "bilibili_music": "bilibili音乐播放器",
+  "bilibili_music.search_keywords": "输入BVID查询",
+  "bilibili_music.add_playlist": "创建歌单",
+  "bilibili_music.data_title": "名称",
+  "bilibili_music.data_author": "Up主",
+  "bilibili_music.data_no_found": "暂无数据",
+  "bilibili_music.data_actions": "操作",
+  "bilibili_music.data_add_playlist": "添加到歌单",
+  "bilibili_music.data_add_playlist_no_found": "没有歌单(右侧可添加)"
 }

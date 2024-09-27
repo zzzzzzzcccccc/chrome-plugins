@@ -174,5 +174,14 @@
   "timestamp_unit": "単位",
   "timestamp_result": "結果",
   "timestamp_unit_second": "秒",
-  "timestamp_unit_millisecond": "ミリ秒"
+  "timestamp_unit_millisecond": "ミリ秒",
+  "bilibili_music": "bilibili音楽プレーヤー",
+  "bilibili_music.search_keywords": "BVID検索",
+  "bilibili_music.add_playlist": "新しいプレイリストを追加",
+  "bilibili_music.data_title": "タイトル",
+  "bilibili_music.data_author": "著者",
+  "bilibili_music.data_no_found": "データなし",
+  "bilibili_music.data_actions": "アクション",
+  "bilibili_music.data_add_playlist": "プレイリストに追加",
+  "bilibili_music.data_add_playlist_no_found": "プレイリストが見つかりません（作成するには右クリック）"
 }

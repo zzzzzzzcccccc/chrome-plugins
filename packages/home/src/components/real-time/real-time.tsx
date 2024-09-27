@@ -71,10 +71,10 @@ function RealTime() {
         <Button
           aria-describedby={anchorEl ? 'date-format' : undefined}
           variant="text"
-          sx={{ p: 0, borderRadius: 0, ...globalStyle.ttn }}
+          sx={{ p: 0, borderRadius: 0, ...globalStyle.ttn, justifyContent: 'flex-end', width: 240 }}
           onClick={handleOnClick}
         >
-          <Typography sx={{ ml: 2, color: theme.palette.text.primary }} variant="body1">
+          <Typography noWrap sx={{ ml: 2, color: theme.palette.text.primary }} variant="body1">
             {month}/{date} {hours}:{minute}:{seconds} {t(`day${day}`)}
           </Typography>
         </Button>

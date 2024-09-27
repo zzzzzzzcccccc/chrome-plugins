@@ -174,5 +174,14 @@
   "timestamp_unit": "Einheit",
   "timestamp_result": "Ergebnis",
   "timestamp_unit_second": "Sekunde",
-  "timestamp_unit_millisecond": "Millisekunde"
+  "timestamp_unit_millisecond": "Millisekunde",
+  "bilibili_music": "bilibili Musikspieler",
+  "bilibili_music.search_keywords": "BVID suchen",
+  "bilibili_music.add_playlist": "Neue Playlist hinzufügen",
+  "bilibili_music.data_title": "Titel",
+  "bilibili_music.data_author": "Autor",
+  "bilibili_music.data_no_found": "Keine Daten",
+  "bilibili_music.data_actions": "Aktion",
+  "bilibili_music.data_add_playlist": "Zur Playlist hinzufügen",
+  "bilibili_music.data_add_playlist_no_found": "Keine Playlist gefunden (Rechtsklick zum Erstellen)"
 }

@@ -13,8 +13,11 @@ import useRect from './use-rect';
 import useToggle from './use-toggle';
 import { useSession, useStorage } from './use-storage-and-session';
 import useMenus from './use-menus';
+import { httpGateway } from '../store/gateway';
 
 export type { RecentKeywordItem } from './use-app-search';
+
+export const { useGetBilibiliViewMutation, useGetBilibiliPlayUrlQuery } = httpGateway;
 
 export {
   useInitialize,

@@ -17,6 +17,7 @@ import CssEditor from '../css-editor';
 import JsonSchemaEditor from '../json-schema-editor';
 import HttpBlocking from '../http-blocking';
 import ImageEditor from '../image-editor';
+import BilibiliMusic from '../bilibili-music';
 
 const routers = [
   {
@@ -152,6 +153,14 @@ const routers = [
     element: (
       <LazyWrapper>
         <ImageEditor />
+      </LazyWrapper>
+    ),
+  },
+  {
+    path: 'bilibili-music',
+    element: (
+      <LazyWrapper>
+        <BilibiliMusic />
       </LazyWrapper>
     ),
   },

@@ -43,7 +43,7 @@ module.exports = {
   },
   overrides: [
     {
-      files: ['svg-provider.tsx'],
+      files: ['svg-provider.tsx', 'bilibili-api.ts'],
       rules: {
         'max-len': IGNORE,
       },

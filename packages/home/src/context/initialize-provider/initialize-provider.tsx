@@ -112,6 +112,8 @@ export default function InitializeProvider(props: { children?: React.ReactNode }
         ['alt', 's'],
         ['meta', 'o'],
         ['alt', 'o'],
+        ['meta', 'm'],
+        ['alt', 'm'],
       ],
     });
     keyboardRef.current.start();

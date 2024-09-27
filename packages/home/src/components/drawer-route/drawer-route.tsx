@@ -48,7 +48,20 @@ export default function DrawerRoute(props: DrawerRouteProps) {
   }, [pushOnResizeHandler]);
 
   return (
-    <Drawer open={open} anchor="right" onClose={onClose}>
+    <Drawer
+      sx={{ top: 30, height: 'calc(100% - 30px)' }}
+      ModalProps={{
+        slotProps: {
+          backdrop: {
+            sx: { display: 'none' },
+          },
+        },
+      }}
+      PaperProps={{ sx: { top: 30, height: 'calc(100% - 30px)' } }}
+      open={open}
+      anchor="right"
+      onClose={onClose}
+    >
       <Box sx={{ ...globalStyle.fc, width, height: '100%' }}>
         <Box sx={{ ...globalStyle.frc, p: 1 }}>
           <Typography variant="h6" sx={{ flexGrow: 1, color: 'primary.main' }}>
