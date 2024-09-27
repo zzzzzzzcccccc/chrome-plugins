@@ -8,7 +8,7 @@ import { setAppState, setContextMenu } from '../store/slices/app-slice';
 
 export default function useLayout() {
   const { pushKeyboardHandler } = useInitialize();
-  const { location, appJump } = useAppNavigate();
+  const { pathname, appJump, back } = useAppNavigate();
   const { openSetting, openSearch, contextMenu, lastPathname } = useStoreSelector((state) => state.app);
   const firstRenderRef = useRef(true);
   const dispatch = useStoreDispatch();
@@ -26,11 +26,11 @@ export default function useLayout() {
   };
 
   const runLastPage = useCallback(() => {
-    if (firstRenderRef.current && location.pathname === '/' && lastPathname !== '/') {
+    if (firstRenderRef.current && pathname === '/' && lastPathname !== '/') {
       appJump(lastPathname);
     }
     firstRenderRef.current = false;
-  }, [location, lastPathname, appJump]);
+  }, [pathname, lastPathname, appJump]);
 
   useEffect(() => {
     const handler = (keyCode: KeyCode, event: KeyboardEvent) => {
@@ -46,11 +46,16 @@ export default function useLayout() {
             event.preventDefault();
             dispatch(setAppState({ openSearch: !openSearch }));
             break;
+          case KEYBOARD_KEYS.command_m:
+          case KEYBOARD_KEYS.alt_m:
+            event.preventDefault();
+            pathname !== '/bilibili-music' ? appJump('/bilibili-music', 'internal') : back();
+            break;
         }
       }
     };
     return pushKeyboardHandler(handler);
-  }, [dispatch, pushKeyboardHandler, openSetting, openSearch]);
+  }, [dispatch, appJump, back, pushKeyboardHandler, pathname, openSetting, openSearch]);
 
   useEffect(() => {
     const timer = setTimeout(runLastPage, 0);

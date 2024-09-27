@@ -1,0 +1,34 @@
+.audioWrapper {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.pic {
+  width: 26px;
+  height: 26px;
+  object-fit: cover;
+  overflow: hidden;
+  background-color: rgba(0, 0, 0, 0.08);
+  border-radius: 50%;
+}
+.pic img {
+  width: 100%;
+}
+
+.time {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.tinyText {
+  font-size: 12px;
+}
+
+.actions {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}

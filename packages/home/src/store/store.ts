@@ -12,6 +12,7 @@ import {
 } from 'redux-persist';
 import createWebStorage from 'redux-persist/lib/storage/createWebStorage';
 import { reducers } from './reducer';
+import { httpGateway } from './gateway';
 import { SESSION_KEYS } from '../constants';
 
 export type PersistConfiguration = Record<string, { config?: PersistConfig<any>; reducer: Reducer }>;
@@ -29,7 +30,7 @@ const createNoopStorage = {
     return Promise.resolve();
   },
 };
-const middlewares: Middleware[] = [];
+const middlewares: Middleware[] = [httpGateway.middleware];
 const persistConfig: PersistConfiguration = {
   app: {
     config: {
@@ -40,6 +41,7 @@ const persistConfig: PersistConfiguration = {
         'readFile',
         'openSetting',
         'openSearch',
+        'openBilibiliMusic',
         'openCollectWebsiteForm',
         'activeSetting',
         'contextMenu',
@@ -59,6 +61,24 @@ const persistConfig: PersistConfiguration = {
       blacklist: [],
     },
     reducer: reducers.menu,
+  },
+  music: {
+    config: {
+      version: 1,
+      key: `${SESSION_KEYS.store}:music`,
+      storage: isServer ? createNoopStorage : createWebStorage('local'),
+      blacklist: ['bilibiliQuerying', 'bilibiliSearchList', 'bilibiliPlayingInfo', 'bilibiliSelectedCids'],
+    },
+    reducer: reducers.music,
+  },
+  [httpGateway.reducerPath]: {
+    config: {
+      version: 1,
+      key: `${SESSION_KEYS.store}:http-gateway`,
+      storage: isServer ? createNoopStorage : createWebStorage('local'),
+      whitelist: [],
+    },
+    reducer: httpGateway.reducer,
   },
 };
 

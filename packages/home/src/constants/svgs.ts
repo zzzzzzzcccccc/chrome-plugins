@@ -226,6 +226,7 @@ const SVGS = {
   codesandbox: 'codesandbox',
   httpBlocking: 'http_blocking',
   imageEditor: 'image_editor',
+  bilibiliMusic: 'bilibili_music',
 };
 
 export default SVGS;

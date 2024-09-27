@@ -4,6 +4,7 @@ import DEVELOP_APPS from './develop-apps';
 import SHOP_APPS from './shop-apps';
 import GAME_APPS from './game-apps';
 import MEDIA_APPS from './media-apps';
+import BILIBILI_API from './bilibili-api';
 import { AppItem, MenuItem } from '../store/slices/menu-slice';
 
 export const FAVICON_URL = './icon16.png';
@@ -25,6 +26,8 @@ export const KEYBOARD_KEYS = {
   alt_s: 'alts',
   command_o: 'metao',
   alt_o: 'alto',
+  command_m: 'metam',
+  alt_m: 'altm',
 };
 export const APP_SEARCH_LRU_CAPACITY = 20;
 export const BASE_FONT_URL = './images/icons/font.js';
@@ -100,4 +103,4 @@ export const DEFAULT_RESPONSE = {
 export const RESPONSE = 'response';
 export const HEADER = 'header';
 export const MAX_HTTP_BLOCKING_TOTAL_RULE = 30;
-export { ICONS, SVGS, DEVELOP_APPS, SHOP_APPS, GAME_APPS, MEDIA_APPS };
+export { ICONS, SVGS, DEVELOP_APPS, SHOP_APPS, GAME_APPS, MEDIA_APPS, BILIBILI_API };

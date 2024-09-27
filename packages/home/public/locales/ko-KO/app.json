@@ -174,5 +174,14 @@
   "timestamp_unit": "단위",
   "timestamp_result": "결과",
   "timestamp_unit_second": "초",
-  "timestamp_unit_millisecond": "밀리초"
+  "timestamp_unit_millisecond": "밀리초",
+  "bilibili_music": "bilibili 음악 플레이어",
+  "bilibili_music.search_keywords": "BVID 검색",
+  "bilibili_music.add_playlist": "새 재생목록 추가",
+  "bilibili_music.data_title": "제목",
+  "bilibili_music.data_author": "저자",
+  "bilibili_music.data_no_found": "데이터 없음",
+  "bilibili_music.data_actions": "작업",
+  "bilibili_music.data_add_playlist": "재생목록에 추가",
+  "bilibili_music.data_add_playlist_no_found": "재생목록을 찾을 수 없음 (오른쪽 클릭하여 생성)"
 }

@@ -172,5 +172,14 @@
   "timestamp_unit": "單位",
   "timestamp_result": "結果",
   "timestamp_unit_second": "秒",
-  "timestamp_unit_millisecond": "毫秒"
+  "timestamp_unit_millisecond": "毫秒",
+  "bilibili_music": "bilibili音樂播放器",
+  "bilibili_music.search_keywords": "輸入BVID查詢",
+  "bilibili_music.add_playlist": "創建歌單",
+  "bilibili_music.data_title": "名稱",
+  "bilibili_music.data_author": "Up主",
+  "bilibili_music.data_no_found": "暫無數據",
+  "bilibili_music.data_actions": "操作",
+  "bilibili_music.data_add_playlist": "添加到歌單",
+  "bilibili_music.data_add_playlist_no_found": "沒有歌單(右側可添加)"
 }

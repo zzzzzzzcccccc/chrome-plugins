@@ -3,3 +3,5 @@ export { HttpBlockingActionType, HttpResponseHeaderOperation } from './http-bloc
 
 export type { ChromeMessage } from './chrome-message';
 export { ChromeMessageTo, ChromeMessageMethod } from './chrome-message';
+
+export type { BilibiliViewResponse, BilibiliPlayUrlResponse } from './bilibili-response';

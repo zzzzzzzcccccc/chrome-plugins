@@ -7,24 +7,29 @@ export default function useAppNavigate() {
   const navigate = useNavigate();
   const location = useLocation();
 
+  const pathname = location.pathname;
+
   const back = useCallback(() => navigate(-1), [navigate]);
 
   const appJump = useCallback(
     (url: string, jumpMethod: AppItem['jumpMethod'] = 'internal', options?: NavigateOptions) => {
       if (jumpMethod === 'internal') {
-        navigate(url, options);
+        if (pathname !== url) {
+          navigate(url, options);
+        }
       } else {
         const link = createLink(url);
         link.click();
         link.remove();
       }
     },
-    [navigate],
+    [navigate, pathname],
   );
 
   return {
-    navigate,
     location,
+    pathname,
+    navigate,
     back,
     appJump,
   };

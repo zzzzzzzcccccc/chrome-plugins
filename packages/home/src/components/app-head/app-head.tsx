@@ -1,17 +1,27 @@
 import React from 'react';
 import { Box, IconButton, Tooltip, Typography } from '@mui/material';
 import RealTime from '../real-time';
-import { useTheme, useTranslation, useStoreDispatch, useInitialize, useStoreSelector, useToast } from '../../hooks';
+import {
+  useTheme,
+  useTranslation,
+  useStoreDispatch,
+  useInitialize,
+  useStoreSelector,
+  useToast,
+  useAppNavigate,
+} from '../../hooks';
 import { setAppState } from '../../store/slices/app-slice';
 import AppIcon from '../app-icon';
 import { SVGS } from '../../constants';
 import { getCurrentTab } from '@chrome-plugin/common';
+import { BilibiliPlaying } from '../bilibili-music';
 
 function AppHead() {
   const t = useTranslation();
   const { globalStyle } = useTheme();
   const { isMac, isRenderPopup } = useInitialize();
   const { show } = useToast();
+  const { appJump } = useAppNavigate();
   const { openSearch, openSetting } = useStoreSelector((state) => state.app);
   const dispatch = useStoreDispatch();
 
@@ -23,6 +33,11 @@ function AppHead() {
   const handleSettingOnClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     event.stopPropagation();
     dispatch(setAppState({ openSetting: !openSetting }));
+  };
+
+  const handleBilibiliMusicClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+    event.stopPropagation();
+    appJump('/bilibili-music', 'internal');
   };
 
   const handleCollectOnClick = async (event: React.MouseEvent<HTMLButtonElement>) => {
@@ -61,6 +76,7 @@ function AppHead() {
         height: 30,
         pl: 2,
         pr: 2,
+        gap: 1,
       }}
     >
       <Box sx={{ ...globalStyle.frc, justifyContent: 'flex-start', flex: 1 }}>
@@ -72,7 +88,13 @@ function AppHead() {
           </Tooltip>
         )}
       </Box>
+      <BilibiliPlaying />
       <Box sx={{ ...globalStyle.frc, justifyContent: 'flex-end', flex: 1 }}>
+        <Tooltip title={renderTitle(t('bilibili_music'), isMac ? 'Command + m' : 'Alt + m')}>
+          <IconButton size="small" sx={{ ...globalStyle.fcc }} onClick={handleBilibiliMusicClick}>
+            <AppIcon target={`#${SVGS.bilibiliMusic}`} type="svg" style={{ width: 20, height: 20 }} />
+          </IconButton>
+        </Tooltip>
         <Tooltip title={renderTitle(t('search'), isMac ? 'Command + s' : 'Alt + s')}>
           <IconButton size="small" sx={{ ...globalStyle.fcc }} onClick={handleSearchOnClick}>
             <AppIcon target={`#${SVGS.search}`} type="svg" style={{ width: 20, height: 20 }} />
