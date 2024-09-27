@@ -1,9 +1,15 @@
 import { useCallback, useState, useEffect, useMemo, useRef } from 'react';
 import { UseAudioOptions } from './types';
 
+function createAudio() {
+  const audio = new Audio();
+  audio.volume = 0.5;
+  return audio;
+}
+
 export default function useAudio(options: UseAudioOptions = {}) {
   const { onEvent } = options;
-  const audioRef = useRef(new Audio());
+  const audioRef = useRef(createAudio());
 
   const [canplay, setCanplay] = useState(false);
   const [canplaythrough, setCanplaythrough] = useState(false);
@@ -58,9 +64,7 @@ export default function useAudio(options: UseAudioOptions = {}) {
   }, []);
 
   const updateVolume = useCallback((target: number) => {
-    if (target >= 0 || target <= 1) {
-      audioRef.current.volume = target;
-    }
+    audioRef.current.volume = target;
   }, []);
 
   const updateTime = useCallback(() => {
@@ -82,7 +86,6 @@ export default function useAudio(options: UseAudioOptions = {}) {
   }, [reset]);
 
   useEffect(() => {
-    audioRef.current.volume = 0.5;
     const mount = () => {
       const handleOnCanPlay = () => {
         setCanplay(true);
@@ -112,9 +115,9 @@ export default function useAudio(options: UseAudioOptions = {}) {
       };
 
       const handleOnVolumechange = () => {
-        const volume = audioRef.current.volume;
-        if (!isNaN(volume) && volume >= 0) {
-          setVolume(volume);
+        const currentVolume = audioRef.current.volume;
+        if (!isNaN(currentVolume) && currentVolume >= 0) {
+          setVolume(currentVolume); // React state updated here
         }
         onEvent?.('volumechange');
       };

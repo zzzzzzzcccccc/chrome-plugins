@@ -27,16 +27,15 @@ function MusicSearch() {
     if (!bilibiliSearchKeywords.length || bilibiliQuerying) return;
     dispatch(setMusicState({ bilibiliQuerying: true }));
     const result = await concurrentPromise(
-      bilibiliSearchKeywords.map((id) => () => fetchView(id)),
+      bilibiliSearchKeywords.map((id) => () => fetchView(id?.trim())),
       2,
       true,
     );
     const responses = Object.values(result);
     const searchList = responses
       .map((res) => {
-        if (res?.data) {
-          const { data } = res.data as unknown as BilibiliViewResponse;
-          const { bvid, aid, tid, cid, title, owner, pic, pages } = data;
+        if ((res?.data as unknown as BilibiliViewResponse)?.data) {
+          const { bvid, aid, tid, cid, title, owner, pic, pages } = (res.data as unknown as BilibiliViewResponse).data;
           return pages.map((page) => ({
             bvid,
             aid,

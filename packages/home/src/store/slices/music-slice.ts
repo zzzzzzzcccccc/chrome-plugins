@@ -75,20 +75,19 @@ const musicSlice = createSlice({
     },
     addBilibiliPlaylist: (state, action: PayloadAction<string>) => {
       const id = action.payload;
-      const { bilibiliPlaylist, bilibiliSelectedCids, bilibiliPlayingInfo } = state;
-      if (!bilibiliSelectedCids.length || !id || !bilibiliPlayingInfo?.list?.length) return;
+      const { bilibiliPlaylist, bilibiliSelectedCids, bilibiliSearchList } = state;
+      if (!bilibiliSelectedCids.length || !id) return;
       const findIndex = bilibiliPlaylist.findIndex((i) => i.id === id);
       if (findIndex === -1) return;
-      const media = bilibiliPlaylist[findIndex]?.media || [];
+      const media = bilibiliPlaylist[findIndex].media || [];
       bilibiliSelectedCids.forEach((cid) => {
-        const selected = bilibiliPlayingInfo.list.find((i) => i.cid === cid);
+        const selected = bilibiliSearchList.find((i) => i.cid === cid);
         const hasIndex = media.findIndex((i) => i.cid === cid);
         if (selected) {
           hasIndex > -1 ? (media[hasIndex] = { ...selected }) : media.push(selected);
         }
       });
       state.bilibiliPlaylist[findIndex].media = media;
-      state.bilibiliSelectedCids = [];
     },
     updateBilibiliPlayingInfo: (state, action: PayloadAction<MusicState['bilibiliPlayingInfo']>) => {
       state.bilibiliPlayingInfo = action.payload;
@@ -98,11 +97,9 @@ const musicSlice = createSlice({
       const playlist = state.bilibiliPlaylist.find((i) => i.id === id);
       if (playlist) {
         state.bilibiliSelectedPlaylist = id;
-      }
-      if (playlist?.media?.length) {
         state.bilibiliPlayingInfo = {
           index: 0,
-          list: playlist.media,
+          list: playlist?.media || [],
         };
       }
     },
