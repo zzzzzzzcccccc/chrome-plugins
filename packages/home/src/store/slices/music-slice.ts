@@ -94,6 +94,9 @@ const musicSlice = createSlice({
     },
     selectBilibiliPlaylist(state, action: PayloadAction<string>) {
       const id = action.payload;
+
+      if (state.bilibiliSelectedPlaylist === id) return;
+
       const playlist = state.bilibiliPlaylist.find((i) => i.id === id);
       if (playlist) {
         state.bilibiliSelectedPlaylist = id;

@@ -17,7 +17,8 @@ import { httpGateway } from '../store/gateway';
 
 export type { RecentKeywordItem } from './use-app-search';
 
-export const { useGetBilibiliViewMutation, useGetBilibiliPlayUrlQuery } = httpGateway;
+export const { useGetBilibiliViewMutation, useGetBilibiliPlayUrlQuery, useBilibiliPlayUrlDownloadMutation } =
+  httpGateway;
 
 export {
   useInitialize,
