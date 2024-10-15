@@ -23,9 +23,13 @@ function MusicList() {
   const { globalStyle } = useTheme();
   const t = useTranslation();
   const dispatch = useStoreDispatch();
-  const { bilibiliSearchList, bilibiliSelectedPlaylist, bilibiliPlaylist } = useStoreSelector((state) => state.music);
+  const { bilibiliSearchList, bilibiliSelectedPlaylist, bilibiliPlaylist, bilibiliPlayingInfo } = useStoreSelector(
+    (state) => state.music,
+  );
   const enableSearch = !bilibiliSelectedPlaylist;
   const [download] = useBilibiliPlayUrlDownloadMutation();
+
+  const playingMedia = bilibiliPlayingInfo?.list?.[bilibiliPlayingInfo.index];
 
   const playlistMedia = useMemo(() => {
     if (!bilibiliSelectedPlaylist) {
@@ -85,7 +89,11 @@ function MusicList() {
       flex: 1,
       sortable: false,
       renderCell: (params) => (
-        <Button onClick={handleOnClickPart(params)} variant="text" sx={{ ...globalStyle.ttn }}>
+        <Button
+          onClick={handleOnClickPart(params)}
+          variant={playingMedia && playingMedia.cid === params.row.cid ? 'contained' : 'text'}
+          sx={{ ...globalStyle.ttn }}
+        >
           {params.row.part}
         </Button>
       ),

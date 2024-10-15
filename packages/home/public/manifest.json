@@ -41,10 +41,7 @@
   "permissions": ["activeTab", "declarativeNetRequest"],
   "host_permissions": [
     "http://*/*",
-    "https://*/*",
-    "https://*.bilivideo.com/*",
-    "https://*.bilivideo.cn/*",
-    "https://*.akamaized.net/*"
+    "https://*/*"
   ],
   "declarative_net_request": {
     "rule_resources": [{
